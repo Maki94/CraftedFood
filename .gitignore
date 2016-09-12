@@ -11,6 +11,8 @@
 !CraftedFood/CraftedFood/Web.config
 *.dbml
 Data/*
+*/Data/app.config
+*Settings.*
 *.Debug.config
 *.Release.config
 *.settings
