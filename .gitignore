@@ -8,6 +8,9 @@
 *.sln.docstates
 
 # mi smo stavljali:
+!CraftedFood/CraftedFood/Web.config
+*.dbml
+Data/*
 *.config
 *.settings
 .vs/*
@@ -19,6 +22,8 @@ CrarftedFood\Data\Properties
 !CraftedFood/Data/*.cs
 *.dll
 CraftedFood/Data/obj/Debug
+CraftedFood/Data/Properties/*
+
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
