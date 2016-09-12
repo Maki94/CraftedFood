@@ -11,8 +11,23 @@ namespace CrarftedFood.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Data.Entities.Emploies.AddEmployee("Masa Djordjevic", "masa@gmail.com", "0648096042", "masa");
-
+            Data.Entities.Employees.AddEmployee("Masa Djordjevic", "masa@gmail.com", "0648096042", "masa", Data.Entities.Roles.Admin);
         }
+
+        [TestMethod]
+        public void DeleteLookups()
+        {
+            Data.Entities.Lookups.DeleteAllLookups();
+        }
+
+        [TestMethod]
+        public void AddLookups()
+        {
+            Data.Entities.Lookups.AddCategories();
+            Data.Entities.Lookups.AddRoles();
+            Data.Entities.Lookups.AddUnits();
+        }
+
+        
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    public static class Emploies
+    public static class Employees
     {
-        public static void AddEmployee(string name, string email, string mobile, string password)
+        public static void AddEmployee(string name, string email, string mobile, string password, Roles role)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -17,7 +17,8 @@ namespace Data.Entities
                     Name = name,
                     Email = email,
                     Mobile = mobile,
-                    Password = password
+                    Password = password,
+                    RoleId = (int)role
                 };
                 dc.Employees.InsertOnSubmit(emp);
                 dc.SubmitChanges();
