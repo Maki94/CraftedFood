@@ -1,6 +1,0 @@
-C:\craftedfood\CrarftedFood\Data\bin\Debug\Data.dll.config
-C:\craftedfood\CrarftedFood\Data\bin\Debug\Data.dll
-C:\craftedfood\CrarftedFood\Data\bin\Debug\Data.pdb
-C:\craftedfood\CrarftedFood\Data\obj\Debug\Data.csprojResolveAssemblyReference.cache
-C:\craftedfood\CrarftedFood\Data\obj\Debug\Data.dll
-C:\craftedfood\CrarftedFood\Data\obj\Debug\Data.pdb
