@@ -10,21 +10,16 @@
 # mi smo stavljali:
 *.config
 *.settings
-database/*
-database/
 .vs/*
 .vs/
-solution/Data/app.config
-solution/Data/DataClasses1.dmbl
-solution/Data/Properties
-!solution/Data/*.cs
+CraftedFood/Data/app.config
+CraftedFood/Data/DataClasses.dmbl
+CraftedFood/Data/*
+CrarftedFood\Data\Properties
+!CraftedFood/Data/*.cs
 *.dll
-solution/Data/obj/Debug
-solution/UpamtiMe/obj/Debug
-!solution/UpamtiMe/packages.config
-!solution/UpamtiMe/Web.config
-!solution/UpamtiMe/Views/web.config
-!solution/UpamtiMe.sln
+CraftedFood/Data/obj/Debug
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
