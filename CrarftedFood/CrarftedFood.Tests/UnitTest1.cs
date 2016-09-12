@@ -23,6 +23,7 @@ namespace CrarftedFood.Tests
         [TestMethod]
         public void AddLookups()
         {
+            Data.Entities.Lookups.DeleteAllLookups();
             Data.Entities.Lookups.AddCategories();
             Data.Entities.Lookups.AddRoles();
             Data.Entities.Lookups.AddUnits();
