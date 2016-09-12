@@ -9,9 +9,9 @@
 
 # mi smo stavljali:
 !CraftedFood/CraftedFood/Web.config
-*.dbml
+*.dbml*
 Data/*
-*/Data/app.config
+*app.config
 *Settings.*
 *.Debug.config
 *.Release.config
