@@ -6,7 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+*.designer.cs
 # mi smo stavljali:
 !CraftedFood/CraftedFood/Web.config
 *.dbml*
