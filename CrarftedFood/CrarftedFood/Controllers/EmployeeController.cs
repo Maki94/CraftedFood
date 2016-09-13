@@ -31,17 +31,22 @@ namespace CrarftedFood.Controllers
             string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, model.Email);
             Data.Entities.Employees.AddEmployee(model.Name, model.Email, hashedPass, model.Role);
 
-            await SendEmail(model.Email, model.Name, pass, model.Role);
+            string body = "<p>Poštovani {0},</p> <p> Upravo ste dodati u bazu Crafted Food radi lakšeg naručivanja hrane kao <strong>{1}</strong>, Vaši podaci za logovanje su: <br> username: {2} <br>  password: <font color=blue>{3}</p><p>Pozdrav</p>";
+            List<object> parameters = new List<object>();
+            parameters.Add(model.Name);
+            parameters.Add(model.Role);
+            parameters.Add(model.Email);
+            parameters.Add(pass);
+            await SendEmail(model.Email, body, parameters);
             return View();
         }
 
-        public async Task SendEmail(string email, string name, string password, Data.Entities.Roles role, byte[] pdf = null)
+        public async Task SendEmail(string email, string body, List<object> parameters, byte[] pdf = null)
         {
             //MemoryStream stream = new MemoryStream(pdf);
             string admin = "vatreneskoljke@gmail.com";
             string adminpass = "seashellsonfire";
-
-            var body = "<p>Poštovani {0},</p> <p> Upravo ste dodati u bazu Crafted Food radi lakšeg naručivanja hrane kao <strong>{1}</strong>, Vaši podaci za logovanje su: <br> username: {2} <br>  password: <font color=blue>{3}</p><p>Pozdrav</p>"; 
+            
             var message = new MailMessage();
             message.To.Add(new MailAddress(email));
             message.From = new MailAddress(admin);
@@ -65,5 +70,7 @@ namespace CrarftedFood.Controllers
                 await smtp.SendMailAsync(message);
             }
         }
+
+
     }
 }
