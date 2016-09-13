@@ -408,6 +408,8 @@ namespace Data
 		
 		private System.Nullable<int> _RoleId;
 		
+		private bool _IsActive;
+		
 		private EntitySet<Rating> _Ratings;
 		
 		private EntitySet<Request> _Requests;
@@ -430,6 +432,8 @@ namespace Data
     partial void OnPasswordChanged();
     partial void OnRoleIdChanging(System.Nullable<int> value);
     partial void OnRoleIdChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
     #endregion
 		
 		public Employee()
@@ -560,6 +564,26 @@ namespace Data
 					this._RoleId = value;
 					this.SendPropertyChanged("RoleId");
 					this.OnRoleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
 				}
 			}
 		}
