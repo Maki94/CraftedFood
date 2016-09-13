@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data;
@@ -28,6 +29,17 @@ namespace CrarftedFood.Tests
             Data.Entities.Lookups.AddUnits();
         }
 
-        
+        [TestMethod]
+        public void HashMe()
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                Employee masa = dc.Employees.First(a => a.Email == "masa@gmail.com");
+                masa.Password = Data.Entities.HashPassword.SaltedHashPassword(masa.Password, masa.Email);
+
+                dc.SubmitChanges();
+
+            }
+        }
     }
 }
