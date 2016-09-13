@@ -408,6 +408,8 @@ namespace Data
 		
 		private System.Nullable<int> _RoleId;
 		
+		private bool _IsActive;
+		
 		private EntitySet<Rating> _Ratings;
 		
 		private EntitySet<Request> _Requests;
@@ -430,6 +432,8 @@ namespace Data
     partial void OnPasswordChanged();
     partial void OnRoleIdChanging(System.Nullable<int> value);
     partial void OnRoleIdChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
     #endregion
 		
 		public Employee()
@@ -564,6 +568,26 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Rating", Storage="_Ratings", ThisKey="EmployeeId", OtherKey="EmployeeId")]
 		public EntitySet<Rating> Ratings
 		{
@@ -683,7 +707,7 @@ namespace Data
 		
 		private System.Data.Linq.Binary _Image;
 		
-		private System.Nullable<float> _Price;
+		private float _Price;
 		
 		private System.Nullable<float> _Quantity;
 		
@@ -711,7 +735,7 @@ namespace Data
     partial void OnDescriptionChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
-    partial void OnPriceChanging(System.Nullable<float> value);
+    partial void OnPriceChanging(float value);
     partial void OnPriceChanged();
     partial void OnQuantityChanging(System.Nullable<float> value);
     partial void OnQuantityChanged();
@@ -750,7 +774,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Title
 		{
 			get
@@ -810,8 +834,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Real")]
-		public System.Nullable<float> Price
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Real NOT NULL")]
+		public float Price
 		{
 			get
 			{
