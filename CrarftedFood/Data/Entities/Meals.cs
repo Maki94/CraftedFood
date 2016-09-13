@@ -8,21 +8,29 @@ namespace Data.Entities
         public static void AddMeal(string title, string descirption, byte[] image, float price, float quantity,
             Units unit, Categories category)
         {
-            using (var dc = new DataClassesDataContext())
+            try
             {
-                Meal meal = new Meal
+                using (var dc = new DataClassesDataContext())
                 {
-                    Title = title,
-                    Description = descirption,
-                    CategoryId = (int) category,
-                    Quantity = quantity,
-                    Image = image,
-                    Price = price,
-                    UnitId = (int) unit
-                };
+                    Meal meal = new Meal
+                    {
+                        Title = title,
+                        Description = descirption,
+                        CategoryId = (int) category,
+                        Quantity = quantity,
+                        Image = image,
+                        Price = price,
+                        UnitId = (int) unit
+                    };
 
-                dc.Meals.InsertOnSubmit(meal);
-                dc.SubmitChanges();
+                    dc.Meals.InsertOnSubmit(meal);
+                    dc.SubmitChanges();
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
             }
         }
 
