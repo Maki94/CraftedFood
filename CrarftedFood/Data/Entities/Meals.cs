@@ -100,5 +100,33 @@ namespace Data.Entities
                 }).ToList();
             }
         }
+
+        public static void CommentMeal(int empId, int mealId, string comment)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                Rating r = new Rating
+                {
+                    EmployeeId = empId,
+                    Comment = comment,
+                    Date = DateTime.Now,
+                    MealId = mealId
+                };
+            }
+        }
+
+        public static void RateMeal(int empId, int mealId, double rating)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                Rating r = new Rating
+                {
+                    EmployeeId = empId,
+                    Rating1 = (float)rating,
+                    Date = DateTime.Now,
+                    MealId = mealId
+                };
+            }
+        }
     }
 }
