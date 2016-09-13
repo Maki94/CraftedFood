@@ -40,9 +40,16 @@ h2 {
     margin-bottom: 1.6rem;
 }
 
-.wrapper {
+
+.menu-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.meal-wrapper {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 5px;
     padding-left: 1em;
     padding-right: 1em;
 }
@@ -234,12 +241,19 @@ h2 {
         transform: translateZ(0);
         transform: translateX(-48px);
         transition: transform 0.35s ease;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
     }
 
 .share-toggle {
     z-index: 2;
 }
+#share {
+    text-decoration: none;
+}
 .share-toggle:before {
+    text-decoration: none;
     content:  "\f07a";
     font-family: 'FontAwesome';
 }
@@ -299,7 +313,7 @@ h2 {
 
 .rotate {
   transform: rotate(180deg);
-  martgin-top: 4px;
+  margin-top: 4px;
 }
 .show_description {
   transition: transform 0.4s ease;
