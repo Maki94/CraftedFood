@@ -51,7 +51,7 @@ namespace CrarftedFood.Controllers
             message.To.Add(new MailAddress(email));
             message.From = new MailAddress(admin);
             message.Subject = "Welcome";
-            message.Body = string.Format(body, name, role, email, password);
+            //message.Body = string.Format(body, name, role, email, password);
             message.IsBodyHtml = true;
             //message.Attachments.Add(new Attachment(stream, "Request.pdf", System.Net.Mime.MediaTypeNames.Application.Pdf));
 
