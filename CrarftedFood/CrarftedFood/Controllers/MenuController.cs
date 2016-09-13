@@ -4,7 +4,9 @@ using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CrarftedFood.Models;
 using Data;
+using Data.DTOs;
 
 namespace CrarftedFood.Controllers
 {
@@ -13,7 +15,9 @@ namespace CrarftedFood.Controllers
         // GET: Menu
         public ActionResult Index()
         {
-            return View();
+            MenuViewModel menu = new MenuViewModel();
+            menu.menu = Data.Entities.Meals.GetMenu();
+            return View(menu);
         }
 
         public class CommentBindClass

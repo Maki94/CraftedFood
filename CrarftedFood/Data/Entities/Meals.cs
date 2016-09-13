@@ -91,12 +91,12 @@ namespace Data.Entities
                 {
                     Title = meal.Title,
                     Desription = meal.Description,
-                    Image = meal.Image.ToArray(),
+                    Image = meal.Image == null ? null : meal.Image.ToArray(),
                     Price = meal.Price,
                     Quantity = meal.Quantity,
                     Unit = (Data.Entities.Units) meal.UnitId,
                     Category = (Data.Entities.Categories) meal.CategoryId,
-                    Rating = meal.Ratings.Select(a => a.Rating1).Average()
+                    Rating = null //TODO meal.Ratings.Select(a => a.Rating1)?.Average()
                 }).ToList();
             }
         }

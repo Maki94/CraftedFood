@@ -60,7 +60,7 @@ namespace Data
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -754,7 +754,7 @@ namespace Data
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int MealId
 		{
 			get
@@ -814,7 +814,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="Image NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary Image
 		{
 			get
@@ -898,7 +898,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="Int NOT NULL")]
 		public int CategoryId
 		{
 			get
@@ -1447,7 +1447,7 @@ namespace Data
 		
 		private int _RequestId;
 		
-		private System.Nullable<float> _Quantity;
+		private float _Quantity;
 		
 		private System.Nullable<System.DateTime> _DateRequested;
 		
@@ -1463,6 +1463,8 @@ namespace Data
 		
 		private System.Nullable<int> _MealId;
 		
+		private System.Nullable<System.DateTime> _payedDate;
+		
 		private EntityRef<Employee> _Employee;
 		
 		private EntityRef<Meal> _Meal;
@@ -1473,7 +1475,7 @@ namespace Data
     partial void OnCreated();
     partial void OnRequestIdChanging(int value);
     partial void OnRequestIdChanged();
-    partial void OnQuantityChanging(System.Nullable<float> value);
+    partial void OnQuantityChanging(float value);
     partial void OnQuantityChanged();
     partial void OnDateRequestedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateRequestedChanged();
@@ -1489,6 +1491,8 @@ namespace Data
     partial void OnEmployeeIdChanged();
     partial void OnMealIdChanging(System.Nullable<int> value);
     partial void OnMealIdChanged();
+    partial void OnpayedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnpayedDateChanged();
     #endregion
 		
 		public Request()
@@ -1518,8 +1522,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Real")]
-		public System.Nullable<float> Quantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Real NOT NULL")]
+		public float Quantity
 		{
 			get
 			{
@@ -1682,6 +1686,26 @@ namespace Data
 					this._MealId = value;
 					this.SendPropertyChanged("MealId");
 					this.OnMealIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> payedDate
+		{
+			get
+			{
+				return this._payedDate;
+			}
+			set
+			{
+				if ((this._payedDate != value))
+				{
+					this.OnpayedDateChanging(value);
+					this.SendPropertyChanging();
+					this._payedDate = value;
+					this.SendPropertyChanged("payedDate");
+					this.OnpayedDateChanged();
 				}
 			}
 		}

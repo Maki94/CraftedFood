@@ -15,8 +15,8 @@ namespace Data.Entities
             {
                return dc.Requests.Where(a=> a.EmployeeId == empId && a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
                 {
-                    Quantity = a.Quantity.Value,
-                    Price = a.Meal.Price*a.Quantity.Value,
+                    Quantity = a.Quantity,
+                    Price = a.Meal.Price*a.Quantity,
                     MealTitle = a.Meal.Title,
                     Note = a.Note
                 }).ToList();
@@ -31,8 +31,8 @@ namespace Data.Entities
                 {
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
-                    Quantity = a.Quantity.Value,
-                    Price = a.Meal.Price * a.Quantity.Value,
+                    Quantity = a.Quantity,
+                    Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
                     Note = a.Note
                 }).ToList();
@@ -48,8 +48,8 @@ namespace Data.Entities
                 {
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
-                    Quantity = a.Quantity.Value,
-                    Price = a.Meal.Price * a.Quantity.Value,
+                    Quantity = a.Quantity,
+                    Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
                     Note = a.Note
                 }).ToList();

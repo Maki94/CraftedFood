@@ -1,0 +1,95 @@
+﻿@using Data.DTOs
+@model CrarftedFood.Models.MenuViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@foreach (MenuMealItem meal in Model.menu)
+{
+    <div class="wrapper">
+
+        <div class="card radius shadowDepth1">
+            <div class="card__image border-tlr-radius">
+                <img src="http://www.prva.rs/upload/boxImageData/2014/10/17/61192/pljeskavica1.jpg" alt="image" class="border-tlr-radius">
+            </div>
+
+            <div class="card__content card__padding">
+                <div class="card__share">
+                    <div class="card__social">
+                    </div>
+                    <a id="share" class="share-toggle share-icon" href="#"></a>
+                </div>
+
+                <div class="card__meta">
+                    <button id="demo-menu-lower-left" class="mdl-js-button">
+                        <span class="rating">@(meal.Rating?.ToString() ?? "N/A")<i class="fa fa-star" aria-hidden="true"></i></span>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                        for="demo-menu-lower-left">
+                        <li class="mdl-menu__item">1</li>
+                        <li class="mdl-menu__item">2</li>
+                        <li class="mdl-menu__item">3</li>
+                        <li class="mdl-menu__item">4</li>
+                        <li class="mdl-menu__item">5</li>
+                    </ul>
+
+                    <span class="comments_button"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
+
+
+                </div>
+
+                <dialog id="order_dialog" class="mdl-dialog">
+                    <div class="mdl-dialog__content">
+                        <span> Dodaj napomenu </span>
+                    </div>
+                    <div class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button">Close</button>
+                        <button type="button" class="mdl-button">Order</button>
+                    </div>
+                </dialog>
+
+                <article class="comments hide">
+                    <div>
+                        <h6>Marko Petrovic</h6><span class="date">12.8.2016</span>
+                        <p>Odlcina pljeskavica, toplo preporucujem</p>
+                    </div>
+
+                    <div>
+                        <h6>Nikola Nikolic</h6><span class="date">8.7.2016</span>
+                        <p>Klasika! Super je</p>
+                    </div>
+                </article>
+
+                <article class="card__article">
+                    <div>
+                        <h2><a href="#">@meal.Title</a>
+                        </h2>
+                        <span class="quantity">@meal.Quantity @meal.Unit.ToString()</span>
+                    </div>
+
+                    <p class="description short">@meal.Desription</p>
+
+                </article>
+            </div>
+
+            <div class="card__action">
+
+                <div class="card__author">
+                    <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
+                    <div class="card__author-content">
+                        <span class="mdl-chip">
+                            <span class="mdl-chip__text">@meal.Category.ToString()</span>
+                        </span>
+                        <span>@meal.Price din</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+
+
+}

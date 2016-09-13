@@ -13,6 +13,22 @@ namespace CrarftedFood.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            var email = "masadordevic@gmail.com";
+            var pass = "A^>gF:@";
+
+            Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            if (emp == null)
+            {
+                return Json(new { success = false, message = "incorrect credientals" });
+            }
+
+            UserSession.SetUser(emp);
+            Session.Timeout = 525600;
+
+
+            //priveremeno
+            return RedirectToAction("Index", "Menu");
+
             return View();
         }
 
@@ -33,6 +49,12 @@ namespace CrarftedFood.Controllers
             return Json(new { success = true, message = "logged in" });
 
             //return Redirect((Data.Entities.Roles)emp.RoleId);
+        }
+
+        public ActionResult Logout()
+        {
+            UserSession.SetUser(null);
+            return RedirectToAction("Index");
         }
 
         //public ActionResult Redirect(Data.Entities.Roles role)
