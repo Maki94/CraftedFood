@@ -8,7 +8,7 @@ namespace Data.Entities
 {
     public static class Employees
     {
-        public static void AddEmployee(string name, string email, string mobile, string password, Roles role)
+        public static void AddEmployee(string name, string email, string password, Roles role)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -16,9 +16,9 @@ namespace Data.Entities
                 {
                     Name = name,
                     Email = email,
-                    Mobile = mobile,
                     Password = password,
-                    RoleId = (int)role
+                    RoleId = (int)role,
+                    IsActive = true
                 };
                 dc.Employees.InsertOnSubmit(emp);
                 dc.SubmitChanges();
@@ -32,29 +32,30 @@ namespace Data.Entities
                 try
                 {
                     Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
-                    if (name != null)
+                    if (emp.IsActive)
                     {
-                        emp.Name = name;
+                        if (name != null)
+                        {
+                            emp.Name = name;
+                        }
+                        if (email != null)
+                        {
+                            emp.Email = email;
+                        }
+                        if (mobile != null)
+                        {
+                            emp.Mobile = mobile;
+                        }
+                        if (role != 0)
+                        {
+                            emp.RoleId = (int)role;
+                        }
+                        dc.SubmitChanges();
                     }
-                    if (email != null)
-                    {
-                        emp.Email = email;
-                    }
-                    if (mobile != null)
-                    {
-                        emp.Mobile = mobile;
-                    }
-                    if (role != 0)
-                    {
-                        emp.RoleId = (int) role;
-                    }
-
-                    dc.SubmitChanges();
-
                 }
                 catch (Exception)
                 {
-                    throw;
+                    throw new Exception("Nije izmenjen");
                 }
             }
         }
@@ -67,20 +68,23 @@ namespace Data.Entities
                 {
                     Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
 
-                    if (name != null)
+                    if (emp.IsActive)
                     {
-                        emp.Name = name;
-                    }
-                    if (email != null)
-                    {
-                        emp.Email = email;
-                    }
-                    if (mobile != null)
-                    {
-                        emp.Mobile = mobile;
-                    }
+                        if (name != null)
+                        {
+                            emp.Name = name;
+                        }
+                        if (email != null)
+                        {
+                            emp.Email = email;
+                        }
+                        if (mobile != null)
+                        {
+                            emp.Mobile = mobile;
+                        }
 
-                    dc.SubmitChanges();
+                        dc.SubmitChanges(); 
+                    }
                 }
                 catch (Exception)
                 {
@@ -91,7 +95,19 @@ namespace Data.Entities
 
         public static void DeleteEmployee(int empId)
         {
-
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    emp.IsActive = false;
+                    dc.SubmitChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
     }
 }

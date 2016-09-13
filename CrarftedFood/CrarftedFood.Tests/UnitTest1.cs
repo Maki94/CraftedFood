@@ -1,3 +1,7 @@
+﻿﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
+﻿using Data;
 ﻿using Data.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,10 +27,22 @@ namespace CrarftedFood.Tests
         [TestMethod]
         public void TestEditEmployee()
         {
-            Data.Entities.Employees.EditEmployee(1, "Marija Djordjevic", null, null, null, Data.Entities.Roles.Client);
+            Data.Entities.Employees.EditEmployee(1, "Marija Djordjevic", null, null, Data.Entities.Roles.Client);
         }
 
         [TestMethod]
+        public void HashMe()
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                Employee masa = dc.Employees.First(a => a.Email == "masa@gmail.com");
+                masa.Password = Data.Entities.HashPassword.SaltedHashPassword(masa.Password, masa.Email);
+
+                dc.SubmitChanges();
+
+            }
+        }
+
         public void AddLookups()
         {
             Lookups.DeleteAllLookups();

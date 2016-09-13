@@ -48,6 +48,7 @@
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="Entities\Employees.cs" />
+    <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\Lookups.cs" />
     <Compile Include="Entities\Meals.cs" />
     <Compile Include="Entities\Ratings.cs" />
