@@ -21,6 +21,12 @@ namespace CrarftedFood.Tests
         }
 
         [TestMethod]
+        public void TestEditEmployee()
+        {
+            Data.Entities.Employees.EditEmployee(1, "Marija Djordjevic", null, null, null, Data.Entities.Roles.Client);
+        }
+
+        [TestMethod]
         public void AddLookups()
         {
             Lookups.DeleteAllLookups();
