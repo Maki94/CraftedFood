@@ -31,7 +31,7 @@ namespace CrarftedFood.Controllers
             string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, model.Email);
             Data.Entities.Employees.AddEmployee(model.Name, model.Email, hashedPass, model.Role);
 
-            string body = "<p>Poštovani {0},</p> <p> Upravo ste dodati u bazu Crafted Food radi lakšeg naručivanja hrane kao <strong>{1}</strong>, Vaši podaci za logovanje su: <br> username: {2} <br>  password: <font color=blue>{3}</p><p>Pozdrav</p>";
+            string body = "<p>Poštovani {0},</p> <p> Upravo ste dodati u bazu Crafted Food radi lakšeg naručivanja hrane kao <strong>{1}</strong>, Vaši podaci za logovanje na http://localhost:62801/ su: <br> username: {2} <br>  password: <font color=blue>{3}</p><p>Pozdrav</p>";
             string message = string.Format(body, model.Name, model.Role, model.Email, pass);
             await SendEmail(model.Email, "Welcome to Craft Food", message);
             return View();
@@ -73,7 +73,7 @@ namespace CrarftedFood.Controllers
             List<object> obj = Data.Entities.Employees.PasswordRecovery(email);
             if (obj.Any())
             {
-                string body = "<p>Poštovani {0},</p> <p> Vaša šifra je restartovana, Vaši novi podaci za logovanje su: <br> username: {1} <br>  password: <font color=blue>{2}</p><p>Pozdrav</p>";
+                string body = "<p>Poštovani {0},</p> <p> Vaša šifra je restartovana, Vaši novi podaci za logovanje na http://localhost:62801/ su: <br> username: {1} <br>  password: <font color=blue>{2} </p><p>Pozdrav</p>";
                 string message = string.Format(body, obj[0], obj[1], obj[2]);
                 await SendEmail(email, "Password Recovery", message);
 

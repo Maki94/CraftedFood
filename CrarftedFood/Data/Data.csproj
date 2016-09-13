@@ -42,12 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\MenuDtos.cs" />
     <Compile Include="Entities\Employees.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\Lookups.cs" />
