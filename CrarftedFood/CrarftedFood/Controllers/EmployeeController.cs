@@ -43,7 +43,6 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
-        public async Task SendEmail(string email, string body, List<object> parameters, byte[] pdf = null)
         public async Task SendEmail(string email, string title, string body, byte[] pdf = null)
         {
             //MemoryStream stream = new MemoryStream(pdf);
