@@ -26,12 +26,20 @@ namespace Data.Entities
             }
         }
 
-        public static void DeleteMeal(Meal meal)
+        public static void DeleteMeal(int mealId)
         {
             using (var dc = new DataClassesDataContext())
             {
-                dc.Meals.DeleteOnSubmit(meal);
-                dc.SubmitChanges();
+                try
+                {
+                    var meal = dc.Meals.First(x => x.MealId == mealId);
+                    dc.Meals.DeleteOnSubmit(meal);
+                    dc.SubmitChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
