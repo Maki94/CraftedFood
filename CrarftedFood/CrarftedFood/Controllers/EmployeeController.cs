@@ -32,12 +32,6 @@ namespace CrarftedFood.Controllers
             Data.Entities.Employees.AddEmployee(model.Name, model.Email, hashedPass, model.Role);
 
             string body = "<p>Poštovani {0},</p> <p> Upravo ste dodati u bazu Crafted Food radi lakšeg naručivanja hrane kao <strong>{1}</strong>, Vaši podaci za logovanje su: <br> username: {2} <br>  password: <font color=blue>{3}</p><p>Pozdrav</p>";
-            List<object> parameters = new List<object>();
-            parameters.Add(model.Name);
-            parameters.Add(model.Role);
-            parameters.Add(model.Email);
-            parameters.Add(pass);
-            await SendEmail(model.Email, body, parameters);
             string message = string.Format(body, model.Name, model.Role, model.Email, pass);
             await SendEmail(model.Email, "Welcome to Craft Food", message);
             return View();
@@ -52,8 +46,6 @@ namespace CrarftedFood.Controllers
             var message = new MailMessage();
             message.To.Add(new MailAddress(email));
             message.From = new MailAddress(admin);
-            message.Subject = "Welcome";
-            //message.Body = string.Format(body, name, role, email, password);
             message.Subject = title;
             message.Body = body;
             message.IsBodyHtml = true;
