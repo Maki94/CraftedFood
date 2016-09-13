@@ -26,7 +26,7 @@ namespace Data.Entities
             }
         }
 
-        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, string password = null, Roles role = 0)
+        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Roles role = 0)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -47,10 +47,6 @@ namespace Data.Entities
                         {
                             emp.Mobile = mobile;
                         }
-                        if (mobile != null)
-                        {
-                            emp.Password = password;
-                        }
                         if (role != 0)
                         {
                             emp.RoleId = (int)role;
@@ -65,6 +61,27 @@ namespace Data.Entities
             }
         }
 
+        public static void ChangePassword(int empId, string password)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    if (emp.IsActive)
+                    {
+                        string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(password, emp.Email);
+                        emp.Name = hashedPass;
+                        dc.SubmitChanges();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Nije izmenjen");
+                }
+            }
+        }
+        
         public static void EditMyData(int empId, string name = null, string email = null, string mobile = null)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
@@ -115,6 +132,22 @@ namespace Data.Entities
             }
         }
         
+        public static Employee GetEmployeeEt(int empId)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+               return dc.Employees.First(x => x.EmployeeId == empId && x.IsActive);
+            }
+        }
+
+        public static List<Employee> GetAllActiveEmployees()
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                return dc.Employees.Where(x => x.IsActive).ToList();
+            }
+        }
+
         public static List<object> PasswordRecovery(string email)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
