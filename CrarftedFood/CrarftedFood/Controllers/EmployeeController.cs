@@ -38,10 +38,13 @@ namespace CrarftedFood.Controllers
             parameters.Add(model.Email);
             parameters.Add(pass);
             await SendEmail(model.Email, body, parameters);
+            string message = string.Format(body, model.Name, model.Role, model.Email, pass);
+            await SendEmail(model.Email, "Welcome to Craft Food", message);
             return View();
         }
 
         public async Task SendEmail(string email, string body, List<object> parameters, byte[] pdf = null)
+        public async Task SendEmail(string email, string title, string body, byte[] pdf = null)
         {
             //MemoryStream stream = new MemoryStream(pdf);
             string admin = "vatreneskoljke@gmail.com";
@@ -52,6 +55,8 @@ namespace CrarftedFood.Controllers
             message.From = new MailAddress(admin);
             message.Subject = "Welcome";
             //message.Body = string.Format(body, name, role, email, password);
+            message.Subject = title;
+            message.Body = body;
             message.IsBodyHtml = true;
             //message.Attachments.Add(new Attachment(stream, "Request.pdf", System.Net.Mime.MediaTypeNames.Application.Pdf));
 
@@ -69,6 +74,21 @@ namespace CrarftedFood.Controllers
                 smtp.EnableSsl = true;
                 await smtp.SendMailAsync(message);
             }
+        }
+        
+        
+        public async Task<ActionResult> PasswordRecovery(string email)
+        {
+            List<object> obj = Data.Entities.Employees.PasswordRecovery(email);
+            if (obj.Any())
+            {
+                string body = "<p>Poštovani {0},</p> <p> Vaša šifra je restartovana, Vaši novi podaci za logovanje su: <br> username: {1} <br>  password: <font color=blue>{2}</p><p>Pozdrav</p>";
+                string message = string.Format(body, obj[0], obj[1], obj[2]);
+                await SendEmail(email, "Password Recovery", message);
+
+                return Json(new { success = true, message = "recovered" });
+            }
+            return Json(new { success = false, message = "deleted" });
         }
 
 
