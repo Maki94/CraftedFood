@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 
 namespace Data.Entities
 {
@@ -25,7 +26,7 @@ namespace Data.Entities
             }
         }
 
-        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Roles role = 0)
+        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, string password = null, Roles role = 0)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -45,6 +46,10 @@ namespace Data.Entities
                         if (mobile != null)
                         {
                             emp.Mobile = mobile;
+                        }
+                        if (mobile != null)
+                        {
+                            emp.Password = password;
                         }
                         if (role != 0)
                         {
@@ -106,6 +111,35 @@ namespace Data.Entities
                 catch (Exception)
                 {
                     throw;
+                }
+            }
+        }
+        
+        public static List<object> PasswordRecovery(string email)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    List<object> ret = new List<object>();
+                    Data.Employee emp = dc.Employees.Where(x => x.Email == email).First();
+                    if (emp.IsActive)
+                    {
+                        string pass = Membership.GeneratePassword(7, 0);
+                        string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, emp.Email);
+                        emp.Password = hashedPass;
+                        dc.SubmitChanges();
+
+                        ret.Add(emp.Name);
+                        ret.Add(emp.Email);
+                        ret.Add(pass);
+                    }
+
+                    return ret;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Nije izmenjen");
                 }
             }
         }

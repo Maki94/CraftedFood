@@ -11,4 +11,5 @@ namespace CrarftedFood.Models
         public string Email { get; set; }
         public Data.Entities.Roles Role { get; set; }
     }
+    
 }
