@@ -77,15 +77,19 @@ namespace Data.Entities
 
                 var units = dc.Units.ToList();
                 dc.Units.DeleteAllOnSubmit(units);
+
                 var categories = dc.Categories.ToList();
                 dc.Categories.DeleteAllOnSubmit(categories);
+
                 var roles = dc.Roles.ToList();
                 dc.Roles.DeleteAllOnSubmit(roles);
-                var permissions = dc.Permissions.ToList();
-                dc.Permissions.DeleteAllOnSubmit(permissions);
-                dc.SubmitChanges();
-                var rp = dc.RolePermissions.ToList();
-                dc.RolePermissions.DeleteAllOnSubmit(rp);
+
+                //var rp = dc.RolePermissions.ToList();
+                //dc.RolePermissions.DeleteAllOnSubmit(rp);
+
+                //var permissions = dc.Permissions.ToList();
+                //dc.Permissions.DeleteAllOnSubmit(permissions);
+
                 dc.SubmitChanges();
 
             }

@@ -23,7 +23,75 @@ namespace Data.Entities
                 dc.Employees.InsertOnSubmit(emp);
                 dc.SubmitChanges();
             }
-            
+        }
+
+        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Roles role = 0)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    if (name != null)
+                    {
+                        emp.Name = name;
+                    }
+                    if (email != null)
+                    {
+                        emp.Email = email;
+                    }
+                    if (mobile != null)
+                    {
+                        emp.Mobile = mobile;
+                    }
+                    if (role != 0)
+                    {
+                        emp.RoleId = (int) role;
+                    }
+
+                    dc.SubmitChanges();
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static void EditMyData(int empId, string name = null, string email = null, string mobile = null)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+
+                    if (name != null)
+                    {
+                        emp.Name = name;
+                    }
+                    if (email != null)
+                    {
+                        emp.Email = email;
+                    }
+                    if (mobile != null)
+                    {
+                        emp.Mobile = mobile;
+                    }
+
+                    dc.SubmitChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static void DeleteEmployee(int empId)
+        {
+
         }
     }
 }
