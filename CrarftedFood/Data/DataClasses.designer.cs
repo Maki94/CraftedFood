@@ -707,7 +707,7 @@ namespace Data
 		
 		private System.Data.Linq.Binary _Image;
 		
-		private System.Nullable<float> _Price;
+		private float _Price;
 		
 		private System.Nullable<float> _Quantity;
 		
@@ -735,7 +735,7 @@ namespace Data
     partial void OnDescriptionChanged();
     partial void OnImageChanging(System.Data.Linq.Binary value);
     partial void OnImageChanged();
-    partial void OnPriceChanging(System.Nullable<float> value);
+    partial void OnPriceChanging(float value);
     partial void OnPriceChanged();
     partial void OnQuantityChanging(System.Nullable<float> value);
     partial void OnQuantityChanged();
@@ -774,7 +774,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Title
 		{
 			get
@@ -834,8 +834,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Real")]
-		public System.Nullable<float> Price
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Real NOT NULL")]
+		public float Price
 		{
 			get
 			{

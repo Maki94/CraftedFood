@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.ModelBinding;
+using System.Web.UI.WebControls;
+using Data.DTOs;
 
 namespace Data.Entities
 {
@@ -74,6 +78,26 @@ namespace Data.Entities
                 {
                     throw;
                 }
+            }
+        }
+
+
+
+        public static List<MenuMealItem> GetMenu()
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Meals.Select(meal => new MenuMealItem
+                {
+                    Title = meal.Title,
+                    Desription = meal.Description,
+                    Image = meal.Image.ToArray(),
+                    Price = meal.Price,
+                    Quantity = meal.Quantity,
+                    Unit = (Data.Entities.Units) meal.UnitId,
+                    Category = (Data.Entities.Categories) meal.CategoryId,
+                    Rating = meal.Ratings.Select(a => a.Rating1).Average()
+                }).ToList();
             }
         }
     }
