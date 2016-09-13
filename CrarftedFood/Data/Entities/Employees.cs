@@ -8,7 +8,7 @@ namespace Data.Entities
 {
     public static class Employees
     {
-        public static void AddEmployee(string name, string email, string mobile, string password, Roles role)
+        public static void AddEmployee(string name, string email, string password, Roles role)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -16,7 +16,6 @@ namespace Data.Entities
                 {
                     Name = name,
                     Email = email,
-                    Mobile = mobile,
                     Password = password,
                     RoleId = (int)role,
                     IsActive = true
