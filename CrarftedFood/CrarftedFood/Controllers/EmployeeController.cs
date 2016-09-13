@@ -8,17 +8,28 @@ using CrarftedFood.Models;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using Data;
 
 namespace CrarftedFood.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: Employee
+        #region LIST OF EMPLOYEES AND PROFILES
         public ActionResult Index()
         {
-            return View();
+            EmployeesViewModel model = EmployeesViewModel.Load();
+            //TODO view
+            return View(model);
         }
 
+        public ActionResult Profiles(int empId)
+        {
+            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(empId);
+            return View();
+        }
+        #endregion
+
+        #region ADD
         public ActionResult AddEmployee()
         {
             return View();
@@ -36,13 +47,30 @@ namespace CrarftedFood.Controllers
             await SendEmail(model.Email, "Welcome to Craft Food", message);
             return View();
         }
+        #endregion
+
+        #region PASSWORD RECOVERY
+        [HttpPost]
+        public async Task<ActionResult> PasswordRecovery(string email)
+        {
+            List<object> obj = Data.Entities.Employees.PasswordRecovery(email);
+            if (obj.Any())
+            {
+                string body = "<p>Poštovani {0},</p> <p> Vaša šifra je restartovana, Vaši novi podaci za logovanje su: <br> username: {1} <br>  password: <font color=blue>{2}</p><p>Pozdrav</p>";
+                string message = string.Format(body, obj[0], obj[1], obj[2]);
+                await SendEmail(email, "Password Recovery", message);
+
+                return Json(new { success = true, message = "recovered" });
+            }
+            return Json(new { success = false, message = "deleted" });
+        }
 
         public async Task SendEmail(string email, string title, string body, byte[] pdf = null)
         {
             //MemoryStream stream = new MemoryStream(pdf);
             string admin = "vatreneskoljke@gmail.com";
             string adminpass = "seashellsonfire";
-            
+
             var message = new MailMessage();
             message.To.Add(new MailAddress(email));
             message.From = new MailAddress(admin);
@@ -66,22 +94,47 @@ namespace CrarftedFood.Controllers
                 await smtp.SendMailAsync(message);
             }
         }
-        
-        
-        public async Task<ActionResult> PasswordRecovery(string email)
-        {
-            List<object> obj = Data.Entities.Employees.PasswordRecovery(email);
-            if (obj.Any())
-            {
-                string body = "<p>Poštovani {0},</p> <p> Vaša šifra je restartovana, Vaši novi podaci za logovanje su: <br> username: {1} <br>  password: <font color=blue>{2}</p><p>Pozdrav</p>";
-                string message = string.Format(body, obj[0], obj[1], obj[2]);
-                await SendEmail(email, "Password Recovery", message);
+        #endregion
 
-                return Json(new { success = true, message = "recovered" });
-            }
-            return Json(new { success = false, message = "deleted" });
+        #region ADMIN EDIT
+        public ActionResult EditEmployee(int empId)
+        {
+            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(empId);
+            //TODO view
+            return View(model);
         }
 
+        [HttpPost]
+        public ActionResult EditEmployee(ShowEmployeeViewModel model)
+        {
+            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile, model.Role);
+            return RedirectToAction("Profile", model.Id);
+        }
+        #endregion
+        
+        #region EDIT
+        public ActionResult EditProfile(int empId)
+        {
+            EditEmployeeViewModel model = EditEmployeeViewModel.Load(empId);
+            //TODO view
+            return View(model);
+        }
 
+        [HttpPost]
+        public ActionResult EditProfile(ShowEmployeeViewModel model)
+        {
+            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile);
+            return RedirectToAction("Profile", model.Id);
+        }
+        #endregion
+
+        #region DELETE
+        [HttpPost]
+        public ActionResult DeleteEmployee(int empId)
+        {
+            Data.Entities.Employees.DeleteEmployee(empId);
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }
