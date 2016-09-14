@@ -60,7 +60,7 @@ namespace Data
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString1, mappingSource)
+				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -709,9 +709,9 @@ namespace Data
 		
 		private float _Price;
 		
-		private System.Nullable<float> _Quantity;
+		private float _Quantity;
 		
-		private System.Nullable<int> _UnitId;
+		private int _UnitId;
 		
 		private int _CategoryId;
 		
@@ -737,9 +737,9 @@ namespace Data
     partial void OnImageChanged();
     partial void OnPriceChanging(float value);
     partial void OnPriceChanged();
-    partial void OnQuantityChanging(System.Nullable<float> value);
+    partial void OnQuantityChanging(float value);
     partial void OnQuantityChanged();
-    partial void OnUnitIdChanging(System.Nullable<int> value);
+    partial void OnUnitIdChanging(int value);
     partial void OnUnitIdChanged();
     partial void OnCategoryIdChanging(int value);
     partial void OnCategoryIdChanged();
@@ -854,8 +854,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Real")]
-		public System.Nullable<float> Quantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Real NOT NULL")]
+		public float Quantity
 		{
 			get
 			{
@@ -874,8 +874,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="Int")]
-		public System.Nullable<int> UnitId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="Int NOT NULL")]
+		public int UnitId
 		{
 			get
 			{
@@ -1009,7 +1009,7 @@ namespace Data
 					}
 					else
 					{
-						this._UnitId = default(Nullable<int>);
+						this._UnitId = default(int);
 					}
 					this.SendPropertyChanged("Unit");
 				}

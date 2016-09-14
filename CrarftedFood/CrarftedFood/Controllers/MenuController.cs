@@ -12,13 +12,18 @@ namespace CrarftedFood.Controllers
 {
     public class MenuController : Controller
     {
-        // GET: Menu
+        #region MENU
+
         public ActionResult Index()
         {
             MenuViewModel menu = new MenuViewModel();
             menu.menu = Data.Entities.Meals.GetMenu();
             return View(menu);
         }
+
+        #endregion
+
+        #region COMMENT
 
         public class CommentBindClass
         {
@@ -37,14 +42,18 @@ namespace CrarftedFood.Controllers
             Employee emp = UserSession.GetUser();
             Data.Entities.Meals.CommentMeal(emp.EmployeeId, model.mealId.Value, model.comment);
 
-            return Json(new { success = true});
+            return Json(new { success = true });
 
         }
+
+        #endregion
+
+        #region RATE
 
         public class RateBindClass
         {
             public int? mealId;
-            public double? rating;
+            public float? rating;
         }
 
         [HttpPost]
@@ -57,10 +66,52 @@ namespace CrarftedFood.Controllers
 
             Employee emp = UserSession.GetUser();
             Data.Entities.Meals.RateMeal(emp.EmployeeId, model.mealId.Value, model.rating.Value);
+            float newrate = Data.Entities.Meals.GetAverageRate(model.mealId);
+            return Json(new { success = true, newrateing =  newrate});
+        } 
 
-            return Json(new { success = true });
+        #endregion
 
+        #region ADD
+
+        public ActionResult AddMeal()
+        {
+            //TODO View
+            return View();
         }
 
+        [HttpPost]
+        public ActionResult AddMeal(MealViewModel model)
+        {
+            Data.Entities.Meals.AddMeal(model.Title, model.Description, model.Image, model.Price, model.Quantity, model.Unit, model.Category);
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region EDIT
+
+        public ActionResult EditMeal(int mealId)
+        {
+            MealViewModel model = MealViewModel.Load(mealId);
+            //TODO view
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditMeal(MealViewModel model)
+        {
+            Data.Entities.Meals.EditMeal(model.Id, model.Title, model.Description, model.Image, model.Price,
+                model.Quantity, model.Unit, model.Category);
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region DELETE
+
+        
+
+        #endregion
     }
 }

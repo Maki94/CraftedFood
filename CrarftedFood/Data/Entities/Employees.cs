@@ -132,7 +132,7 @@ namespace Data.Entities
             }
         }
         
-        public static Employee GetEmployeeEt(int empId)
+        public static Employee GetEmployeeAt(int empId)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
