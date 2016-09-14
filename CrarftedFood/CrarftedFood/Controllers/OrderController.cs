@@ -16,13 +16,24 @@ namespace CrarftedFood.Controllers
             };
             return View(order);
         }
+        
+        #region ORDER
+
+        [HttpPost]
+        public ActionResult NewOrder()
+        {
+
+            return View();
+        }
+
+        #endregion
 
         [HttpPost]
         public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
         {
             var order = new OrderViewModel
             {
-                Orders = Reports.GetOrderDtos(UserSession.GetUser().EmployeeId)
+                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
 
             switch (orderType)

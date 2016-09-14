@@ -142,15 +142,7 @@ namespace CrarftedFood.Controllers
 
         #endregion
 
-        #region ORDER
-
-        [HttpPost]
-        public ActionResult NewOrder()
-        {
-            return View();
-        }
-
-        #endregion
+        
 
     }
 }
