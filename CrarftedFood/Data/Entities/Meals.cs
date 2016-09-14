@@ -87,7 +87,7 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Ratings.Where(x => x.MealId == mealId).Select(x => x.Rating1).ToList().Average();
+                return dc.Ratings.Where(x => x.MealId == mealId && x.Rating1 != null).Select(x => x.Rating1.Value).ToList().Average();
             }
         }
 
@@ -97,6 +97,7 @@ namespace Data.Entities
             {
                 return dc.Meals.Select(meal => new MenuMealItem
                 {
+                    MealId = meal.MealId,
                     Title = meal.Title,
                     Desription = meal.Description,
                     Image = meal.Image == null ? null : meal.Image.ToArray(),
@@ -104,7 +105,7 @@ namespace Data.Entities
                     Quantity = meal.Quantity,
                     Unit = (Data.Enums.Units) meal.UnitId,
                     Category = (Data.Enums.Categories) meal.CategoryId,
-                    Rating = null //TODO meal.Ratings.Select(a => a.Rating1)?.Average()
+                    Rating = meal.Ratings.Select(a => a.Rating1).Average()
                 }).ToList();
             }
         }

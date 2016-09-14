@@ -8,6 +8,7 @@ namespace Data.DTOs
 {
     public class MenuMealItem
     {
+        public int MealId { get; set; }
         public string Title { get; set; }
         public string Desription { get; set; }
         public byte[] Image { get; set; }

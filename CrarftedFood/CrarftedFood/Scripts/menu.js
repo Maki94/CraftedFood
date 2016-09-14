@@ -44,17 +44,8 @@ $(document).ready(function($) {
     });
 
 
-/////////////////////////////////// AJAX ///////////////////////////
 
-  $('.rating-list > li').on('click', function (e){
-    
-    $.ajax({
-      url: "demo_test.txt",
-      method: "POST"
-      success: function(result){
-          document.getElementsByClassName('rating')[].innerHTML.charAt(0) = result.newRating;
-      }});
-})
+
 
 
 

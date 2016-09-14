@@ -50,24 +50,19 @@ namespace CrarftedFood.Controllers
 
         #region RATE
 
-        public class RateBindClass
-        {
-            public int? mealId;
-            public float? rating;
-        }
-
+       
         [HttpPost]
-        public ActionResult RateMeal(RateBindClass model)
+        public ActionResult RateMeal(int mealId, float rating)
         {
-            if (model == null || model.mealId == null || model.rating == null)
+            if (mealId == null || rating == null)
             {
                 return Json(new { success = false, message = "incorrect parameters" });
             }
 
             Employee emp = UserSession.GetUser();
-            Data.Entities.Meals.RateMeal(emp.EmployeeId, model.mealId.Value, model.rating.Value);
-            float newrate = Data.Entities.Meals.GetAverageRate(model.mealId);
-            return Json(new { success = true, newrateing =  newrate});
+            Data.Entities.Meals.RateMeal(emp.EmployeeId, mealId, rating);
+            float newrate = Data.Entities.Meals.GetAverageRate(mealId);
+            return Json(new { success = true, newRating =  newrate});
         } 
 
         #endregion

@@ -60,7 +60,7 @@ namespace Data
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1185,13 +1185,13 @@ namespace Data
 		
 		private string _Comment;
 		
-		private float _Rating1;
+		private System.Nullable<float> _Rating1;
 		
-		private System.Nullable<System.DateTime> _Date;
+		private System.DateTime _Date;
 		
-		private System.Nullable<int> _EmployeeId;
+		private int _EmployeeId;
 		
-		private System.Nullable<int> _MealId;
+		private int _MealId;
 		
 		private EntityRef<Employee> _Employee;
 		
@@ -1205,13 +1205,13 @@ namespace Data
     partial void OnRatingIdChanged();
     partial void OnCommentChanging(string value);
     partial void OnCommentChanged();
-    partial void OnRating1Changing(float value);
+    partial void OnRating1Changing(System.Nullable<float> value);
     partial void OnRating1Changed();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanging(System.DateTime value);
     partial void OnDateChanged();
-    partial void OnEmployeeIdChanging(System.Nullable<int> value);
+    partial void OnEmployeeIdChanging(int value);
     partial void OnEmployeeIdChanged();
-    partial void OnMealIdChanging(System.Nullable<int> value);
+    partial void OnMealIdChanging(int value);
     partial void OnMealIdChanged();
     #endregion
 		
@@ -1242,7 +1242,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(300) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(300)")]
 		public string Comment
 		{
 			get
@@ -1262,8 +1262,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Rating", Storage="_Rating1", DbType="Real NOT NULL")]
-		public float Rating1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Rating", Storage="_Rating1", DbType="Real")]
+		public System.Nullable<float> Rating1
 		{
 			get
 			{
@@ -1282,8 +1282,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
 		{
 			get
 			{
@@ -1302,8 +1302,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int")]
-		public System.Nullable<int> EmployeeId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL")]
+		public int EmployeeId
 		{
 			get
 			{
@@ -1326,8 +1326,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", DbType="Int")]
-		public System.Nullable<int> MealId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", DbType="Int NOT NULL")]
+		public int MealId
 		{
 			get
 			{
@@ -1377,7 +1377,7 @@ namespace Data
 					}
 					else
 					{
-						this._EmployeeId = default(Nullable<int>);
+						this._EmployeeId = default(int);
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -1411,7 +1411,7 @@ namespace Data
 					}
 					else
 					{
-						this._MealId = default(Nullable<int>);
+						this._MealId = default(int);
 					}
 					this.SendPropertyChanged("Meal");
 				}
