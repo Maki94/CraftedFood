@@ -102,7 +102,7 @@ namespace Data.Entities
                 {
                     MealId = meal.MealId,
                     Title = meal.Title,
-                    Desription = meal.Description,
+                    Description = meal.Description,
                     Image = meal.Image == null ? null : meal.Image.ToArray(),
                     Price = meal.Price,
                     Quantity = meal.Quantity,

@@ -49,8 +49,7 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region RATE
-
-       
+        
         [HttpPost]
         public ActionResult RateMeal(int mealId, float rating)
         {
@@ -76,7 +75,7 @@ namespace CrarftedFood.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMeal(MealViewModel model)
+        public ActionResult AddMeal(MenuMealItem model)
         {
             Data.Entities.Meals.AddMeal(model.Title, model.Description, model.Image, model.Price, model.Quantity, model.Unit, model.Category);
             return RedirectToAction("Index");
@@ -88,15 +87,15 @@ namespace CrarftedFood.Controllers
 
         public ActionResult EditMeal(int mealId)
         {
-            MealViewModel model = MealViewModel.Load(mealId);
+            MenuMealItem model = MenuMealItem.Load(mealId);
             //TODO view
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult EditMeal(MealViewModel model)
+        public ActionResult EditMeal(MenuMealItem model)
         {
-            Data.Entities.Meals.EditMeal(model.Id, model.Title, model.Description, model.Image, model.Price,
+            Data.Entities.Meals.EditMeal(model.MealId, model.Title, model.Description, model.Image, model.Price,
                 model.Quantity, model.Unit, model.Category);
             return RedirectToAction("Index");
         }
@@ -113,5 +112,6 @@ namespace CrarftedFood.Controllers
         }
         
         #endregion
+
     }
 }

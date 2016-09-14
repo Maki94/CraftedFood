@@ -54,7 +54,21 @@ namespace Data.Entities
                     Note = a.Note
                 }).ToList();
             }
-        } 
+        }
+
+        public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime start, DateTime end)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date <= end.Date && a.DateRequested.Value.Date >= start.Date).Select(a => new OrderDto
+                {
+                    Quantity = a.Quantity,
+                    Price = a.Meal.Price * a.Quantity,
+                    MealTitle = a.Meal.Title,
+                    Note = a.Note
+                }).ToList();
+            }
+        }
 
     }
 }
