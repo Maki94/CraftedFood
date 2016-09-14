@@ -10,9 +10,10 @@ namespace Data.DTOs
     {
         public int? EmployeeId { get; set; }
         public string EmployeeName { get; set; }
+
+        public string MealTitle { get; set; }
         public double Quantity { get; set; }
         public string Note { get; set; }
-        public string MealTitle { get; set; }
         public double Price { get; set; }
     }
 }

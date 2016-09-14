@@ -1,0 +1,57 @@
+@using CrarftedFood.Extentions
+@using Data.DTOs
+@model CrarftedFood.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #table-orders th a{
+        text-align: center;
+    }
+</style>
+<table id="table-orders" class="table text-center">
+    <tr>
+        <th>
+            @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            <a href=#>Meal Title</a>
+        </th>
+        <th>
+            <a href=#>Quantity</a>
+        </th>
+        <th>
+            <a href=#>Price</a>
+        </th>
+        <th>
+            <a href=#>Note</a>
+        </th>
+    </tr>
+
+    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
+    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
+    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
+    @*
+        @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MealTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>*\@
+    </tr>
+    }*@
+</table>

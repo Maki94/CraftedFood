@@ -13,10 +13,10 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-               return dc.Requests.Where(a=> a.EmployeeId == empId && a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
                 {
                     Quantity = a.Quantity,
-                    Price = a.Meal.Price*a.Quantity,
+                    Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
                     Note = a.Note
                 }).ToList();
@@ -27,7 +27,7 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a=> a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
                 {
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
@@ -44,7 +44,7 @@ namespace Data.Entities
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
                 //TODO razmisli sta ako nije dostavljen i slicno, razmisli o grupisanju, redosledu i slicno
-                return dc.Requests.Where(a => a.DateDelivered >= start && a.DateDelivered <= end ).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.DateDelivered >= start && a.DateDelivered <= end).Select(a => new OrderDto
                 {
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
@@ -60,13 +60,38 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date <= end.Date && a.DateRequested.Value.Date >= start.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date <= end.Date && a.DateRequested.Value.Date >= start.Date)
+                    .Select(a => new OrderDto
+                    {
+                        Quantity = a.Quantity,
+                        Price = a.Meal.Price * a.Quantity,
+                        MealTitle = a.Meal.Title,
+                        Note = a.Note
+                    }).ToList();
+            }
+        }
+
+        public static List<OrderDto> GetOrderDtos(int employeeId)
+        {
+            try
+            {
+                using (var dc = new DataClassesDataContext())
                 {
-                    Quantity = a.Quantity,
-                    Price = a.Meal.Price * a.Quantity,
-                    MealTitle = a.Meal.Title,
-                    Note = a.Note
-                }).ToList();
+                    List<OrderDto> c = dc.Requests.Where(x => x.EmployeeId == employeeId)
+                        .Select(a => new OrderDto
+                        {
+                            Quantity = a.Quantity,
+                            Price = a.Meal.Price * a.Quantity,
+                            MealTitle = a.Meal.Title,
+                            Note = a.Note
+                        }).ToList();
+                    return c;
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
             }
         }
 

@@ -1,9 +1,4 @@
-﻿﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-﻿using Data;
-﻿using Data.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrarftedFood.Tests
 {
@@ -60,5 +55,9 @@ namespace CrarftedFood.Tests
             await cont.SendEmail("mitic.nikolca94@gmail.com", "Nikola Mitić", "blabla");
         }
 
+        public void AddOrders()
+        {
+            // TODO: @nikolacar Potrebna je metoda a dodavanje Reporta u Entity Reports 
+        }
     }
 }
