@@ -22,7 +22,7 @@ namespace CrarftedFood.Controllers
         {
             var order = new OrderViewModel
             {
-                Orders = Reports.GetOrderDtos(UserSession.GetUser().EmployeeId)
+                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
 
             switch (orderType)
