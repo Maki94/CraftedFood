@@ -112,7 +112,17 @@ namespace CrarftedFood.Controllers
             Data.Entities.Meals.DeleteMeal(mealId);
             return RedirectToAction("Index");
         }
-        
+
+        #endregion
+
+        #region ORDER
+
+        [HttpPost]
+        public ActionResult NewOrder()
+        {
+            return View();
+        }
+
         #endregion
 
     }
