@@ -13,9 +13,9 @@
         <div class="meal-wrapper">
 
             <div class="card radius shadowDepth1">
-                <div class="card__image border-tlr-radius">
-                    <img src="http://www.prva.rs/upload/boxImageData/2014/10/17/61192/pljeskavica1.jpg" alt="image" class="border-tlr-radius">
-                </div>
+                
+                @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
+                
 
                 <div class="card__content card__padding">
                     <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>

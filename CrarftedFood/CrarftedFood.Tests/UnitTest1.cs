@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CrarftedFood.Extentions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrarftedFood.Tests
 {
@@ -58,6 +59,14 @@ namespace CrarftedFood.Tests
         public void AddOrders()
         {
             // TODO: @nikolacar Potrebna je metoda a dodavanje Reporta u Entity Reports 
+        }
+
+        [TestMethod]
+        public void EnumCreateListExtention()
+        {
+            var a = Data.Enums.Units.grams.CreateSelectListItem();
+
+
         }
     }
 }
