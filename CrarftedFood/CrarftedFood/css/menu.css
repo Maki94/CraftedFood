@@ -367,3 +367,26 @@ h2 {
     clip: rect(0px 44px 256px 0px) !important;
     background-color: whitesmoke;
 }
+
+.add-meal-btn {
+    width: 64px;
+    height: 64px;
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #37474f;
+    line-height: 64px;
+    font-size: 36px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-meal-btn:hover {
+    background-color: rgba(55, 71, 79, 0.66);
+    color: white;
+}

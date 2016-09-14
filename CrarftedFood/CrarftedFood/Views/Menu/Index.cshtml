@@ -13,9 +13,9 @@
         <div class="meal-wrapper">
 
             <div class="card radius shadowDepth1">
-                
+
                 @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
-                
+
 
                 <div class="card__content card__padding">
                     <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
@@ -99,11 +99,14 @@
                 </div>
             </div>
         </div>
-
-
-
     }
 
+    @if (UserSession.GetUser().RoleId == (int) Data.Enums.Roles.Admin)
+    {
+        <a class="add-meal-btn mdl-button mdl-js-button mdl-button--fab" href="@Url.Action("AddMeal")">
+            <i class="material-icons">add</i>
+        </a>
+    }
 </div>
 
     
