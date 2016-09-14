@@ -1,58 +1,4 @@
 ﻿@model CrarftedFood.Models.LoginViewModel
-@*
-    @{
-        ViewBag.Title = "Index";
-    }
-
-    <h2>Index</h2>
-
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>LoginViewModel</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.RememberMe)
-                        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@
 @{
     Layout = null;
 }
@@ -77,6 +23,7 @@
     <style>
         body {
             background-size: cover;
+            -ms-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             -webkit-background-size: cover;
@@ -90,7 +37,12 @@
         }
 
         .form-group.last {
-            margin-bottom: 0px;
+            margin-bottom: 0;
+        }
+
+        #forgot-account:hover {
+            cursor: pointer !important;
+            text-decoration: underline !important;
         }
     </style>
     @using (Html.BeginForm())
@@ -101,7 +53,8 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <span class="glyphicon glyphicon-lock"></span> Login
+                            <span class="glyphicon glyphicon-lock"> </span>
+                            <span id="login-text">Login</span>
                         </div>
                         <div class="panel-body">
                             @if (ViewBag.message != null)
@@ -110,43 +63,80 @@
                             }
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                            <div class="form-group">
-                                <div class="col-md-10">
+                            <div class="form-group" id="email-wrapper">
+                                <div class="col-md-12">
                                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email", @placeholder = "Email" } })
                                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <br />
-                            <br />
 
-                            <div class="form-group">
-                                <div class="col-md-10">
+                            <div class="form-group" id="password-wrapper">
+                                <div class="col-md-12">
                                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "passwordLogin", @placeholder = "Lozinka" } })
                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <div class="checkbox">
+                            <div class="form-group" id="remember-me-wrapper">
+                                <div class="col-md-12">
+                                    <div id="checkbox-remember" class="col-md-6 checkbox">
                                         Zapamti me
                                         @Html.EditorFor(model => model.RememberMe)
                                         @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
                                     </div>
+                                    <div class="col-md-6 text-center">
+                                        <small id="forgot-account" class="text-center text-info">
+                                            Forgot account
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Prijavi se" class="btn btn-default" />
+                                <div class="col-md-10 text-center" id="submint-wrapper">
+                                    <input id="submit-button-login" type="submit" value="Prijavi se" class="btn btn-default" />
+                                    <input id="submit-button-reset" type="button" value="Resetuj Password" class="btn btn-default hide" />
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        var forgotAccount = document.getElementById("forgot-account");
+        var rememberCheckboxWrapper = document.getElementById("remember-me-wrapper");
+        var passwordWrapper = document.getElementById("password-wrapper");
+        var submitButtonLogin = document.getElementById("submit-button-login");
+        var submitButtonReset = document.getElementById("submit-button-reset");
+        var loginTextSpam = document.getElementById("login-text");
+
+        forgotAccount.addEventListener("click", function () {
+            rememberCheckboxWrapper.className += " " + "hide";
+            passwordWrapper.className += " " + "hide";
+            forgotAccount.className += "" + "hide";
+            submitButtonLogin.className = "hide";
+            submitButtonReset.className = "btn btn-default";
+            loginTextSpam.innerHTML = "Reset";
+        });
+        submitButtonReset.addEventListener("click", function () {
+            var url = '@Url.Action("PasswordRecovery", "Employee")';
+            var email = document.getElementById("Email").value;
+            url += "?email=" + email;
+            submitButtonReset.parentElement.innerHTML = "Poslata vam je nova lozinka na mail";
+
+            $.post(url, function (data) {
+                if (data.success === true) {
+                    setTimeout(function () {}, 800);
+                    window.location.reload(false);
+                } else {
+                    alert("Recovery unavailable");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
