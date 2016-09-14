@@ -10,7 +10,7 @@ namespace CrarftedFood.Models
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public Data.Entities.Roles Role { get; set; }
+        public Data.Enums.Roles Role { get; set; }
 
         public static AddEmployeeViewModel Load(int empId)
         {
@@ -19,7 +19,7 @@ namespace CrarftedFood.Models
             {
                 Name = emp.Name,
                 Email = emp.Email,
-                Role = (Data.Entities.Roles)emp.RoleId
+                Role = (Data.Enums.Roles)emp.RoleId
             };
         }
     }
@@ -30,7 +30,7 @@ namespace CrarftedFood.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public Data.Entities.Roles Role { get; set; }
+        public Data.Enums.Roles Role { get; set; }
 
         public static ShowEmployeeViewModel Load(int empId)
         {
@@ -46,7 +46,7 @@ namespace CrarftedFood.Models
                 Name = emp.Name,
                 Email = emp.Email,
                 Mobile = emp.Mobile,
-                Role = (Data.Entities.Roles)emp.RoleId
+                Role = (Data.Enums.Roles)emp.RoleId
             };
         }
     }

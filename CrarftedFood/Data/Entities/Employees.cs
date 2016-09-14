@@ -9,7 +9,7 @@ namespace Data.Entities
 {
     public static class Employees
     {
-        public static void AddEmployee(string name, string email, string password, Roles role)
+        public static void AddEmployee(string name, string email, string password, Data.Enums.Roles role)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -26,7 +26,7 @@ namespace Data.Entities
             }
         }
 
-        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Roles role = 0)
+        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Data.Enums.Roles role = 0)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
