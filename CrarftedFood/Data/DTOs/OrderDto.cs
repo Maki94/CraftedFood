@@ -15,5 +15,7 @@ namespace Data.DTOs
         public double Quantity { get; set; }
         public string Note { get; set; }
         public double Price { get; set; }
+
+        public double TotalPrice { get; set; }
     }
 }
