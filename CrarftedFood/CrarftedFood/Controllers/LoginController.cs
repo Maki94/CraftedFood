@@ -27,7 +27,8 @@ namespace CrarftedFood.Controllers
 
 
             //priveremeno
-            //return RedirectToAction("Index", "Menu");
+            return RedirectToAction("Index", "Menu");
+
 
             return View();
         }

@@ -86,6 +86,18 @@ namespace Data.Entities
             }
         }
 
+        public static void editImage(int mealId, byte[] file)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                Meal m = dc.Meals.First(a => a.MealId == mealId);
+                m.Image = new System.Data.Linq.Binary(file);
+                dc.SubmitChanges();
+
+            }
+        }
+
+
         public static float GetAverageRate(int? mealId)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
@@ -171,6 +183,35 @@ namespace Data.Entities
             using (var dc = new DataClassesDataContext())
             {
                 return dc.Meals.First(x => x.MealId == mealId);
+            }
+        }
+
+        public static bool OrderMeal(int mealId, int empId, DateTime dateRequested, DateTime dateToDeliver, string note, float quantity)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Request r = new Request()
+                    {
+                        MealId = mealId,
+                        EmployeeId = empId,
+                        DateRequested = dateRequested,
+                        DateDelivered = null,
+                        DateToDeliver = dateToDeliver,
+                        Note = note,
+                        Quantity = quantity,
+                        payedDate = null,
+                        Comment = null
+                    };
+                    dc.Requests.InsertOnSubmit(r);
+                    dc.SubmitChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
             }
         }
     }

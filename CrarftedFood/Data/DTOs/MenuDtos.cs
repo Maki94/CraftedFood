@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Data.DTOs
 {
@@ -18,6 +19,7 @@ namespace Data.DTOs
         public Data.Enums.Units Unit { get; set; }
         public Data.Enums.Categories Category { get; set; }
         public float? Rating { get; set; }
+        public HttpPostedFileBase file { get; set; }
 
         public static MenuMealItem Load(int mealId)
         {

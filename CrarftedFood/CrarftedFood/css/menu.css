@@ -38,7 +38,9 @@ a {
 h2 {
     line-height: 1.2;
     margin-bottom: 1.6rem;
+    font-size: xx-large;
 }
+
 
 
 .menu-wrapper {
@@ -93,6 +95,16 @@ h2 {
 .card__image {
     min-height: 100px;
     background-color: #eee;
+   
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    min-width: 250px;
+    max-width: 400px;
+    min-height: 360px;
+    max-height: 400px;
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
     .card__image img {
         width: 100%;

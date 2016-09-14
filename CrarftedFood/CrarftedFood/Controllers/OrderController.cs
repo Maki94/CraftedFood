@@ -17,6 +17,18 @@ namespace CrarftedFood.Controllers
             return View(order);
         }
 
+<<<<<<< HEAD
+        #region ORDER
+
+        [HttpPost]
+        public ActionResult NewOrder()
+        {
+
+            return View();
+        }
+
+        #endregion
+=======
         [HttpPost]
         public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
         {
@@ -39,5 +51,6 @@ namespace CrarftedFood.Controllers
 
             return Json(new { success = false, message = "" });
         }
+>>>>>>> b93642d769853dd32e7856ab80b6ec19a294ae65
     }
 }

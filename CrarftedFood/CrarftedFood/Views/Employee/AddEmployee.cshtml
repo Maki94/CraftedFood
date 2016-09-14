@@ -1,19 +1,12 @@
-﻿@model CrarftedFood.Models.AddEmployeeViewModel
+﻿@using CrarftedFood.Extentions
+@model CrarftedFood.Models.AddEmployeeViewModel
 
 @{
     ViewBag.Title = "AddEmployee";
 }
 
 @{
-    List<SelectListItem> roles = new List<SelectListItem>();
-    foreach (var val in Enum.GetValues(typeof(Data.Entities.Roles)))
-    {
-        roles.Add(new SelectListItem
-        {
-            Text = Enum.GetName(typeof(Data.Entities.Roles), val),
-            Value = ((int)val).ToString()
-        });
-    }
+    List<SelectListItem> roles = Data.Enums.Roles.Admin.CreateSelectListItem();
 }
 
 <h2>AddEmployee</h2>

@@ -60,7 +60,7 @@ namespace Data
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString1, mappingSource)
+				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1449,19 +1449,19 @@ namespace Data
 		
 		private float _Quantity;
 		
-		private System.Nullable<System.DateTime> _DateRequested;
+		private System.DateTime _DateRequested;
 		
-		private System.DateTime _DateDelivered;
+		private System.Nullable<System.DateTime> _DateDelivered;
 		
-		private System.Nullable<System.DateTime> _DateToDeliver;
+		private System.DateTime _DateToDeliver;
 		
 		private string _Note;
 		
 		private string _Comment;
 		
-		private System.Nullable<int> _EmployeeId;
+		private int _EmployeeId;
 		
-		private System.Nullable<int> _MealId;
+		private int _MealId;
 		
 		private System.Nullable<System.DateTime> _payedDate;
 		
@@ -1477,19 +1477,19 @@ namespace Data
     partial void OnRequestIdChanged();
     partial void OnQuantityChanging(float value);
     partial void OnQuantityChanged();
-    partial void OnDateRequestedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateRequestedChanging(System.DateTime value);
     partial void OnDateRequestedChanged();
-    partial void OnDateDeliveredChanging(System.DateTime value);
+    partial void OnDateDeliveredChanging(System.Nullable<System.DateTime> value);
     partial void OnDateDeliveredChanged();
-    partial void OnDateToDeliverChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateToDeliverChanging(System.DateTime value);
     partial void OnDateToDeliverChanged();
     partial void OnNoteChanging(string value);
     partial void OnNoteChanged();
     partial void OnCommentChanging(string value);
     partial void OnCommentChanged();
-    partial void OnEmployeeIdChanging(System.Nullable<int> value);
+    partial void OnEmployeeIdChanging(int value);
     partial void OnEmployeeIdChanged();
-    partial void OnMealIdChanging(System.Nullable<int> value);
+    partial void OnMealIdChanging(int value);
     partial void OnMealIdChanged();
     partial void OnpayedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnpayedDateChanged();
@@ -1542,8 +1542,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateRequested", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateRequested
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateRequested", DbType="DateTime NOT NULL")]
+		public System.DateTime DateRequested
 		{
 			get
 			{
@@ -1562,8 +1562,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelivered", DbType="DateTime NOT NULL")]
-		public System.DateTime DateDelivered
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateDelivered", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateDelivered
 		{
 			get
 			{
@@ -1582,8 +1582,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateToDeliver", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateToDeliver
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateToDeliver", DbType="DateTime NOT NULL")]
+		public System.DateTime DateToDeliver
 		{
 			get
 			{
@@ -1642,8 +1642,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int")]
-		public System.Nullable<int> EmployeeId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL")]
+		public int EmployeeId
 		{
 			get
 			{
@@ -1666,8 +1666,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", DbType="Int")]
-		public System.Nullable<int> MealId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MealId", DbType="Int NOT NULL")]
+		public int MealId
 		{
 			get
 			{
@@ -1737,7 +1737,7 @@ namespace Data
 					}
 					else
 					{
-						this._EmployeeId = default(Nullable<int>);
+						this._EmployeeId = default(int);
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -1771,7 +1771,7 @@ namespace Data
 					}
 					else
 					{
-						this._MealId = default(Nullable<int>);
+						this._MealId = default(int);
 					}
 					this.SendPropertyChanged("Meal");
 				}

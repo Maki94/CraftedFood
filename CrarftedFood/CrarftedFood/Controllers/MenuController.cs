@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -72,13 +73,39 @@ namespace CrarftedFood.Controllers
 
         public ActionResult AddMeal()
         {
-            //TODO View
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditMealImage(HttpPostedFileBase file, int mealId)
+        {
+            if (file != null)
+            {
+                byte[] array;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    array = ms.GetBuffer();
+                }
+                Data.Entities.Meals.editImage(mealId, array);
+            }
+
+            return Json(new {success = true});
         }
 
         [HttpPost]
         public ActionResult AddMeal(MenuMealItem model)
         {
+            if (model.file != null)
+            {
+                byte[] array;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    model.file.InputStream.CopyTo(ms);
+                    array = ms.GetBuffer();
+                }
+                model.Image = array;
+            }
             Data.Entities.Meals.AddMeal(model.Title, model.Description, model.Image, model.Price, model.Quantity, model.Unit, model.Category);
             return RedirectToAction("Index");
         }
@@ -115,15 +142,7 @@ namespace CrarftedFood.Controllers
 
         #endregion
 
-        #region ORDER
-
-        [HttpPost]
-        public ActionResult NewOrder()
-        {
-            return View();
-        }
-
-        #endregion
+        
 
     }
 }
