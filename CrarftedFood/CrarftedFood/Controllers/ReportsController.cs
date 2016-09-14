@@ -9,9 +9,11 @@ namespace CrarftedFood.Controllers
     public class ReportsController : Controller
     {
         // GET: Reports
-        public ActionResult Index()
+        public ActionResult Index(bool delivery, bool order, bool invoice)
         {
             return View();
         }
+
+
     }
 }
