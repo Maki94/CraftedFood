@@ -129,6 +129,19 @@ namespace Data.Entities
             }
         }
 
+        public static List<MealCommentDTO> GetComments(int mealId)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Ratings.Where(a=> a.MealId == mealId).Select(r => new MealCommentDTO
+                {
+                    Date = string.Format("{0:MM-dd-yy}", r.Date),
+                    Comment = r.Comment,
+                    CommenterName = r.Employee.Name
+                }).ToList();
+            }
+        }
+
         public static void RateMeal(int empId, int mealId, float rating)
         {
             using (var dc = new DataClassesDataContext())

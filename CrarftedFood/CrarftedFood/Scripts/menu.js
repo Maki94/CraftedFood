@@ -11,7 +11,9 @@ $(document).ready(function($) {
     var dialog = document.getElementById('order_dialog');
 
     $('.card__social > a').on('click', function(e){
-        dialog.querySelector('span').innerHTML += "datum je" + this.attributes['attr-day'].value;
+        dialog.querySelector('span').innerHTML = "\ndatum je" + this.attributes['attr-day'].value;
+        mealId = this.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
+        dialog.querySelector('span').innerHTML += "\nmealId:" + mealId;
        dialog.showModal();
     });
 
@@ -30,11 +32,6 @@ $(document).ready(function($) {
 
     $('.description').on('click', function(e){
       this.classList.toggle('short');
-    });
-
-    $('.comments_button').on('click', function(e){
-      this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
-      this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
     });
 
     $('.card__share > a').on('click', function(e){

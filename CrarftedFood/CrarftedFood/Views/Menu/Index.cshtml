@@ -18,11 +18,11 @@
                 </div>
 
                 <div class="card__content card__padding">
-                    <span class="meal-id" hidden>@meal.MealId</span>
+                    <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
                     <div class="card__share">
                         <div class="card__social">
                         </div>
-                        <a id="share" class="share-toggle share-icon" href="#"></a>
+                        <a class="share share-toggle share-icon" href="#"></a>
                     </div>
 
                     <div class="card__meta">
@@ -77,10 +77,10 @@
                             <h2>
                                 <a href="#">@meal.Title</a>
                             </h2>
-                            <span class="quantity">@meal.Quantity@meal.Unit.Value.ToDescription()</span>
+                            <span class="quantity">@meal.Quantity@meal.Unit.ToDescription()</span>
                         </div>
 
-                        <p class="description short">@meal.Desription</p>
+                        <p class="description short">@meal.Description</p>
 
                     </article>
                 </div>
@@ -91,7 +91,7 @@
                         <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
                         <div class="card__author-content">
                             <span class="mdl-chip">
-                                <span class="mdl-chip__text">@meal.Category.Value.ToDescription()</span>
+                                <span class="mdl-chip__text">@meal.Category.ToDescription()</span>
                             </span>
                             <span>@meal.Price din</span>
                         </div>
@@ -111,8 +111,8 @@
 <script src="~/Scripts/menu.js"></script>
 
 <script>
-    
-    $('.rating-list > li').on('click', function (e) {
+
+    $('.rating-list > li').on('click', function(e) {
         sendData = {
             mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
             rating: parseInt(this.innerHTML.charAt(0))
@@ -122,11 +122,43 @@
             url: "@Url.Action("RateMeal","Menu")",
             method: "POST",
             data: sendData,
-            success: function (result) {
+            success: function(result) {
                 var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
                 document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
-            }});
-    })
+            }
+        });
+    });
+
+    function formatDate(date) {
+        return date.getDate() + "." + date.getMonth() + "." + date.getYear();
+    }
+
+    $('.comments_button').on('click', function (e) {
+
+        self = this;
+        mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
+        
+        //get comments
+        $.ajax({
+            url: "@Url.Action("GetComments","Menu")",
+            method: "POST",
+            data: {mealId: mealId},
+            success: function(result) {
+                if (result.success == true) {
+                    var container = self.parentElement.parentElement.querySelector('.comments :first-child');
+                    debugger;
+                    for (var i = 0; i < result.comments.length; i++) {
+                        container.innerHTML += '<div><h6>' + result.comments[i].CommenterName + '</h6><span class="date">' + formatDate(new Date("" + result.comments[i].Date)) + '</span><p>' + result.comments[i].Comment + '</p></div>';
+                    }
+                }
+            }
+        });
+
+
+        //toggle
+        this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
+        this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
+    });
 
     $('.add-comment button').on('click', function(e) {
         sendData = {
@@ -137,13 +169,14 @@
         $.ajax({
             url: "@Url.Action("CommentMeal","Menu")",
             method: "POST",
-        data: sendData,
-        success: function (result) {
-            debugger;
-            document.getElementsByClassName('meal-id')[0].parentElement.querySelector('.comments :first-child').innerHTML +=
-                '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + new Date().toDateString() + '</span><p>' + sendData.comment + '</p></div>';
-        }});
-    })
+            data: sendData,
+            success: function(result) {
+                var now = new Date();
+                document.querySelector('*[data-id="' + sendData.mealId + '"]').parentElement.querySelector('.comments :first-child').innerHTML +=
+                    '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
+            }
+        });
+    });
 </script>
 
 

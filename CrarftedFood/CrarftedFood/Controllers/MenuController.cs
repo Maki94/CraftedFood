@@ -40,6 +40,14 @@ namespace CrarftedFood.Controllers
 
         }
 
+
+        [HttpPost]
+        public ActionResult GetComments(int mealId)
+        {
+            var cmms = Data.Entities.Meals.GetComments(mealId);
+            return Json(new { success = true , comments = cmms });
+        }
+
         #endregion
 
         #region RATE

@@ -36,4 +36,12 @@ namespace Data.DTOs
             };
         }
     }
+    
+
+    public class MealCommentDTO
+    {
+        public string Date { get; set; }
+        public string Comment { get; set; }
+        public string CommenterName { get; set; }
+    }
 }
