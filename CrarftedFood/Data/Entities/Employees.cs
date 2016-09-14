@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Security;
+using Roles = Data.Enums.Roles;
 
 namespace Data.Entities
 {
     public static class Employees
     {
-        public static void AddEmployee(string name, string email, string password, Data.Enums.Roles role)
+        public static void AddEmployee(string name, string email, string password, Roles role)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
-                Data.Employee emp = new Data.Employee
+                var emp = new Employee
                 {
                     Name = name,
                     Email = email,
                     Password = password,
-                    RoleId = (int)role,
+                    RoleId = (int) role,
                     IsActive = true
                 };
                 dc.Employees.InsertOnSubmit(emp);
@@ -26,31 +25,24 @@ namespace Data.Entities
             }
         }
 
-        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null, Data.Enums.Roles role = 0)
+        public static void EditEmployee(int empId, string name = null, string email = null, string mobile = null,
+            Roles role = 0)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 try
                 {
-                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
                     if (emp.IsActive)
                     {
                         if (name != null)
-                        {
                             emp.Name = name;
-                        }
                         if (email != null)
-                        {
                             emp.Email = email;
-                        }
                         if (mobile != null)
-                        {
                             emp.Mobile = mobile;
-                        }
                         if (role != 0)
-                        {
-                            emp.RoleId = (int)role;
-                        }
+                            emp.RoleId = (int) role;
                         dc.SubmitChanges();
                     }
                 }
@@ -63,14 +55,14 @@ namespace Data.Entities
 
         public static void ChangePassword(int empId, string password)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 try
                 {
-                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
                     if (emp.IsActive)
                     {
-                        string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(password, emp.Email);
+                        var hashedPass = HashPassword.SaltedHashPassword(password, emp.Email);
                         emp.Name = hashedPass;
                         dc.SubmitChanges();
                     }
@@ -81,31 +73,33 @@ namespace Data.Entities
                 }
             }
         }
-        
+
+        public static bool CheckEmail(string email)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Employees.Any(x => x.Email == email);
+            }
+        }
+
         public static void EditMyData(int empId, string name = null, string email = null, string mobile = null)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 try
                 {
-                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
 
                     if (emp.IsActive)
                     {
                         if (name != null)
-                        {
                             emp.Name = name;
-                        }
                         if (email != null)
-                        {
                             emp.Email = email;
-                        }
                         if (mobile != null)
-                        {
                             emp.Mobile = mobile;
-                        }
 
-                        dc.SubmitChanges(); 
+                        dc.SubmitChanges();
                     }
                 }
                 catch (Exception)
@@ -117,11 +111,11 @@ namespace Data.Entities
 
         public static void DeleteEmployee(int empId)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 try
                 {
-                    Data.Employee emp = dc.Employees.Where(x => x.EmployeeId == empId).First();
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
                     emp.IsActive = false;
                     dc.SubmitChanges();
                 }
@@ -131,18 +125,18 @@ namespace Data.Entities
                 }
             }
         }
-        
+
         public static Employee GetEmployeeAt(int empId)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
-               return dc.Employees.First(x => x.EmployeeId == empId && x.IsActive);
+                return dc.Employees.First(x => (x.EmployeeId == empId) && x.IsActive);
             }
         }
 
         public static List<Employee> GetAllActiveEmployees()
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 return dc.Employees.Where(x => x.IsActive).ToList();
             }
@@ -150,16 +144,16 @@ namespace Data.Entities
 
         public static List<object> PasswordRecovery(string email)
         {
-            using (DataClassesDataContext dc = new DataClassesDataContext())
+            using (var dc = new DataClassesDataContext())
             {
                 try
                 {
-                    List<object> ret = new List<object>();
-                    Data.Employee emp = dc.Employees.Where(x => x.Email == email).First();
+                    var ret = new List<object>();
+                    var emp = dc.Employees.First(x => x.Email == email);
                     if (emp.IsActive)
                     {
-                        string pass = Membership.GeneratePassword(7, 0);
-                        string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, emp.Email);
+                        var pass = Membership.GeneratePassword(7, 0);
+                        var hashedPass = HashPassword.SaltedHashPassword(pass, emp.Email);
                         emp.Password = hashedPass;
                         dc.SubmitChanges();
 

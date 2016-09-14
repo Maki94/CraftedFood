@@ -27,7 +27,7 @@ namespace CrarftedFood.Controllers
 
 
             //priveremeno
-            return RedirectToAction("Index", "Menu");
+            //return RedirectToAction("Index", "Menu");
 
             return View();
         }
@@ -38,6 +38,7 @@ namespace CrarftedFood.Controllers
             Employee emp = Data.Entities.Login.CheckUsernameAndPassword(model.Email, model.Password);
             if (emp == null)
             {
+                return View();
                 return Json(new { success = false, message = "incorrect credientals" });
             }
 
