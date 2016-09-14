@@ -47,7 +47,10 @@ namespace Data.Entities
                 {
                     var meal = dc.Meals.First(x => x.MealId == mealId);
                     dc.Meals.DeleteOnSubmit(meal);
-                    //TODO brisati raiting i comment
+
+                    var ratings = dc.Ratings.Where(x => x.MealId == mealId).ToList();
+                    dc.Ratings.DeleteAllOnSubmit(ratings);
+
                     dc.SubmitChanges();
                 }
                 catch (Exception)

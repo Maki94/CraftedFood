@@ -26,7 +26,6 @@ namespace CrarftedFood.Models
 
         public static MealViewModel Load(int mealId)
         {
-            
             var meal = Meals.GetMealAt(mealId);
 
             return new MealViewModel()
