@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.ModelBinding;
 using System.Web.UI.WebControls;
 using Data.DTOs;
+using Data.Enums;
 
 namespace Data.Entities
 {
@@ -94,8 +95,8 @@ namespace Data.Entities
                     Image = meal.Image == null ? null : meal.Image.ToArray(),
                     Price = meal.Price,
                     Quantity = meal.Quantity,
-                    Unit = (Data.Entities.Units) meal.UnitId,
-                    Category = (Data.Entities.Categories) meal.CategoryId,
+                    Unit = (Data.Enums.Units) meal.UnitId,
+                    Category = (Data.Enums.Categories) meal.CategoryId,
                     Rating = null //TODO meal.Ratings.Select(a => a.Rating1)?.Average()
                 }).ToList();
             }
