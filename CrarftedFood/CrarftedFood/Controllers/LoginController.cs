@@ -13,21 +13,21 @@ namespace CrarftedFood.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+            //var email = "masadordevic@gmail.com";
+            //var pass = "A^>gF:@";
 
-            Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
-            if (emp == null)
-            {
-                return Json(new { success = false, message = "incorrect credientals" });
-            }
+            //Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            //if (emp == null)
+            //{
+            //    return Json(new { success = false, message = "incorrect credientals" });
+            //}
 
-            UserSession.SetUser(emp);
-            Session.Timeout = 525600;
+            //UserSession.SetUser(emp);
+            //Session.Timeout = 525600;
 
 
-            //priveremeno
-            return RedirectToAction("Index", "Menu");
+            ////priveremeno
+            //return RedirectToAction("Index", "Menu");
 
 
             return View();
