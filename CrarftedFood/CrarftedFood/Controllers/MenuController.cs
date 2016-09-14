@@ -25,22 +25,16 @@ namespace CrarftedFood.Controllers
 
         #region COMMENT
 
-        public class CommentBindClass
-        {
-            public int? mealId;
-            public string comment;
-        }
-
         [HttpPost]
-        public ActionResult CommentMeal(CommentBindClass model)
+        public ActionResult CommentMeal(int mealId, string comment)
         {
-            if (model == null || model.mealId == null || String.IsNullOrEmpty(model?.comment))
+            if (mealId == null || String.IsNullOrEmpty(comment))
             {
                 return Json(new { success = false, message = "incorrect parameters" });
             }
 
             Employee emp = UserSession.GetUser();
-            Data.Entities.Meals.CommentMeal(emp.EmployeeId, model.mealId.Value, model.comment);
+            Data.Entities.Meals.CommentMeal(emp.EmployeeId, mealId, comment);
 
             return Json(new { success = true });
 
