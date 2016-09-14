@@ -15,5 +15,16 @@ namespace CrarftedFood.Controllers
             };
             return View(order);
         }
+
+        #region ORDER
+
+        [HttpPost]
+        public ActionResult NewOrder()
+        {
+
+            return View();
+        }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrarftedFood.Tests
 {
@@ -48,16 +49,18 @@ namespace CrarftedFood.Tests
         //}
 
 
+        //[TestMethod]
+        //public async void SendMail()
+        //{
+        //    CrarftedFood.Controllers.EmployeeController cont = new CrarftedFood.Controllers.EmployeeController();
+        //    await cont.SendEmail("mitic.nikolca94@gmail.com", "Nikola Mitić", "blabla");
+        //}
         [TestMethod]
-        public async void SendMail()
-        {
-            CrarftedFood.Controllers.EmployeeController cont = new CrarftedFood.Controllers.EmployeeController();
-            await cont.SendEmail("mitic.nikolca94@gmail.com", "Nikola Mitić", "blabla");
-        }
-
         public void AddOrders()
         {
-            // TODO: @nikolacar Potrebna je metoda a dodavanje Reporta u Entity Reports 
+            Data.Entities.Meals.OrderMeal(1, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 18), "kupus", 2);
+
+            Data.Entities.Meals.OrderMeal(2, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 19), "kecap", 1);
         }
     }
 }

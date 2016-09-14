@@ -13,7 +13,7 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
                     Quantity = a.Quantity,
                     Price = a.Meal.Price * a.Quantity,
@@ -27,7 +27,7 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.DateRequested.Value.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
@@ -60,7 +60,8 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested == null || ((end == null || a.DateRequested.Value.Date <= end.Value.Date) && (start == null || a.DateRequested.Value.Date >= start.Value.Date)))
+                //TODO 
+                return dc.Requests.Where(a => a.EmployeeId == empId && (start.HasValue ? start.Value<=a.DateRequested : true))
                     .Select(a => new OrderDto
                     {
                         Quantity = a.Quantity,
