@@ -8,23 +8,26 @@
 
 <style>
     #table-orders th a{
-        text-align: center;
+        text-align: center !important;
+    }
+    #table-orders th{
+        width: 25%;
     }
 </style>
 <table id="table-orders" class="table text-center">
     <tr>
         <th>
             @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            <a href=#>Meal Title</a>
+            <a id="mealTitle" href=#>Meal Title</a>
         </th>
         <th>
-            <a href=#>Quantity</a>
+            <a id="quantity" href=#>Quantity</a>
         </th>
         <th>
-            <a href=#>Price</a>
+            <a id="price" href=#>Price</a>
         </th>
         <th>
-            <a href=#>Note</a>
+            <a id="note" href=#>Note</a>
         </th>
     </tr>
 
@@ -55,3 +58,29 @@
     </tr>
     }*@
 </table>
+
+<script>
+    $("#mealTitle").click(function() {
+        var url = @Url.Action("GetOrders","Order", new { orderType = "mealTitle" });
+        $.post(url, function (data) {
+            if (data.success === true) {
+                //setTimeout(function () {}, 800);
+                window.location.reload(false);
+            } else {
+                alert("Recovery unavailable");
+            }
+        });
+    });
+    $("#quantity").click(function () {
+        var url = @Url.Action("GetOrders","Order", new { orderType= "quantity" });
+
+    });
+    $("#price").click(function () {
+        var url = @Url.Action("GetOrders","Order", new { orderType = "price" });
+
+    });
+    $("#note").click(function () {
+        var url = @Url.Action("GetOrders","Order", new { orderType = "note" });
+
+    });
+</script>

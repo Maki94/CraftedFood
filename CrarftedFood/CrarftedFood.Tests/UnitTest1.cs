@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+﻿using CrarftedFood.Extentions;
+>>>>>>> b93642d769853dd32e7856ab80b6ec19a294ae65
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrarftedFood.Tests
@@ -61,6 +65,14 @@ namespace CrarftedFood.Tests
             Data.Entities.Meals.OrderMeal(1, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 18), "kupus", 2);
 
             Data.Entities.Meals.OrderMeal(2, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 19), "kecap", 1);
+        }
+
+        [TestMethod]
+        public void EnumCreateListExtention()
+        {
+            var a = Data.Enums.Units.grams.CreateSelectListItem();
+
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CrarftedFood.Extentions
 {
@@ -23,6 +24,22 @@ namespace CrarftedFood.Extentions
 
             return enumeration.ToString();
         }
+
+        public static List<SelectListItem> CreateSelectListItem(this Enum enumeration)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var val in Enum.GetValues(enumeration.GetType()))
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = Enum.GetName(enumeration.GetType(), val),
+                    Value = ((int)val).ToString()
+                });
+            }
+            return list;
+        } 
+
+
 
        
     }

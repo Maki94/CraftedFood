@@ -86,6 +86,18 @@ namespace Data.Entities
             }
         }
 
+        public static void editImage(int mealId, byte[] file)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                Meal m = dc.Meals.First(a => a.MealId == mealId);
+                m.Image = new System.Data.Linq.Binary(file);
+                dc.SubmitChanges();
+
+            }
+        }
+
+
         public static float GetAverageRate(int? mealId)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
