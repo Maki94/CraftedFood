@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 ﻿using System;
-=======
 ﻿using CrarftedFood.Extentions;
->>>>>>> b93642d769853dd32e7856ab80b6ec19a294ae65
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CrarftedFood.Tests
