@@ -60,15 +60,25 @@ namespace CrarftedFood.Tests
         [TestMethod]
         public void AddOrders()
         {
-            Data.Entities.Meals.OrderMeal(1, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 18), "kupus", 2);
+            //Data.Entities.Meals.OrderMeal(1, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 18), "kupus", 2);
 
-            Data.Entities.Meals.OrderMeal(2, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 19), "kecap", 1);
+            //Data.Entities.Meals.OrderMeal(2, 7, new DateTime(2016, 9, 13), new DateTime(2016, 9, 19), "kecap", 1);
+
+            var a = Data.Entities.Reports.GetOrdersOfEmployee(7);
         }
 
         [TestMethod]
         public void EnumCreateListExtention()
         {
             var a = Data.Enums.Units.grams.CreateSelectListItem();
+
+
+        }
+
+        [TestMethod]
+        public void Invoice()
+        {
+            var a = Data.Entities.Reports.GetInvoiceReport(DateTime.Now, DateTime.Now);
 
 
         }

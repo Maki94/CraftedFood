@@ -64,7 +64,11 @@ namespace Data.Entities
                 }
                 if (end == null)
                 {
+<<<<<<< HEAD
                     end = new DateTime(9999, 12, 31);
+=======
+                    end = new DateTime(9999, 12, 31); 
+>>>>>>> a14837e2ef80af8bf786d6e4ebe92c34a66311a3
                 }
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date<=a.DateRequested.Date && a.DateRequested.Date<=end.Value.Date)
                     .Select(a => new OrderDto

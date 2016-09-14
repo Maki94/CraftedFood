@@ -23,8 +23,14 @@ namespace CrarftedFood.Controllers
                 return Json(new { success = false, message = "incorrect credientals" });
             }
 
-            UserSession.SetUser(emp);
-            Session.Timeout = 525600;
+            //Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            //if (emp == null)
+            //{
+            //    return Json(new { success = false, message = "incorrect credientals" });
+            //}
+
+            //UserSession.SetUser(emp);
+            //Session.Timeout = 525600;
 
 
             //priveremeno
