@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Data.DTOs;
 
 namespace Data.Entities
@@ -62,11 +60,11 @@ namespace Data.Entities
             {
                 if (start == null)
                 {
-                    start = new DateTime(9999,12,31);
+                    start = new DateTime(1753, 1, 2);
                 }
                 if (end == null)
                 {
-                    end = new DateTime(1753, 1, 2);
+                    end = new DateTime(9999, 12, 31);
                 }
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date<=a.DateRequested.Date && a.DateRequested.Date<=end.Value.Date)
                     .Select(a => new OrderDto
