@@ -56,11 +56,11 @@ namespace Data.Entities
             }
         }
 
-        public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime start, DateTime end)
+        public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start = null, DateTime? end = null)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Value.Date <= end.Date && a.DateRequested.Value.Date >= start.Date)
+                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested == null || ((end == null || a.DateRequested.Value.Date <= end.Value.Date) && (start == null || a.DateRequested.Value.Date >= start.Value.Date)))
                     .Select(a => new OrderDto
                     {
                         Quantity = a.Quantity,
@@ -70,30 +70,7 @@ namespace Data.Entities
                     }).ToList();
             }
         }
-
-        public static List<OrderDto> GetOrderDtos(int employeeId)
-        {
-            try
-            {
-                using (var dc = new DataClassesDataContext())
-                {
-                    List<OrderDto> c = dc.Requests.Where(x => x.EmployeeId == employeeId)
-                        .Select(a => new OrderDto
-                        {
-                            Quantity = a.Quantity,
-                            Price = a.Meal.Price * a.Quantity,
-                            MealTitle = a.Meal.Title,
-                            Note = a.Note
-                        }).ToList();
-                    return c;
-                }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-        }
+        
 
     }
 }
