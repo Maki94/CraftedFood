@@ -1,3 +1,4 @@
+@using CrarftedFood.Extentions
 @using Data.DTOs
 @model CrarftedFood.Models.MenuViewModel
 
@@ -17,6 +18,7 @@
                 </div>
 
                 <div class="card__content card__padding">
+                    <span class="meal-id" hidden>@meal.MealId</span>
                     <div class="card__share">
                         <div class="card__social">
                         </div>
@@ -24,11 +26,11 @@
                     </div>
 
                     <div class="card__meta">
-                        <button id="demo-menu-lower-left" class="mdl-js-button">
+                        <button id="@meal.MealId" class="mdl-js-button">
                             <span class="rating">@(meal.Rating?.ToString() ?? "N/A")<i class="fa fa-star" aria-hidden="true"></i></span>
                         </button>
-                        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-                            for="demo-menu-lower-left">
+                        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect rating-list"
+                            for="@meal.MealId">
                             <li class="mdl-menu__item">1</li>
                             <li class="mdl-menu__item">2</li>
                             <li class="mdl-menu__item">3</li>
@@ -53,13 +55,20 @@
 
                     <article class="comments hide">
                         <div>
-                            <h6>Marko Petrovic</h6><span class="date">12.8.2016</span>
-                            <p>Odlcina pljeskavica, toplo preporucujem</p>
+                            <div>
+                                <h6>Marko Petrovic</h6><span class="date">12.8.2016</span>
+                                <p>Odlcina pljeskavica, toplo preporucujem</p>
+                            </div>
+
+                            <div>
+                                <h6>Nikola Nikolic</h6><span class="date">8.7.2016</span>
+                                <p>Klasika! Super je</p>
+                            </div>
                         </div>
 
-                        <div>
-                            <h6>Nikola Nikolic</h6><span class="date">8.7.2016</span>
-                            <p>Klasika! Super je</p>
+                        <div class="add-comment">
+                            <input type="text" placeholder="Add comment "/>
+                            <button><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
                     </article>
 
@@ -68,7 +77,7 @@
                             <h2>
                                 <a href="#">@meal.Title</a>
                             </h2>
-                            <span class="quantity">@meal.Quantity @meal.Unit.ToString()</span>
+                            <span class="quantity">@meal.Quantity@meal.Unit.Value.ToDescription()</span>
                         </div>
 
                         <p class="description short">@meal.Desription</p>
@@ -82,7 +91,7 @@
                         <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
                         <div class="card__author-content">
                             <span class="mdl-chip">
-                                <span class="mdl-chip__text">@meal.Category.ToString()</span>
+                                <span class="mdl-chip__text">@meal.Category.Value.ToDescription()</span>
                             </span>
                             <span>@meal.Price din</span>
                         </div>
@@ -100,5 +109,41 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="~/Scripts/menu.js"></script>
+
+<script>
+    
+    $('.rating-list > li').on('click', function (e) {
+        sendData = {
+            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
+            rating: parseInt(this.innerHTML.charAt(0))
+        };
+
+        $.ajax({
+            url: "@Url.Action("RateMeal","Menu")",
+            method: "POST",
+            data: sendData,
+            success: function (result) {
+                var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
+                document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
+            }});
+    })
+
+    $('.add-comment button').on('click', function(e) {
+        sendData = {
+            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
+            comment: this.parentElement.getElementsByTagName('input')[0].value
+        }
+
+        $.ajax({
+            url: "@Url.Action("CommentMeal","Menu")",
+            method: "POST",
+        data: sendData,
+        success: function (result) {
+            debugger;
+            document.getElementsByClassName('meal-id')[0].parentElement.querySelector('.comments :first-child').innerHTML +=
+                '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + new Date().toDateString() + '</span><p>' + sendData.comment + '</p></div>';
+        }});
+    })
+</script>
 
 

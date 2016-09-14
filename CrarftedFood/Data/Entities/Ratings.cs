@@ -62,7 +62,7 @@ namespace Data.Entities
 
                     if (comment != null) rating.Comment = comment;
                     if (rating1 != -1) rating.Rating1 = rating1;
-                    if (date != null) rating.Date = date;
+                    if (date != null) rating.Date = date.Value;
                     if (employeeId != -1) rating.EmployeeId = employeeId;
                     if (mealId != -1) rating.EmployeeId = mealId;
 

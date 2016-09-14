@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.ModelBinding;
 using System.Web.UI.WebControls;
 using Data.DTOs;
+using Data.Enums;
 
 namespace Data.Entities
 {
@@ -46,6 +47,10 @@ namespace Data.Entities
                 {
                     var meal = dc.Meals.First(x => x.MealId == mealId);
                     dc.Meals.DeleteOnSubmit(meal);
+
+                    var ratings = dc.Ratings.Where(x => x.MealId == mealId).ToList();
+                    dc.Ratings.DeleteAllOnSubmit(ratings);
+
                     dc.SubmitChanges();
                 }
                 catch (Exception)
@@ -81,7 +86,13 @@ namespace Data.Entities
             }
         }
 
-
+        public static float GetAverageRate(int? mealId)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                return dc.Ratings.Where(x => x.MealId == mealId && x.Rating1 != null).Select(x => x.Rating1.Value).ToList().Average();
+            }
+        }
 
         public static List<MenuMealItem> GetMenu()
         {
@@ -89,14 +100,15 @@ namespace Data.Entities
             {
                 return dc.Meals.Select(meal => new MenuMealItem
                 {
+                    MealId = meal.MealId,
                     Title = meal.Title,
                     Desription = meal.Description,
                     Image = meal.Image == null ? null : meal.Image.ToArray(),
                     Price = meal.Price,
                     Quantity = meal.Quantity,
-                    Unit = (Data.Entities.Units) meal.UnitId,
-                    Category = (Data.Entities.Categories) meal.CategoryId,
-                    Rating = null //TODO meal.Ratings.Select(a => a.Rating1)?.Average()
+                    Unit = (Data.Enums.Units) meal.UnitId,
+                    Category = (Data.Enums.Categories) meal.CategoryId,
+                    Rating = meal.Ratings.Select(a => a.Rating1).Average()
                 }).ToList();
             }
         }
@@ -112,20 +124,40 @@ namespace Data.Entities
                     Date = DateTime.Now,
                     MealId = mealId
                 };
+                dc.Ratings.InsertOnSubmit(r);
+                dc.SubmitChanges();
             }
         }
 
-        public static void RateMeal(int empId, int mealId, double rating)
+        public static void RateMeal(int empId, int mealId, float rating)
         {
             using (var dc = new DataClassesDataContext())
             {
-                Rating r = new Rating
+                Rating rate = dc.Ratings.FirstOrDefault(x => x.EmployeeId == empId && x.MealId == mealId);
+                if (rate != null)
                 {
-                    EmployeeId = empId,
-                    Rating1 = (float)rating,
-                    Date = DateTime.Now,
-                    MealId = mealId
-                };
+                    rate.Rating1 = rating;
+                }
+                else
+                {
+                    Rating r = new Rating
+                    {
+                        EmployeeId = empId,
+                        Rating1 = (float)rating,
+                        Date = DateTime.Now,
+                        MealId = mealId
+                    };
+                    dc.Ratings.InsertOnSubmit(r);
+                }
+                dc.SubmitChanges();
+            }
+        }
+
+        public static Meal GetMealAt(int mealId)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Meals.First(x => x.MealId == mealId);
             }
         }
     }

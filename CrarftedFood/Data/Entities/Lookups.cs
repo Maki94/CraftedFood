@@ -1,28 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Enums;
 
-namespace Data.Entities
+
+namespace Data.Enums
 {
-
     public enum Units
     {
+        [Description("gr")]
         grams = 1,
+        [Description("mil")]
         mililiters,
+        [Description("x")]
         piece
     }
 
     public enum Categories
     {
-        salad = 1, sandwich, bakery, pasta, sweet, drink, cookedMeal
+        salad = 1,
+        sandwich,
+        bakery,
+        pasta,
+        sweet,
+        drink,
+        [Description("cooked meal")]
+        cookedMeal
     }
 
     public enum Roles
     {
         Admin = 1, User, Client
     }
+}
+
+namespace Data.Entities
+{
+
+    
 
     public static class Lookups
     {

@@ -29,12 +29,12 @@ $(document).ready(function($) {
     });
 
     $('.description').on('click', function(e){
-      $('.description').toggleClass("short");
+      this.classList.toggle('short');
     });
 
     $('.comments_button').on('click', function(e){
-      $('.comments').toggleClass("hide");
-      $('.card__article').toggleClass("hide");
+      this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
+      this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
     });
 
     $('.card__share > a').on('click', function(e){
@@ -42,6 +42,9 @@ $(document).ready(function($) {
         $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
         $(this).toggleClass('share-expanded');
     });
+
+
+
 
 
 
