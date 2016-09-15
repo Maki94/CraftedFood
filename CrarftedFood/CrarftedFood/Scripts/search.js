@@ -1,5 +1,5 @@
 
-
+/* staro
 function search(containerId, text, ignoreExcludes = true, containersAttribute = 'data-id'){
 
   $(".show-search").removeClass("show-search");
@@ -10,7 +10,7 @@ function search(containerId, text, ignoreExcludes = true, containersAttribute = 
    });
    document.getElementById(containerId).innerHTML = newHtml;
 
-
+ debugger;
    var targets = document.getElementsByClassName("targetfound");
    for(var i=0; i<targets.length; i++){
      target = targets[i];
@@ -19,30 +19,37 @@ function search(containerId, text, ignoreExcludes = true, containersAttribute = 
         continue;
       }
 
-     while(!target.parentElement.hasAttribute(containersAttribute)) {
+     while(target.parentElement && !target.parentElement.hasAttribute(containersAttribute)) {
+
        target = target.parentElement;
      }
      target.parentElement.classList.add('show-search');
 
    }
    $(".targetfound").remove();
-}
+}*/
+
+$( document ).ready(function() {
+  //case insensitive search
+      $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+          return function (elem) {
+              return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+          };
+      });
+});
 
 //unutar containera trazi text koji je u textFieldu i prikazuje elemente u okviru containerSelector (koji jos ima i atribut containersAttribute) gde je nesto nadjeno
-//zaobilaze se sadrzaji tagova sa klasom search-exclude ukoliko je ignoreExcludes ture
 //potreban css: (ContainerSelector).emp-container:not( .show-search ) {   display: none;}
-function searchPage(textFieldSelector, container, containerSelector, ignoreExcludes = true, containersAttribute = 'data-id') {
-    $(textFieldSelector).on('change keydown paste input', function(){
-      if(this.value.length > 0) {
-        search(container, this.value, ignoreExcludes, containersAttribute);
-      }else {
-        $(containerSelector).addClass("show-serch");
-      }
+function searchPage(textFieldSelector, container, containerSelector,  containersAttribute = 'data-id') {
+  $(textFieldSelector).on('change keydown paste input', function () {
+        if (this.value.length > 0) {
+            $(".show-search").removeClass("show-search");
+            var results = $(container).children(containerSelector).find(':contains("' + $(textFieldSelector).val() + '")').filter(function () {
+                return $(this).attr('data-id');
+            });
+            results.parent().addClass("show-search");
+        } else {
+            $(containerSelector).addClass("show-search");
+        }
     });
 }
-
-
-$(document).ready(function($) {
-  searchPage("#searchMembersText","members", ".emp-container");
-
-});
