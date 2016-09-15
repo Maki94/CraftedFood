@@ -36,8 +36,16 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult CancelOrder(int orderId)
         {
-            bool s = Data.Entities.Meals.CancelOrder(orderId);
-            return Json(new { success = s});
+
+            if (!Meals.CancelOrder(orderId))
+                return Json(new { success = false});
+
+            var order = new OrderViewModel
+            {
+                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
+            };
+
+            return Json(new { success = true, message = Json(order.Orders)});
         }
 
         #endregion

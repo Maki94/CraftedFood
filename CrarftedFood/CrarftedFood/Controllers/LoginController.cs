@@ -14,8 +14,8 @@ namespace CrarftedFood.Controllers
         public ActionResult Index(string recoverdEmail)
         {
 
-            var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+            var email = "markomihajlovicfm@gmail.com";
+            var pass = "DH3rVe&";
            ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
    
            
