@@ -261,7 +261,14 @@ _:-ms-input-placeholder, :root .demo-graph {
     color: rgba(0,0,0, 0.54); }
 
 
+.mdl-layout__content {
+    overflow-y: visible;
+    overflow-x: visible;
+}
 
+.mdl-layout__drawer {
+    position: fixed;
+}
 
 
 @media screen and (min-width: 1025px) {
