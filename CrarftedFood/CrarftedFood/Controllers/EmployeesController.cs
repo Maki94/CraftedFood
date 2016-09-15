@@ -12,7 +12,7 @@ using Data;
 
 namespace CrarftedFood.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeesController : Controller
     {
         #region LIST OF EMPLOYEES AND PROFILES
         public ActionResult Index()
