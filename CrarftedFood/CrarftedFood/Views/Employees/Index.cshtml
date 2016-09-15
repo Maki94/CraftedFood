@@ -33,7 +33,7 @@
                 <div id="members" class="member-list mdl-grid">
                     @foreach (var m in Model.list)
                     {
-                        <a href="@Url.Action("Profile", "Employee", new {id = m.Id})">
+                        <a href="@Url.Action("Profile", "Employees", new {id = m.Id})">
                             <div class="emp-container mdl-shadow--2dp show-search" data-id="@m.Id">
                                 <figure class="mdl-card__media">
                                     @{
