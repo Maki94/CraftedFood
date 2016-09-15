@@ -1,0 +1,45 @@
+﻿@model CrarftedFood.Models.OrderViewModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <table class="centered bordered striped highlight">
+        <thead>
+            <tr>
+                <th>MealTitle</th>
+                <th>EmployeeName</th>
+                <th>Quantity</th>
+                <th data-field="name">Price</th>
+                <th data-field="price">TotalPrice</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model.Orders)
+        {
+        <tr>
+            <td>@Html.DisplayFor(model => item.MealTitle)</td>
+            <td>@Html.DisplayFor(model => item.EmployeeName)</td>
+            <td>@Html.DisplayFor(model => item.Quantity)</td>
+            <td>@Html.DisplayFor(model => item.Price)</td>
+            <td>@Html.DisplayFor(model => item.TotalPrice)</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+</body>
+</html>
