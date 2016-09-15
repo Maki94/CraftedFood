@@ -18,7 +18,6 @@ namespace CrarftedFood.Controllers
         public ActionResult Index()
         {
             EmployeesViewModel model = EmployeesViewModel.Load();
-            //TODO view
             return View(model);
         }
 

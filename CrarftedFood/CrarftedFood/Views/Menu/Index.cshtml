@@ -173,6 +173,9 @@
             });
         }
 
+        ///hide immage
+        this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
+
         //toggle
         this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
         this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
