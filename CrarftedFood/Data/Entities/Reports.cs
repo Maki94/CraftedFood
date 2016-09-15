@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Data.DTOs;
+using iTextSharp.tool.xml;
 
 namespace Data.Entities
 {
@@ -84,7 +85,7 @@ namespace Data.Entities
             }
         }
 
-        public static void SavePDF(string html, DataClassesDataContext dc = null)
+        public static void SavePDF(string xhtml, DataClassesDataContext dc = null)
         {
             
             using (dc = dc ?? new DataClassesDataContext())
@@ -99,10 +100,7 @@ namespace Data.Entities
                         {
                             doc.Open();
                             doc.NewPage();
-                            var styles = new iTextSharp.text.html.simpleparser.StyleSheet();
-                            var hw = new iTextSharp.text.html.simpleparser.HTMLWorker(doc);
-                            hw.Parse(new StringReader(html));
-                            //doc.Add(new iTextSharp.text.Paragraph(text));
+                            XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
                             doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
                             doc.Close();
                             bytes = ms.ToArray();
