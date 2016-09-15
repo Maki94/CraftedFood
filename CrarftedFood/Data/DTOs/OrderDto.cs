@@ -8,6 +8,7 @@ namespace Data.DTOs
 {
     public class OrderDto
     {
+        public int OrderId { get; set; }
         public int? EmployeeId { get; set; }
         public string EmployeeName { get; set; }
 
