@@ -18,79 +18,89 @@
     #table-wrapper {
         margin: 2% 5%;
     }
+
     #table-orders th {
         width: 25%;
     }
+
     .delete-event {
         cursor: pointer;
     }
 </style>
 <div id="table-wrapper">
+    @if (Model.Orders.Count != 0)
+    {
+        <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
 
-    <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-        <thead>
-
-            <tr>
-                <th class="mdl-data-table__cell--non-numeric">
-                    <a id="mealTitle" href=#>
-                        Meal Title 
-                        <span id="mealTitleUp">▲</span>
-                        <span id="mealTitleDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="quantity" href=#>
-                        Quantity
-                        <span id="quantityUp">▲</span>
-                        <span id="quantityDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="price" href=#>
-                        Price
-
-                        <span id="priceUp">▲</span>
-                        <span id="priceDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="note" href=#>
-                        Note
-
-                        <span id="noteUp">▲</span>
-                        <span id="noteDown">▼</span>
-                    </a>
-                </th>
-                <th>
-
-                </th>
-            </tr>
-        </thead>
-        <tbody id="order-tbody">
-            @foreach (var item in Model.Orders)
-            {
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        @Html.DisplayFor(modelItem => item.MealTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    <td>
-                        <a class='mdl-navigation__link delete-event' data-id='@Html.DisplayFor(m => item.OrderId)'>
-                            <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        <a id="mealTitle" href=#>
+                            Meal Title
+                            <span id="mealTitleUp">▲</span>
+                            <span id="mealTitleDown">▼</span>
                         </a>
-                    </td>
+                    </th>
+                    <th>
+                        <a id="quantity" href=#>
+                            Quantity
+                            <span id="quantityUp">▲</span>
+                            <span id="quantityDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="price" href=#>
+                            Price
+
+                            <span id="priceUp">▲</span>
+                            <span id="priceDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="note" href=#>
+                            Note
+
+                            <span id="noteUp">▲</span>
+                            <span id="noteDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="order-tbody">
+
+                @foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            @Html.DisplayFor(modelItem => item.MealTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            <a class='mdl-navigation__link delete-event' data-id='@Html.DisplayFor(m => item.OrderId)'>
+                                <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.Orders.Count == 0)
+    {
+        <div class="mdl-data-table__cell--non-numeric">   <h1>Trenutno ne postoji ni jedna  narudzbina</h1></div>
+    }
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -110,22 +120,22 @@
     var priceSortDownElem = document.getElementById("priceDown");
     var noteSortDownElem = document.getElementById("noteDown");
 
-    var checkMealTitleDirection = function() {
+    var checkMealTitleDirection = function () {
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
         mealTitleSortDownElem.className = !mealTitleSortUp ? "hide" : "";
         mealTitleSortUp = !mealTitleSortUp;
     }
-    var checkQuantityDirection = function() {
+    var checkQuantityDirection = function () {
         quantitySortUpElem.className = quantitySortUp ? "hide" : "";
         quantitySortDownElem.className = !quantitySortUp ? "hide" : "";
         quantitySortUp = !quantitySortUp;
     }
-    var checkPriceDirection = function() {
+    var checkPriceDirection = function () {
         priceSortUpElem.className = priceSortUp ? "hide" : "";
         priceSortDownElem.className = !priceSortUp ? "hide" : "";
         priceSortUp = !priceSortUp;
     }
-    var checkNoteDirection = function() {
+    var checkNoteDirection = function () {
         noteSortUpElem.className = noteSortUp ? "hide" : "";
         noteSortDownElem.className = !noteSortUp ? "hide" : "";
         noteSortUp = !noteSortUp;
@@ -147,7 +157,7 @@
             str += "<td>" + value.Quantity + "</td>";
             str += "<td>" + value.Price + "</td>";
             str += "<td>" + value.Note + "</td>";
-            str += "<td><a class='mdl-navigation__link delete-event' data-id='"+value.OrderId+"'><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
+            str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "'><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
             tr.innerHTML = str;
 
             if (tbody.childElementCount === 0) {
@@ -161,33 +171,18 @@
         document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
     }
 
-    $(".delete-event").click(function() {
+    $(".delete-event").click(function () {
         var id = this.dataset.id;
         var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
 
         $.post(url, function (data) {
             if (data.success === true) {
                 fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
-                //var tbody = document.createElement("tbody");
-
-                //$.each(data.message.Data, function (key, value) {
-                //    var tr = formTr(value);
-
-                //    if (tbody.childElementCount === 0) {
-                //        tbody.appendChild(tr);
-                //    } else if (mealTitleSortUp) {
-                //        tbody.insertBefore(tr, tbody.firstChild);
-                //    } else {
-                //        tbody.appendChild(tr);
-                //    }
-                //});
-                //document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
                 checkMealTitleDirection();
-
             }
         });
     });
-    $("#mealTitle").click(function() {
+    $("#mealTitle").click(function () {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealTitle" })";
         $.post(url, function (data) {
             if (data.success === true) {
