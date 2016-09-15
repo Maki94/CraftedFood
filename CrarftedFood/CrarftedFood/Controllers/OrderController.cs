@@ -36,7 +36,10 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult CancelOrder(int orderId)
         {
-            var s = Meals.CancelOrder(orderId);
+
+            if (!Meals.CancelOrder(orderId))
+                return Json(new { success = false});
+
             var order = new OrderViewModel
             {
                 Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
