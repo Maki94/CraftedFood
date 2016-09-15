@@ -59,7 +59,6 @@ namespace Data.Entities
             }
         }
 
-        public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start=null, DateTime? end=null)
         public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start = null, DateTime? end = null)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
@@ -73,7 +72,6 @@ namespace Data.Entities
                     end = new DateTime(9999, 12, 31); 
                     end = new DateTime(9999, 12, 31);
                 }
-                return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date<=a.DateRequested.Date && a.DateRequested.Date<=end.Value.Date)
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date <= a.DateRequested.Date && a.DateRequested.Date <= end.Value.Date)
                     .Select(a => new OrderDto
                     {
