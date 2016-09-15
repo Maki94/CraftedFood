@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Data.DTOs;
-using iTextSharp.tool.xml;
+//using iTextSharp.tool.xml;
 
 
 namespace Data.Entities
@@ -101,7 +101,7 @@ namespace Data.Entities
                         {
                             doc.Open();
                             doc.NewPage();
-                            XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
+                            //XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
                             doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
                             doc.Close();
                             bytes = ms.ToArray();
