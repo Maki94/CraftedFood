@@ -58,8 +58,8 @@
                         </div>
 
                         <div class="add-comment">
-                            <input type="text" placeholder="Add comment "/>
-                            <button><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            <input id="menu-comment" type="text" placeholder="Add comment "/>
+                            <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
                     </article>
 
@@ -110,6 +110,24 @@
 <script src="~/Scripts/menu.js"></script>
 
 <script>
+    // postavljanje komentara na enter
+    var ENTER_CODE = 13;
+    function eventFire(el, etype) {
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
+    }
+    $('#menu-comment').bind('keypress', function (event) {
+        var x = event.keyCode;
+        if (x === ENTER_CODE) {
+            eventFire(document.getElementById('menu-comment-share'), 'click');
+        }
+    });
+    // END
 
     $('.rating-list > li').on('click', function(e) {
         sendData = {
@@ -144,7 +162,7 @@
                 method: "POST",
                 data: { mealId: mealId },
                 success: function(result) {
-                    if (result.success == true) {
+                    if (result.success === true) {
                         var container = self.parentElement.parentElement.querySelector('.comments :first-child');
                         container.innerHTML = "";
                         for (var i = 0; i < result.comments.length; i++) {
@@ -191,7 +209,7 @@
         }
     });
 
-        
+
 </script>
 
 

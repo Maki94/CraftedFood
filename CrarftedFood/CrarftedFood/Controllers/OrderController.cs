@@ -1,4 +1,5 @@
-﻿using System.Web.Helpers;
+﻿using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using CrarftedFood.Models;
 using Data.Entities;
@@ -39,13 +40,13 @@ namespace CrarftedFood.Controllers
             switch (orderType)
             {
                 case "mealTitle":
-                    return Json(new { success = true, message = Json(order) });
+                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.MealTitle)) });
                 case "quantity":
-                    return Json(new { success = true, message = Json(order) });
+                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Quantity)) });
                 case "price":
-                    return Json(new { success = true, message = Json(order) });
+                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Price)) });
                 case "note":
-                    return Json(new { success = true, message = Json(order) });
+                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Note)) });
             }
 
             return Json(new { success = false, message = "" });

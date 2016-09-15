@@ -7,80 +7,169 @@
 }
 
 <style>
-    #table-orders th a{
+    #table-orders th a {
         text-align: center !important;
     }
-    #table-orders th{
+
+    #table-orders th {
         width: 25%;
     }
 </style>
 <table id="table-orders" class="table text-center">
-    <tr>
-        <th>
-            @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            <a id="mealTitle" href=#>Meal Title</a>
-        </th>
-        <th>
-            <a id="quantity" href=#>Quantity</a>
-        </th>
-        <th>
-            <a id="price" href=#>Price</a>
-        </th>
-        <th>
-            <a id="note" href=#>Note</a>
-        </th>
-    </tr>
+    <thead>
 
-    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
-    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
-    <tr><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>
-    @*
-        @foreach (var item in Model.Orders)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MealTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>*\@
-    </tr>
-    }*@
+        <tr>
+            <th>
+                @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+                <a id="mealTitle" href=#>Meal Title</a>
+            </th>
+            <th>
+                <a id="quantity" href=#>Quantity</a>
+            </th>
+            <th>
+                <a id="price" href=#>Price</a>
+            </th>
+            <th>
+                <a id="note" href=#>Note</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="order-tbody">
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MealTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>*@
+        </tr>
+    }
+    </tbody>
 </table>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
+    var mealTitleSortUp = false;
+    var quantitySortUp = false;
+    var priceSortUp = false;
+    var noteSortUp = false;
+
     $("#mealTitle").click(function() {
-        var url = @Url.Action("GetOrders","Order", new { orderType = "mealTitle" });
+        var url = "@Url.Action("GetOrders","Order", new { orderType = "mealTitle" })";
         $.post(url, function (data) {
             if (data.success === true) {
-                //setTimeout(function () {}, 800);
-                window.location.reload(false);
-            } else {
-                alert("Recovery unavailable");
+                var tbody = document.createElement("tbody");
+
+                $.each(data.message.Data, function (key, value) {
+                    var tr = document.createElement("tr");
+                    var str = "<td>" + value.MealTitle + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    tr.innerHTML = str;
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (mealTitleSortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+                mealTitleSortUp = !mealTitleSortUp;
+                document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
             }
         });
     });
     $("#quantity").click(function () {
-        var url = @Url.Action("GetOrders","Order", new { orderType= "quantity" });
+        var url = '@Url.Action("GetOrders","Order", new { orderType= "quantity" })';
 
+        $.post(url, function (data) {
+            if (data.success === true) {
+                var tbody = document.createElement("tbody");
+
+                $.each(data.message.Data, function(key, value) {
+                    var tr = document.createElement("tr");
+                    var str = "<td>" + value.MealTitle + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    tr.innerHTML = str;
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (quantitySortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+                quantitySortUp = !quantitySortUp;
+                document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
+            }
+        });
     });
     $("#price").click(function () {
-        var url = @Url.Action("GetOrders","Order", new { orderType = "price" });
+        var url = '@Url.Action("GetOrders","Order", new { orderType = "price" })';
+        $.post(url, function (data) {
+            if (data.success === true) {
+                var tbody = document.createElement("tbody");
 
+                $.each(data.message.Data, function (key, value) {
+                    var tr = document.createElement("tr");
+                    var str = "<td>" + value.MealTitle + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    tr.innerHTML = str;
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (priceSortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+                priceSortUp = !priceSortUp;
+                document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
+            }
+        });
     });
     $("#note").click(function () {
-        var url = @Url.Action("GetOrders","Order", new { orderType = "note" });
+        var url = '@Url.Action("GetOrders","Order", new { orderType = "note" })';
+        $.post(url, function (data) {
+            if (data.success === true) {
+                var tbody = document.createElement("tbody");
 
+                $.each(data.message.Data, function (key, value) {
+                    var tr = document.createElement("tr");
+                    var str = "<td>" + value.MealTitle + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    tr.innerHTML = str;
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (noteSortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+                noteSortUp = !noteSortUp;
+                document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
+            }
+        });
     });
 </script>
