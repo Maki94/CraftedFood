@@ -61,7 +61,7 @@
     font-style: italic;
 }
 
-.emp-container:not( .show-search ) {
+.emp-wrapper:not( .show-search ) {
     display: none;
 }
 
@@ -79,6 +79,7 @@
     border: none;
     font-family: 'Roboto', 'Helvetica', sans-serif;
 }
+
 
 .members-search-icon {
     color: #bfbfce;

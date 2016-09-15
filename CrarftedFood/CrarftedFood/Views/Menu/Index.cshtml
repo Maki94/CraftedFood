@@ -6,13 +6,47 @@
     ViewBag.Title = "Index";
 }
 
-<div class="menu-wrapper">
+@{
+    List<SelectListItem> categories = Data.Enums.Categories.bakery.CreateSelectListItem();
+}
+
+<div class="menu-wrapper" id="menu-wrapper">
+
+    <div id="menu-options">
+        <i class="material-icons">search</i>
+        <input class="form-control" type="text" id="searchMealsText" placeholder="Search">
+        <div class="col-md-10">
+            <select id="category" name="category" class="form-control" data-tooltip-text="Filter by category" data-tooltip-direction="bottom">
+
+                <option value="-1">Filter by category</option>
+                @foreach (var cat in categories)
+                {
+                    <option value="@cat.Value">@cat.Text</option>
+                }
+            </select>
+    </div>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                Cards view
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                Table view
+            </label>
+        </div>
+    </div>
+
+   
 
     @foreach (MenuMealItem meal in Model.menu)
     {
-        <div class="meal-wrapper">
+        <div class="meal-wrapper show-search">
 
-            <div class="card radius shadowDepth1">
+            <div class="card radius shadowDepth1" data-id="@meal.MealId">
 
                 @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
 
@@ -65,7 +99,7 @@
 
                             <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
-                       
+
 
 
                     </article>
@@ -115,8 +149,16 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="~/Scripts/menu.js"></script>
+<script src="~/Scripts/search.js"></script>
 
 <script>
+    //search
+
+
+    searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
+
+    
+
     // postavljanje komentara na enter
     var ENTER_CODE = 13;
     function eventFire(el, etype) {
