@@ -45,7 +45,7 @@ namespace CrarftedFood.Controllers
                 Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
 
-            return Json(new { success = s, message = Json(order.Orders)});
+            return Json(new { success = true, message = Json(order.Orders)});
         }
 
         #endregion

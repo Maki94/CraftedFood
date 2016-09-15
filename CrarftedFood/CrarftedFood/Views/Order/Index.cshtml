@@ -7,59 +7,70 @@
 }
 
 <style>
-    #table-orders th a {
-        text-align: center !important;
-    }
+    /*#table-orders th a {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }*/
 
+    /*#table-orders tr:first-child th:first-child {
+        text-align: left;
+    }*/
+
+    #table-wrapper {
+        margin: 2% 5%;
+    }
     #table-orders th {
         width: 25%;
     }
 </style>
-<table id="table-orders" class="table text-center">
-    <thead>
+<div id="table-wrapper">
 
-        <tr>
-            <th>
-                @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-                <a id="mealTitle" href=#>Meal Title</a>
-            </th>
-            <th>
-                <a id="quantity" href=#>Quantity</a>
-            </th>
-            <th>
-                <a id="price" href=#>Price</a>
-            </th>
-            <th>
-                <a id="note" href=#>Note</a>
-            </th>
-            <th>
-                
-            </th>
-        </tr>
-    </thead>
-    <tbody id="order-tbody">
-    @foreach (var item in Model.Orders)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MealTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                <a class="mdl-navigation__link delete-event" data-id="@Html.DisplayFor(m => item.OrderId)"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+    <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">
+                    <a id="mealTitle" href=#>Meal Title</a>
+                </th>
+                <th>
+                    <a id="quantity" href=#>Quantity</a>
+                </th>
+                <th>
+                    <a id="price" href=#>Price</a>
+                </th>
+                <th>
+                    <a id="note" href=#>Note</a>
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody id="order-tbody">
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        @Html.DisplayFor(modelItem => item.MealTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        <a class="mdl-navigation__link delete-event" data-id="@Html.DisplayFor(m => item.OrderId)"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
