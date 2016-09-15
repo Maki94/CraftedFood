@@ -374,7 +374,7 @@ h2 {
     background-color: whitesmoke;
 }
 
-.add-meal-btn {
+.add-meal-btn, .add-employee-btn{
     width: 64px;
     height: 64px;
     display: block;

@@ -20,9 +20,9 @@
                     </div>
                     <div class="mdl-cell mdl-cell--6-col"></div>
                     <div class="mdl-cell mdl-cell--1-col">
-                        @if (UserSession.GetUser().RoleId == (int)Data.Enums.Roles.Admin)
+                        @if (UserSession.GetUser().RoleId == (int) Data.Enums.Roles.Admin)
                         {
-                            <a class="add-meal-btn mdl-button mdl-js-button mdl-button--fab" href="@Url.Action("AddEmployee")">
+                            <a class="add-employee-btn mdl-button mdl-js-button mdl-button--fab" href="@Url.Action("AddEmployee")">
                                 <i class="material-icons">add</i>
                             </a>
                         }
@@ -32,30 +32,38 @@
                 <div id="members" class="member-list mdl-grid">
                     @foreach (var m in Model.list)
                     {
-                        <div class="mdl-card mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp" data-member-id="@m.Id">
+                        <div class="emp-container mdl-shadow--2dp show-search" data-id="@m.Id">
                             <figure class="mdl-card__media">
                                 @{
                                     var imgSrc = $"http://i.imgur.com/Xqdt97P.png";
-                                    
+
                                 }
-                                <a href="@Url.Action("Profiles", "Employee", new { id = m.Id })"><img class="member-list-avatar" src="@imgSrc" alt="" /></a>
+                                <a href="@Url.Action("Profiles", "Employee", new {id = m.Id})"><img class="member-list-avatar" src="@imgSrc" alt=""/></a>
                             </figure>
-                            <div class="mdl-card__title">
-                                <h1 class="member-list-title mdl-card__title-text">
-                                    @Html.DisplayName(m.Name)
-                                    <text>(</text>@m.Role.ToDescription()<text>)</text>
-                                </h1>
+                            <div class="emp-content">
+                                <div class="mdl-card__title">
+                                    <h1 class="member-list-title">
+                                        @Html.DisplayName(m.Name)
+                                    </h1>
+                                    <span class="search-exclude">@m.Role.ToDescription()</span>
+                                </div>
+                                <div class="emp-info">
+                                    <span>@m.Email</span>
+                                    <span>@(m.Mobile ?? "N/A")</span>
+                                </div>
                             </div>
-                            <div class="mdl-card__supporting-text">
-                                <h6>@m.Email</h6>
-                                <p>@(m.Mobile ?? "N/A")</p>
-                            </div>
+
                         </div>
-                                        }
+                    }
                 </div>
 
             </main>
         </div>
     </main>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="~/Scripts/search.js"></script>
+
 
