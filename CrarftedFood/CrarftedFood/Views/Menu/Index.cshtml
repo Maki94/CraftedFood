@@ -49,8 +49,12 @@
             <div class="card radius shadowDepth1" data-id="@meal.MealId">
 
                 @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
-
-
+                <a href="@Url.Action("EditMeal", "Menu", new {id=@meal.MealId})">
+                    <button class="edit-btn mdl-button mdl-js-button mdl-button--fab">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </a>
+              
                 <div class="card__content card__padding">
                     <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
                     <div class="card__share">

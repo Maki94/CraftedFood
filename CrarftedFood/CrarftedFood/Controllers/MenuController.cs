@@ -114,16 +114,25 @@ namespace CrarftedFood.Controllers
 
         #region EDIT
 
-        public ActionResult EditMeal(int mealId)
+        public ActionResult EditMeal(int id)
         {
-            MenuMealItem model = MenuMealItem.Load(mealId);
-            //TODO view
+            MenuMealItem model = MenuMealItem.Load(id);
             return View(model);
         }
 
         [HttpPost]
         public ActionResult EditMeal(MenuMealItem model)
         {
+            if (model.file != null)
+            {
+                byte[] array;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    model.file.InputStream.CopyTo(ms);
+                    array = ms.GetBuffer();
+                }
+                model.Image = array;
+            }
             Data.Entities.Meals.EditMeal(model.MealId, model.Title, model.Description, model.Image, model.Price,
                 model.Quantity, model.Unit, model.Category);
             return RedirectToAction("Index");
