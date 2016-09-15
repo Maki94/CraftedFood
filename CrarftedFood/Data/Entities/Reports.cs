@@ -85,7 +85,7 @@ namespace Data.Entities
 
         public static void SavePDF(string html, DataClassesDataContext dc = null)
         {
-
+            
             using (dc = dc ?? new DataClassesDataContext())
             {
                 
@@ -94,12 +94,15 @@ namespace Data.Entities
                 {
                     using (iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate()))
                     {
-                        using (iTextSharp.text.pdf.PdfWriter w = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" + DateTime.Now.ToShortDateString() + ".pdf", FileMode.Create)))
+                        using (iTextSharp.text.pdf.PdfWriter w = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" + DateTime.Now.ToLongDateString() + ".pdf", FileMode.Create)))
                         {
                             doc.Open();
                             doc.NewPage();
-                            doc.Add(new iTextSharp.text.Paragraph(text));
-                            doc.AddTitle(DateTime.Now.ToShortDateString() + ".pdf");
+                            var styles = new iTextSharp.text.html.simpleparser.StyleSheet();
+                            var hw = new iTextSharp.text.html.simpleparser.HTMLWorker(doc);
+                            hw.Parse(new StringReader(html));
+                            //doc.Add(new iTextSharp.text.Paragraph(text));
+                            doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
                             doc.Close();
                             bytes = ms.ToArray();
                         }
