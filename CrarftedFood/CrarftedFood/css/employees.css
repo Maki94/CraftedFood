@@ -56,8 +56,9 @@
 }
 
 .mdl-card__title span {
-    display: block;
-    color: teal;
+    display: block;   
+    color: #c78a10;
+    font-style: italic;
 }
 
 .emp-container:not( .show-search ) {
@@ -91,6 +92,5 @@
 }
 
 a:hover span{
-    color: teal;
     text-decoration: none;
 }
