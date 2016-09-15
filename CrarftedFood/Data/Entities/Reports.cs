@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using Data.DTOs;
 
 namespace Data.Entities
@@ -13,6 +15,7 @@ namespace Data.Entities
             {
                 return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     Quantity = a.Quantity,
                     Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
@@ -27,6 +30,7 @@ namespace Data.Entities
             {
                 return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
                     Quantity = a.Quantity,
@@ -44,6 +48,7 @@ namespace Data.Entities
                 //TODO razmisli sta ako nije dostavljen i slicno, razmisli o grupisanju, redosledu i slicno
                 return dc.Requests.Where(a => a.DateDelivered >= start && a.DateDelivered <= end).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
                     Quantity = a.Quantity,
@@ -55,6 +60,7 @@ namespace Data.Entities
         }
 
         public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start=null, DateTime? end=null)
+        public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start = null, DateTime? end = null)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
@@ -65,10 +71,13 @@ namespace Data.Entities
                 if (end == null)
                 {
                     end = new DateTime(9999, 12, 31); 
+                    end = new DateTime(9999, 12, 31);
                 }
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date<=a.DateRequested.Date && a.DateRequested.Date<=end.Value.Date)
+                return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date <= a.DateRequested.Date && a.DateRequested.Date <= end.Value.Date)
                     .Select(a => new OrderDto
                     {
+                        OrderId = a.RequestId,
                         Quantity = a.Quantity,
                         Price = a.Meal.Price * a.Quantity,
                         MealTitle = a.Meal.Title,
@@ -76,7 +85,35 @@ namespace Data.Entities
                     }).ToList();
             }
         }
-        
+
+        public static void SavePDF(string html, DataClassesDataContext dc = null)
+        {
+            
+            using (dc = dc ?? new DataClassesDataContext())
+            {
+                
+                byte[] bytes;
+                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                {
+                    using (iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate()))
+                    {
+                        using (iTextSharp.text.pdf.PdfWriter w = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" + DateTime.Now.ToLongDateString() + ".pdf", FileMode.Create)))
+                        {
+                            doc.Open();
+                            doc.NewPage();
+                            var styles = new iTextSharp.text.html.simpleparser.StyleSheet();
+                            var hw = new iTextSharp.text.html.simpleparser.HTMLWorker(doc);
+                            hw.Parse(new StringReader(html));
+                            //doc.Add(new iTextSharp.text.Paragraph(text));
+                            doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
+                            doc.Close();
+                            bytes = ms.ToArray();
+                        }
+                    }
+                }
+            }
+
+        }
 
     }
 }

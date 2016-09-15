@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using CrarftedFood.Models;
+using Data.DTOs;
 using Data.Entities;
 
 namespace CrarftedFood.Controllers
@@ -18,13 +20,32 @@ namespace CrarftedFood.Controllers
             return View(order);
         }
         
-        #region ORDER
+        #region CRUD
 
         [HttpPost]
-        public ActionResult NewOrder()
+        public ActionResult NewOrder(List<AddOrderModel> models)
+        {
+            foreach (AddOrderModel m in models)
+            {
+                Data.Entities.Meals.OrderMeal(m.MealId, m.EmployeeId, m.DateRequested, m.DateToDeliver, m.Note,
+                    m.Quantity);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CancelOrder(int orderId)
         {
 
-            return View();
+            if (!Meals.CancelOrder(orderId))
+                return Json(new { success = false});
+
+            var order = new OrderViewModel
+            {
+                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
+            };
+
+            return Json(new { success = true, message = Json(order.Orders)});
         }
 
         #endregion
@@ -47,9 +68,9 @@ namespace CrarftedFood.Controllers
                     return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Price)) });
                 case "note":
                     return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Note)) });
+                default:
+                    return Json(new { success = true, message = Json(order.Orders) });
             }
-
-            return Json(new { success = false, message = "" });
         }
     }
 }
