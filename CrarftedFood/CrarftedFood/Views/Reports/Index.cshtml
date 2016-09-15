@@ -7,7 +7,6 @@
         min-width: 90%;
     }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
 <div id="radio-buttons-wrapper" class="mdl-grid">
     <div class="mdl-cell mdl-cell--2-col">
@@ -30,12 +29,16 @@
         </label>
 
     </div>
-    <div class="mdl-cell mdl-cell--6-col">
-        <input id="report-date" type="date" class="datepicker" placeholder="Pick a date">
+    <div class="mdl-cell mdl-cell--3-col">
+        <input id="report-date-from" type="date" class="datepicker" placeholder="Pick a date">
+    </div>
+    <div class="mdl-cell mdl-cell--3-col">
+        <input id="report-date-end" type="date" class="datepicker" placeholder="Pick a date">
     </div>
 </div>
 
-<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-jun-2016-osnovne.pdf" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
+@*<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-jun-2016-osnovne.pdf" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
+<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="/Reports/invoice" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
 
 @*<iframe frameborder="1" width="420" height="345" src="//www.youtube.com/embed/C8kSrkz8Hz8"></iframe>*@
 
