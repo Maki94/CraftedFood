@@ -47,9 +47,9 @@ namespace CrarftedFood.Controllers
                     return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Price)) });
                 case "note":
                     return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Note)) });
+                default:
+                    return Json(new { success = true, message = Json(order.Orders) });
             }
-
-            return Json(new { success = false, message = "" });
         }
     }
 }
