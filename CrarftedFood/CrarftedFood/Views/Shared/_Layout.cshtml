@@ -26,6 +26,14 @@
 
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 
+        <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">@ViewContext.RouteData.Values["controller"].ToString()</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
             <header class="demo-drawer-header">
                 <a href=!#>Crafted food</a>
