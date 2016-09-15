@@ -57,10 +57,17 @@
                         <div>
                         </div>
 
-                        <div class="add-comment">
-                            <input id="menu-comment" type="text" placeholder="Add comment "/>
+                        <div class="add-comment-wrapper">
+                            <div class="add-comment mdl-textfield mdl-js-textfield">
+                                <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
+                                <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+                            </div>
+
                             <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
+                       
+
+
                     </article>
 
                     <article class="card__article">
@@ -181,11 +188,11 @@
         this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
     });
 
-    $('.add-comment button').on('click', function(e) {
-        input = this.parentElement.getElementsByTagName('input')[0];
+    $('.add-comment-wrapper button').on('click', function(e) {
+        input = this.parentElement.getElementsByTagName('textarea')[0];
         sendData = {
             mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
-            comment: this.parentElement.getElementsByTagName('input')[0].value
+            comment: this.parentElement.getElementsByTagName('textarea')[0].value
         }
 
         if (sendData.comment == null || sendData.comment.length < 1) {

@@ -1,0 +1,73 @@
+﻿@using CrarftedFood.Extentions
+@model CrarftedFood.Models.EmployeesViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+    <main class="mdl-layout__content">
+        <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+            <main class="mdl-layout__content">
+                <div class="member-list-search-add mdl-grid">
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <div class="form-group">
+                            <i class="members-search-icon material-icons">search</i>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" id="searchMembersText">
+                                <label class="mdl-textfield__label" for="searchMembersText">Search</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col"></div>
+                    <div class="mdl-cell mdl-cell--1-col">
+                        @if (UserSession.GetUser().RoleId == (int) Data.Enums.Roles.Admin)
+                        {
+                            <a class="add-employee-btn mdl-button mdl-js-button mdl-button--fab" href="@Url.Action("AddEmployee")">
+                                <i class="material-icons">add</i>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div id="members" class="member-list mdl-grid">
+                    @foreach (var m in Model.list)
+                    {
+                        <a href="@Url.Action("Profile", "Employees", new {id = m.Id})">
+                            <div class="emp-container mdl-shadow--2dp show-search" data-id="@m.Id">
+                                <figure class="mdl-card__media">
+                                    @{
+                                        var imgSrc = $"http://i.imgur.com/Xqdt97P.png";
+
+                                    }
+                                    <img class="member-list-avatar" src="@imgSrc" alt="" />
+
+                                </figure>
+                                <div class="emp-content">
+                                    <div class="mdl-card__title">
+                                        <h1 class="member-list-title">
+                                            @Html.DisplayName(m.Name)
+                                        </h1>
+                                        <span class="search-exclude">@m.Role.ToDescription()</span>
+                                    </div>
+                                    <div class="emp-info">
+                                        <span>@m.Email</span>
+                                        <span>@(m.Mobile ?? "N/A")</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                                        }
+                </div>
+
+            </main>
+        </div>
+    </main>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="~/Scripts/search.js"></script>
+
+

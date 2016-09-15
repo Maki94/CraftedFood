@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #report-date {
+        min-width: 90%;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+<div id="radio-buttons-wrapper" class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="delivery">
+            <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true" checked>
+            <span class="mdl-radio__label">Delivery</span>
+        </label>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order">
+            <input type="radio" id="order" class="mdl-radio__button" name="report" value="true">
+            <span class="mdl-radio__label">Report</span>
+        </label>
+
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invoice">
+            <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true">
+            <span class="mdl-radio__label">Invoice</span>
+        </label>
+
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <input id="report-date" type="date" class="datepicker" placeholder="Pick a date">
+    </div>
+</div>
+
+<iframe id="fred" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-jun-2016-osnovne.pdf" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
+
+@*<iframe frameborder="1" width="420" height="345" src="//www.youtube.com/embed/C8kSrkz8Hz8"></iframe>*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+<script>
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+</script>
+
+
+
+

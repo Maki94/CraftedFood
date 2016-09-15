@@ -56,7 +56,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Unit, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                <select id="unit" name="unit" class="tooltippable" data-tooltip-text="Change unit" data-tooltip-direction="bottom">
+                <select id="unit" name="unit" class="tooltippable form-control" data-tooltip-text="Change unit" data-tooltip-direction="bottom">
                     @foreach (var unit in units)
                     {
                         <option value="@unit.Value">@unit.Text</option>
@@ -69,7 +69,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="category" name="category" class="tooltippable" data-tooltip-text="Change category" data-tooltip-direction="bottom">
+                <select id="category" name="category" class="tooltippable form-control" data-tooltip-text="Change category" data-tooltip-direction="bottom">
                     @foreach (var cat in categories)
                     {
                         <option value="@cat.Value">@cat.Text</option>
@@ -82,10 +82,13 @@
 
 
 
-        <div>
-            <label for="file">Izaberi sliku:</label>
-            <input type="file" name="file" id="file" /><br><br>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="file">Image</label>
+            <div class="col-md-10">
+                <input type="file" name="file" id="file"/><br><br>
+            </div>
         </div>
+
       
 
         <div class="form-group">

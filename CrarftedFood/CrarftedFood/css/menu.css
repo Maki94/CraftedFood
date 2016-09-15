@@ -22,7 +22,6 @@ body {
     background-color: #eee;
     font-family: Roboto;
     font-weight: 400;
-    font-size: 1.6em;
     line-height: 1.6;
     color: #666;
 }
@@ -51,7 +50,7 @@ h2 {
 }
 
 .meal-wrapper {
-    max-width: 282px;
+    max-width: 278px;
     margin: 5px;
     padding-left: 1em;
     padding-right: 1em;
@@ -105,6 +104,10 @@ h2 {
     max-width: 250px;
     min-height: 360px;
     max-height: 400px;
+
+    transition: min-height 0.3s;
+
+
     /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
 }
     .card__image img {
@@ -126,7 +129,9 @@ h2 {
   font-size: 25px;
 }
 .card__meta .rating i {
-  font-size: 20px;
+    font-size: 20px;
+    height: 21px;
+    vertical-align: middle;
 }
 /* card meta */
 .card__meta .quantity, .date {
@@ -136,7 +141,7 @@ h2 {
 }
 
 .quantity {
-  margin: 24px 0;
+  margin: 18px 0;
   margin-top: auto;
 }
 
@@ -145,12 +150,55 @@ h2 {
   margin-left: 20px;
   color: burlywood;
   height: 100%;
+
 }
 .comments_button i{
   margin-bottom: auto;
+  font-size: 25px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.add-comment-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-comment-wrapper button {
+    width: 100%;
+    background-color: white;
+    border: none;
+}
+
+.add-comment-wrapper button:focus {
+    outline: none;
 }
 
 
+.add-comment-wrapper button i {
+    font-size: 22px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.add-comment-wrapper button i:hover {
+    font-size: 35px;
+}
+
+
+.add-comment textarea {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+}
+
+.mdl-textfield.is-focused .mdl-textfield__input {
+    width: 180px;
+    border: none;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
 
 .comments, .card__article {
   max-height: 500px;
@@ -374,7 +422,7 @@ h2 {
     background-color: whitesmoke;
 }
 
-.add-meal-btn {
+.add-meal-btn, .add-employee-btn{
     width: 64px;
     height: 64px;
     display: block;

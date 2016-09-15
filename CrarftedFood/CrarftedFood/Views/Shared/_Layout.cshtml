@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="~/css/styles.css">
     <link rel="stylesheet" href="~/css/menu.css">
+    <link rel="stylesheet" href="~/css/employees.css">
+     
 
 
 </head>
@@ -24,6 +26,14 @@
 
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 
+        <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">@ViewContext.RouteData.Values["controller"].ToString()</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
             <header class="demo-drawer-header">
                 <a href=!#>Crafted food</a>
@@ -33,13 +43,13 @@
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_dinings</i>Menu</a>
-                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Reports</a>
+                <a class="mdl-navigation__link" href="@Url.Action("Index", "Menu")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+                <a class="mdl-navigation__link" href="@Url.Action("Index", "Menu")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_dinings</i>Menu</a>
+                <a class="mdl-navigation__link" href="@Url.Action("Index", "Reports")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Reports</a>
                 <a class="mdl-navigation__link" href="@Url.Action("Index","Order")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">done</i>My Orders</a>
                 @if (user.RoleId == (int) Data.Enums.Roles.Admin)
                 {
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Employees</a>
+                    <a class="mdl-navigation__link" href="@Url.Action("Index", "Employees")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Employees</a>
 
                 }
                 <div class="mdl-layout-spacer"></div>
