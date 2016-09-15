@@ -55,7 +55,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\MenuDtos.cs" />
+    <Compile Include="DTOs\EmployeeDto.cs" />
+    <Compile Include="DTOs\MenuDto.cs" />
     <Compile Include="DTOs\OrderDto.cs" />
     <Compile Include="Entities\Employees.cs" />
     <Compile Include="Entities\Login.cs" />
