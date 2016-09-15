@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                <a class="mdl-navigation__link" id="@Html.DisplayFor(m => item.EmployeeId)"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
+                <a class="mdl-navigation__link delete-event" data-id="@Html.DisplayFor(m => item.EmployeeId)"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
             </td>
         </tr>
     }
@@ -67,7 +67,34 @@
     var quantitySortUp = false;
     var priceSortUp = false;
     var noteSortUp = false;
+    $(".delete-event").click(function() {
+        var id = $(this).attr("#data-id");
+        var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
 
+        $.post(url, function (data) {
+            if (data.success === true) {
+                var tbody = document.createElement("tbody");
+
+                $.each(data.message.Data, function (key, value) {
+                    var tr = document.createElement("tr");
+                    var str = "<td>" + value.MealTitle + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    tr.innerHTML = str;
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (mealTitleSortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+                mealTitleSortUp = !mealTitleSortUp;
+                document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
+            }
+        });
+    });
     $("#mealTitle").click(function() {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealTitle" })";
         $.post(url, function (data) {
