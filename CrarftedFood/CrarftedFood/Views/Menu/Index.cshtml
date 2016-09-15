@@ -16,7 +16,7 @@
         <i class="material-icons">search</i>
         <input class="form-control" type="text" id="searchMealsText" placeholder="Search">
         <div class="col-md-10">
-            <select id="category" name="category" class="form-control" data-tooltip-text="Filter by category" data-tooltip-direction="bottom">
+            <select id="category-filter" name="category" class="form-control" data-tooltip-text="Filter by category" data-tooltip-direction="bottom">
 
                 <option value="-1">Filter by category</option>
                 @foreach (var cat in categories)
@@ -44,7 +44,7 @@
 
     @foreach (MenuMealItem meal in Model.menu)
     {
-        <div class="meal-wrapper show-search">
+        <div class="meal-wrapper show-search show-category">
 
             <div class="card radius shadowDepth1" data-id="@meal.MealId">
 
@@ -123,7 +123,7 @@
                         <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
                         <div class="card__author-content">
                             <span class="mdl-chip">
-                                <span class="mdl-chip__text">@meal.Category.ToDescription()</span>
+                                <span class="mdl-chip__text category">@meal.Category.ToDescription()</span>
                             </span>
                             <span>@meal.Price din</span>
                         </div>
@@ -153,9 +153,15 @@
 
 <script>
     //search
-
-
     searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
+
+    //category filter
+    $('#category-filter').change(function () {
+        $(".show-category").removeClass("show-category");
+        var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
+        var results = $('.meal-wrapper').has(pom);
+        results.addClass("show-category");
+    });
 
     
 

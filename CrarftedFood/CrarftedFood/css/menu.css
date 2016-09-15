@@ -472,3 +472,7 @@ h2 {
 .meal-wrapper:not( .show-search ) {
     display: none;
 }
+
+.meal-wrapper:not( .show-category ) {
+    display: none;
+}

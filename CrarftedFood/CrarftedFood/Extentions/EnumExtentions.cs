@@ -25,14 +25,46 @@ namespace CrarftedFood.Extentions
             return enumeration.ToString();
         }
 
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                typeof(DescriptionAttribute),
+                false);
+
+            if (attributes != null &&
+                attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
+        }
+
+        
         public static List<SelectListItem> CreateSelectListItem(this Enum enumeration)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             foreach (var val in Enum.GetValues(enumeration.GetType()))
             {
+
+                FieldInfo fi = val.GetType().GetField(val.ToString());
+
+                DescriptionAttribute[] attributes =
+                    (DescriptionAttribute[])fi.GetCustomAttributes(
+                    typeof(DescriptionAttribute),
+                    false);
+
+                string description;
+                if (attributes != null &&
+                    attributes.Length > 0)
+                    description = attributes[0].Description;
+                else
+                    description = val.ToString();
+
                 list.Add(new SelectListItem
                 {
-                    Text = Enum.GetName(enumeration.GetType(), val),
+                    Text = description,
                     Value = ((int)val).ToString()
                 });
             }
