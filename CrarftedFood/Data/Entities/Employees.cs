@@ -133,7 +133,7 @@ namespace Data.Entities
                 return dc.Employees.First(x => (x.EmployeeId == empId) && x.IsActive);
             }
         }
-
+        
         public static List<Employee> GetAllActiveEmployees()
         {
             using (var dc = new DataClassesDataContext())
