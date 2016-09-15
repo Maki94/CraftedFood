@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Data.DTOs;
-//using iTextSharp.tool.xml;
+using iTextSharp.tool.xml;
+
 
 
 namespace Data.Entities
@@ -47,18 +48,44 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                //TODO razmisli sta ako nije dostavljen i slicno, razmisli o grupisanju, redosledu i slicno
-                return dc.Requests.Where(a => a.DateDelivered >= start && a.DateDelivered <= end).Select(a => new OrderDto
+                List<OrderDto> order = new List<OrderDto>();
+
+                List<MenuMealItem> meals = Data.Entities.Meals.GetMenu();
+
+                foreach (MenuMealItem meal in meals)
                 {
-                    OrderId = a.RequestId,
-                    EmployeeId = a.EmployeeId,
-                    EmployeeName = a.Employee.Name,
-                    Quantity = a.Quantity,
-                    Price = a.Meal.Price * a.Quantity,
-                    MealTitle = a.Meal.Title,
-                    Note = a.Note
-                }).ToList();
+                    float totalQuantity =
+                        dc.Requests.Where(
+                                a => a.MealId == meal.MealId && a.DateDelivered >= start && a.DateDelivered <= end)
+                            .Select(a => a.Quantity)
+                            .ToList()
+                            .Sum();
+
+                    if (totalQuantity != 0)
+                    {
+                        order.Add(new OrderDto()
+                        {
+                            MealTitle = meal.Title,
+                            Quantity = totalQuantity,
+                            Price = meal.Price,
+                            TotalPrice = totalQuantity*meal.Price
+                        });
+                    }
+                }
+
+                if (order.Any())
+                {
+                    double totalBill = order.Sum(x => x.TotalPrice);
+                    order.Add(new OrderDto()
+                    {
+                        MealTitle = "SALDO",
+                        TotalPrice = totalBill
+                    });
+                }
+
+                return order;
             }
+
         }
 
         public static List<OrderDto> GetOrdersOfEmployee(int empId, DateTime? start = null, DateTime? end = null)
@@ -101,7 +128,7 @@ namespace Data.Entities
                         {
                             doc.Open();
                             doc.NewPage();
-                            //XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
+                            XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
                             doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
                             doc.Close();
                             bytes = ms.ToArray();

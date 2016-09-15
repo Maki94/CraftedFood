@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
+using Data.DTOs;
 using Roles = Data.Enums.Roles;
 
 namespace Data.Entities
@@ -22,6 +23,49 @@ namespace Data.Entities
                 };
                 dc.Employees.InsertOnSubmit(emp);
                 dc.SubmitChanges();
+            }
+        }
+
+        public static EmployeeDto GetEmployeeFullDto(int empId)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Employees.Where(x => (x.EmployeeId == empId) && x.IsActive).Select(x=> new EmployeeDto()
+                {
+                    Name = x.Name,
+                    Mobile = x.Mobile,
+                    Email = x.Email,
+                    EmployeeId = x.EmployeeId,
+                    Role = (Data.Enums.Roles)x.RoleId
+                }).First();
+            }
+        }
+
+        public static List<EmployeeDto> GetAllActiveEmployeesDto()
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Employees.Where(x => x.IsActive).Select(x => new EmployeeDto()
+                {
+                    Name = x.Name,
+                    Mobile = x.Mobile,
+                    Email = x.Email,
+                    EmployeeId = x.EmployeeId,
+                    Role = (Data.Enums.Roles)x.RoleId
+                }).ToList();
+            }
+        }
+
+        public static EmployeeDto GetEmployeeAddDto(int empId)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Employees.Where(x => (x.EmployeeId == empId) && x.IsActive).Select(x => new EmployeeDto()
+                {
+                    Name = x.Name,
+                    Email = x.Email,
+                    Role = (Data.Enums.Roles)x.RoleId
+                }).First();
             }
         }
 
@@ -133,7 +177,7 @@ namespace Data.Entities
                 return dc.Employees.First(x => (x.EmployeeId == empId) && x.IsActive);
             }
         }
-
+        
         public static List<Employee> GetAllActiveEmployees()
         {
             using (var dc = new DataClassesDataContext())

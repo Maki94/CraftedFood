@@ -23,7 +23,7 @@ namespace CrarftedFood.Controllers
 
         public ActionResult Profile(int id)
         {
-            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(id);
+            Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
             return View(model);
         }
         #endregion
@@ -35,7 +35,7 @@ namespace CrarftedFood.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddEmployee(AddEmployeeViewModel model)
+        public async Task<ActionResult> AddEmployee(Data.DTOs.EmployeeDto model)
         {
             string pass = Membership.GeneratePassword(7, 0);
             string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, model.Email);
@@ -102,31 +102,31 @@ namespace CrarftedFood.Controllers
         #region ADMIN EDIT
         public ActionResult EditEmployee(int empId)
         {
-            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(empId);
+            Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
             //TODO view
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult EditEmployee(ShowEmployeeViewModel model)
+        public ActionResult EditEmployee(Data.DTOs.EmployeeDto model)
         {
-            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile, model.Role);
-            return RedirectToAction("Profile", model.Id);
+            Data.Entities.Employees.EditEmployee(model.EmployeeId, model.Name, model.Email, model.Mobile, model.Role);
+            return RedirectToAction("Profile", model.EmployeeId);
         }
         #endregion
 
         #region EDIT
         public ActionResult EditProfile(int empId)
         {
-            EditEmployeeViewModel model = EditEmployeeViewModel.Load(empId);
+            Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
             //TODO view
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Profile(ShowEmployeeViewModel model)
+        public ActionResult Profile(Data.DTOs.EmployeeDto model)
         {
-            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile, model.Role);
+            Data.Entities.Employees.EditEmployee(model.EmployeeId, model.Name, model.Email, model.Mobile, model.Role);
             return RedirectToAction("Index");
         }
         #endregion

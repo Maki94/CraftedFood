@@ -186,6 +186,24 @@ namespace Data.Entities
             }
         }
 
+        public static MenuMealItem GetMealItem(int mealId)
+        {
+            using (var dc = new DataClassesDataContext())
+            {
+                return dc.Meals.Where(x => x.MealId == mealId).Select(x=> new Data.DTOs.MenuMealItem()
+                {
+                    MealId = x.MealId,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Category = (Data.Enums.Categories)x.CategoryId,
+                    Quantity = x.Quantity,
+                    Image = x.Image.ToArray(),
+                    Price = x.Price,
+                    Unit = (Data.Enums.Units)x.UnitId
+                }).First();
+            }
+        }
+        
         public static bool OrderMeal(int mealId, int empId, DateTime dateRequested, DateTime dateToDeliver, string note, float quantity)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())

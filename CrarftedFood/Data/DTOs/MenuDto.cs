@@ -23,19 +23,7 @@ namespace Data.DTOs
 
         public static MenuMealItem Load(int mealId)
         {
-            var meal = Meals.GetMealAt(mealId);
-
-            return new Data.DTOs.MenuMealItem()
-            {
-                MealId = meal.MealId,
-                Title = meal.Title,
-                Description = meal.Description,
-                Category = (Data.Enums.Categories)meal.CategoryId,
-                Quantity = meal.Quantity,
-                Image = meal.Image.ToArray(),
-                Price = meal.Price,
-                Unit = (Data.Enums.Units)meal.UnitId
-            };
+            return Meals.GetMealItem(mealId);
         }
     }
     
