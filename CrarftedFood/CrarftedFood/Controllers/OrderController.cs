@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using CrarftedFood.Models;
+using Data.DTOs;
 using Data.Entities;
 
 namespace CrarftedFood.Controllers
@@ -21,10 +23,21 @@ namespace CrarftedFood.Controllers
         #region ORDER
 
         [HttpPost]
-        public ActionResult NewOrder()
+        public ActionResult NewOrder(List<AddOrderModel> models)
         {
-
+            foreach (AddOrderModel m in models)
+            {
+                Data.Entities.Meals.OrderMeal(m.MealId, m.EmployeeId, m.DateRequested, m.DateToDeliver, m.Note,
+                    m.Quantity);
+            }
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CancelOrder(int orderId)
+        {
+            bool s = Data.Entities.Meals.CancelOrder(orderId);
+            return Json(new { success = s});
         }
 
         #endregion

@@ -214,5 +214,23 @@ namespace Data.Entities
                 }
             }
         }
+
+        public static bool CancelOrder(int requestId)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                try
+                {
+                    Request mealRequest = dc.Requests.First(x => x.RequestId == requestId);
+                    dc.Requests.DeleteOnSubmit(mealRequest);
+                    dc.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
