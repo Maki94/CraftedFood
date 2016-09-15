@@ -6,6 +6,7 @@ using System.Web;
 using Data.DTOs;
 using iTextSharp.tool.xml;
 
+
 namespace Data.Entities
 {
     public static class Reports

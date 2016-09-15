@@ -67,3 +67,25 @@
 .targetfound {
     display: none;
 }
+
+.mdl-textfield__input {
+    margin: 4px 0;
+    padding: 0px;
+}
+
+.mdl-textfield.is-focused .mdl-textfield__input {
+    width: 300px;
+    border: none;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.members-search-icon {
+    color: #bfbfce;
+    font-size: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.member-list-search-add {
+    height: 90px;
+}
