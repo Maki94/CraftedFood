@@ -11,8 +11,10 @@ namespace CrarftedFood.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(string recoverdEmail)
         {
+            ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
+            
             var email = "markomihajlovicfm@gmail.com";
             var pass = "?Gm.S)v";
 
