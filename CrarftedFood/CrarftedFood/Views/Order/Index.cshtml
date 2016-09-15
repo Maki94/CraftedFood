@@ -32,6 +32,9 @@
             <th>
                 <a id="note" href=#>Note</a>
             </th>
+            <th>
+                
+            </th>
         </tr>
     </thead>
     <tbody id="order-tbody">
@@ -50,11 +53,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
-            @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>*@
+            <td>
+                <a class="mdl-navigation__link" id="@Html.DisplayFor(m => item.EmployeeId)"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
+                @*<a class="share share-toggle share-icon" href="#"></a>*@
+                @*@Html.ActionLink("Delete", "", new {id = ""})*@
+            </td>
         </tr>
     }
     </tbody>

@@ -15,6 +15,7 @@ namespace Data.Entities
             {
                 return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     Quantity = a.Quantity,
                     Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
@@ -29,6 +30,7 @@ namespace Data.Entities
             {
                 return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
                     Quantity = a.Quantity,
@@ -46,6 +48,7 @@ namespace Data.Entities
                 //TODO razmisli sta ako nije dostavljen i slicno, razmisli o grupisanju, redosledu i slicno
                 return dc.Requests.Where(a => a.DateDelivered >= start && a.DateDelivered <= end).Select(a => new OrderDto
                 {
+                    OrderId = a.RequestId,
                     EmployeeId = a.EmployeeId,
                     EmployeeName = a.Employee.Name,
                     Quantity = a.Quantity,
@@ -71,6 +74,7 @@ namespace Data.Entities
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date<=a.DateRequested.Date && a.DateRequested.Date<=end.Value.Date)
                     .Select(a => new OrderDto
                     {
+                        OrderId = a.RequestId,
                         Quantity = a.Quantity,
                         Price = a.Meal.Price * a.Quantity,
                         MealTitle = a.Meal.Title,
