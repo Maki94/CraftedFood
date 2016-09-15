@@ -89,3 +89,8 @@
 .member-list-search-add {
     height: 90px;
 }
+
+a:hover span{
+    color: teal;
+    text-decoration: none;
+}

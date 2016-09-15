@@ -261,6 +261,7 @@
     <Content Include="Views\Menu\AddMeal.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

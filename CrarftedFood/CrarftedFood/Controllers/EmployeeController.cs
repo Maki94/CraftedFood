@@ -21,10 +21,10 @@ namespace CrarftedFood.Controllers
             return View(model);
         }
 
-        public ActionResult Profiles(int empId)
+        public ActionResult Profile(int id)
         {
-            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(empId);
-            return View();
+            ShowEmployeeViewModel model = ShowEmployeeViewModel.Load(id);
+            return View(model);
         }
         #endregion
 
@@ -124,10 +124,10 @@ namespace CrarftedFood.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditProfile(ShowEmployeeViewModel model)
+        public ActionResult Profile(ShowEmployeeViewModel model)
         {
-            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile);
-            return RedirectToAction("Profile", model.Id);
+            Data.Entities.Employees.EditEmployee(model.Id, model.Name, model.Email, model.Mobile, model.Role);
+            return RedirectToAction("Index");
         }
         #endregion
 
