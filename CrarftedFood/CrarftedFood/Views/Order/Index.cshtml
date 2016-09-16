@@ -30,71 +30,89 @@
 <div id="table-wrapper">
     @if (Model.Orders.Count != 0)
     {
-        <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
 
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">
-                        <a id="mealTitle" href=#>
-                            Meal Title
-                            <span id="mealTitleUp">▲</span>
-                            <span id="mealTitleDown">▼</span>
-                        </a>
-                    </th>
-                    <th>
-                        <a id="quantity" href=#>
-                            Quantity
-                            <span id="quantityUp">▲</span>
-                            <span id="quantityDown">▼</span>
-                        </a>
-                    </th>
-                    <th>
-                        <a id="price" href=#>
-                            Price
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">
+                    <a id="mealTitle" href=#>
+                        Meal Title
+                        <span id="mealTitleUp">▲</span>
+                        <span id="mealTitleDown">▼</span>
+                    </a>
+                </th>
+                <th>
+                    <a id="quantity" href=#>
+                        Quantity
+                        <span id="quantityUp">▲</span>
+                        <span id="quantityDown">▼</span>
+                    </a>
+                </th>
+                <th>
+                    <a id="price" href=#>
+                        Price
 
-                            <span id="priceUp">▲</span>
-                            <span id="priceDown">▼</span>
-                        </a>
-                    </th>
-                    <th>
-                        <a id="note" href=#>
-                            Note
+                        <span id="priceUp">▲</span>
+                        <span id="priceDown">▼</span>
+                    </a>
+                </th>
+                <th>
+                    <a id="note" href=#>
+                        Note
 
-                            <span id="noteUp">▲</span>
-                            <span id="noteDown">▼</span>
-                        </a>
-                    </th>
-                    <th>
+                        <span id="noteUp">▲</span>
+                        <span id="noteDown">▼</span>
+                    </a>
+                </th>
+                <th>
 
-                    </th>
-                </tr>
+                </th>
+            </tr>
             </thead>
             <tbody id="order-tbody">
 
-                @foreach (var item in Model.Orders)
-                {
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            @Html.DisplayFor(modelItem => item.MealTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Note)
-                        </td>
-                        <td>
-                            <a class='mdl-navigation__link delete-event' data-id='@Html.DisplayFor(m => item.OrderId)'>
-                                <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                }
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        @Html.DisplayFor(modelItem => item.MealTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
+                            <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
+                        </a>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
+        <div id="delete-dialog" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Are you sure?</h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#" class="delete-confirm btn btn-danger" id="delete-yes">Delete</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="delete-no">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     }
 
     @if (Model.Orders.Count == 0)
@@ -119,6 +137,8 @@
     var quantitySortDownElem = document.getElementById("quantityDown");
     var priceSortDownElem = document.getElementById("priceDown");
     var noteSortDownElem = document.getElementById("noteDown");
+
+    var deleteId = -1;
 
     var checkMealTitleDirection = function () {
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
@@ -157,7 +177,7 @@
             str += "<td>" + value.Quantity + "</td>";
             str += "<td>" + value.Price + "</td>";
             str += "<td>" + value.Note + "</td>";
-            str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "'><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
+            str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "' onclick='setDeleteId(" + value.OrderId + ")' data-toggle=\"modal\" data-target=\"#delete-dialog\"><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
             tr.innerHTML = str;
 
             if (tbody.childElementCount === 0) {
@@ -171,16 +191,47 @@
         document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
     }
 
-    $(".delete-event").click(function () {
-        var id = this.dataset.id;
-        var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
+    @*$(".delete-event").click(function () {
+        //if (confirm('Da li sigurno zelite da zelite da otkazete narudzbinu?')) {
+        deleteId = this.dataset.id;
+            //var id = this.dataset.id;
+            //var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
 
-        $.post(url, function (data) {
-            if (data.success === true) {
-                fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
-                checkMealTitleDirection();
-            }
-        });
+            //$('#delete-dialog .modal-footer .delete-confirm').attr("href", url);
+
+            //$.post(url, function (data) {
+            //    if (data.success === true) {
+            //        fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
+            //        checkMealTitleDirection();
+            //    }
+            //});
+        //}
+    });*@
+    var setDeleteId = function(id) {
+        deleteId = id;
+    };
+    function eventFire(el, etype) {
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
+    }
+    $("#delete-yes").click(function() {
+        if (deleteId !== -1) {
+            var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + deleteId;
+            $.post(url, function (data) {
+                if (data.success === true) {
+                    fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
+                    eventFire(document.getElementById('delete-no'), 'click');
+                    checkMealTitleDirection();
+                }
+            });
+        } else {
+            alert("Nesto ne valja !!!!!!!!");
+        }
     });
     $("#mealTitle").click(function () {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealTitle" })";

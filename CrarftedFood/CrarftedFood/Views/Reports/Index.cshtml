@@ -27,9 +27,9 @@
                 </label>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="report">
-                    <input type="radio" id="report" class="mdl-radio__button" name="report" value="true">
-                    <span class="mdl-radio__label">Report</span>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order">
+                    <input type="radio" id="order" class="mdl-radio__button" name="report" value="true">
+                    <span class="mdl-radio__label">Order</span>
                 </label>
 
             </div>
@@ -71,11 +71,23 @@
     });
 </script>
 <script>
+    var datePickerFrom = document.getElementById("report-date-end");
+    $('#delivery').click(function() {
+        $("#report-date-end").fadeIn();
+    });
+    $('#order').click(function () {
+        $("#report-date-end").fadeOut();
+    });
+    $('#invoice').click(function () {
+        $("#report-date-end").fadeOut();
+    });
+
     $("#find-pdf")
         .click(function() {
             var delivery = $('#delivery').is(':checked');
-            var report = $('#report').is(':checked');
+            var order = $('#order').is(':checked');
             var invoice = $('#invoice').is(':checked');
+
             if (reportFrom.value !== "" && reportEnd.value !== "") {
                 var dateFrom = reportFrom.value.split(" ");
                 var startDay = dateFrom[0];
@@ -89,26 +101,26 @@
 
                 var fileName = new Date().toISOString().slice(0, 10);
                 var uri = '@Url.Action("Invoice", "Reports")' +
-                '?fileName=' + fileName +
-                '&startDay=' + startDay +
-                '&startMonth=' + startMonth +
-                '&startYear=' + startYear +
-                '&endDay=' + endDay +
-                '&endMonth=' + endMonth +
-                '&endYear=' + endYear;
+                    '?fileName=' + fileName +
+                    '&startDay=' + startDay +
+                    '&startMonth=' + startMonth +
+                    '&startYear=' + startYear +
+                    '&endDay=' + endDay +
+                    '&endMonth=' + endMonth +
+                    '&endYear=' + endYear;
 
-            $.post(uri, function (data) {
-                var pdfFrame = document.getElementById("pdf-iframe");
+                $.post(uri, function (data) {
+                    var pdfFrame = document.getElementById("pdf-iframe");
 
-                //pdfFrame.setAttribute("src", "//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-ispita-septembar-2016-oas.pdf");
-                pdfFrame.setAttribute("src", '@Url.Content("~/RESOURCES/")' + fileName + '.pdf');
-            });
+                    //pdfFrame.setAttribute("src", "//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-ispita-septembar-2016-oas.pdf");
+                    pdfFrame.setAttribute("src", '@Url.Content("~/RESOURCES/")' + fileName + '.pdf');
+                });
 
 
-        } else {
-            alert("potrebno je uneti sve vrednosti");
-        }
-    });
+            } else {
+                alert("potrebno je uneti sve vrednosti");
+            }
+        });
 
     var monthToNumber = function (month) {
         if (month === "January") return 1;
@@ -123,17 +135,6 @@
         if (month === "October") return 10;
         if (month === "November") return 11;
         if (month === "December") return 12;
-    }
-    /////////////////
-    var frame = document.getElementById("pdf-iframe");
-    var wrapper = document.getElementById("wrapper");
-    var reportFrom = document.getElementById("report-date-from");
-    var reportEnd = document.getElementById("report-date-end");
-
-    var handleClickEvent = function () {
-        if (reportFrom.value !== "" && reportEnd.value !== "") {
-            alert(reportFrom.value + reportEnd.value);
-        }
     }
 </script>
 
