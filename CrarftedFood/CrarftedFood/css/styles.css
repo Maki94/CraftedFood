@@ -275,6 +275,21 @@ _:-ms-input-placeholder, :root .demo-graph {
     z-index: 0;
 }
 
+ #form-wrapper {
+        margin: 2% 5%;
+        width: 60%;
+        padding-top: 2%;
+}
+
+#submint-button {
+    float: left;
+}
+#form-wrapper-horizontal {
+    width: 130%;
+}
+#btn-file-wrapper {
+    display: block;
+}
 
 
 @media screen and (min-width: 1025px) {
