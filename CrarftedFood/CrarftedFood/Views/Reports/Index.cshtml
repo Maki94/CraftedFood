@@ -11,6 +11,9 @@
         display: inline-flex;
         margin-left: 10%;
     }
+    .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+      padding: 0 16px !important;
+    }
 </style>
 <div id="wrapper">
     <form class="col s12">
@@ -41,7 +44,7 @@
                 <input id="report-date-from" type="date" class="datepicker" placeholder="Pick a date" required>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-end" type="date" class="datepicker" placeholder="Pick a date" required="" aria-required="true">
+                <input id="report-date-end" type="date" class="datepicker" disabled="" placeholder="Pick a date" required="" aria-required="true">
             </div>
             <div class="mdl-cell mdl-cell--1-col">
                 <button id="find-pdf" class="btn waves-effect waves-light" type="button" name="action">

@@ -80,10 +80,11 @@
 
                             <div class="form-group" id="remember-me-wrapper">
                                 <div class="col-md-12 col-sm-12">
-                                    <div id="checkbox-remember" class="col-md-6 checkbox">
-                                        Zapamti me
-                                        @Html.EditorFor(model => model.RememberMe)
-                                        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                    <div class="col-md-6">
+                                        <div id="checkbox-remember" class="checkbox">
+                                            @Html.EditorFor(model => model.RememberMe, "Zapamti me")
+                                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 text-center">
                                         <small id="forgot-account" class="text-center text-info">
@@ -131,27 +132,33 @@
             loginTextSpam.innerHTML = "Reset";
         });
         submitButtonReset.addEventListener("click", function () {
-            var url = '@Url.Action("PasswordRecovery", "Employee")';
+            var url = '@Url.Action("PasswordRecovery", "Employees")';
             var email = document.getElementById("Email").value;
             url += "?email=" + email;
 
-            $.post(url, function (data) {
-                if (data.success === true) {
-                    var paragraph = document.createElement("p");
-                    paragraph.className = "text-info";
-                    paragraph.innerHTML = "Poslata vam je nova lozinka na mail-u";
-                    submitButtonReset.parentElement.innerHTML = paragraph.innerHTML;
-                    setTimeout(function () { }, 800); // TODO: ne radi time setTimeout funkcija
+            var paragraph = document.createElement("p");
+            paragraph.className = "text-info";
+            paragraph.innerHTML = "Nova sifra ce Vam biti poslata na mail";
+            submitButtonReset.parentElement.innerHTML = paragraph.innerHTML;
 
-                    var uri = '@Url.Action("Index","Login")';
+            //setTimeout(function () { }, 300); // TODO: ne radi time setTimeout funkcija
+
+            $.post(url, function (data) {
+                if (data.success === true) {;
+
+                    @*var uri = '@Url.Action("Index","Login")';
                     uri += "?"+"recoverdEmail=" + email;
                     //window.location.reload(false);
-                    window.location.href = uri;
+                    window.location.href = uri;*@
                     //window.open(uri);
                 } else {
                     document.getElementById("text-reset-danger").innerHTML = "Morate uneti validan mail";
                     //submitButtonReset.parentElement.appendChild(paragraph);
                 }
+                var uri = '@Url.Action("Index","Login")';
+                uri += "?" + "recoverdEmail=" + email;
+                //window.location.reload(false);
+                window.location.href = uri;
             });
         });
     </script>
