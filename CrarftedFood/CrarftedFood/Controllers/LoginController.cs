@@ -13,8 +13,8 @@ namespace CrarftedFood.Controllers
         // GET: Login
         public ActionResult Index(string recoverdEmail)
         {
-            var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+            var email = "markomihajlovicfm@gmail.com";
+            var pass = "ZQ]O4uq";
             ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
          
             Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
