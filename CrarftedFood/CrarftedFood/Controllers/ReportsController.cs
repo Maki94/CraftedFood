@@ -56,7 +56,9 @@ namespace CrarftedFood.Controllers
                 PageSize = Size.A4
             };
             byte[] bytePDF = PDF.BuildPdf(this.ControllerContext);
-            var fileStream = new FileStream(System.Web.HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" + DateTime.Now.ToLongDateString() + ".pdf", FileMode.Create, FileAccess.Write);
+            var url = System.Web.HttpContext.Current.Server.MapPath("~") + "/Views/RESOURCES/" +
+                      DateTime.Now.ToLongDateString() + ".pdf";
+            var fileStream = new FileStream(url, FileMode.Create, FileAccess.Write);
             fileStream.Write(bytePDF, 0, bytePDF.Length);
             fileStream.Close();
             return View(order);

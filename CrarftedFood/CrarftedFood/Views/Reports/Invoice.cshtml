@@ -11,45 +11,48 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<style type="text/css">
-    body, table {
-        width: 100vh;
-    }
-
-    thead th, tr {
-        width: 25%;
-    }
-
-    td {
-        text-align: center;
-    }
-</style>
 <body>
-    <table class="centered bordered striped highlight">
-        <thead>
-            <tr>
-                <th>MealTitle</th>
-                <th>Quantity</th>
-                <th data-field="name">Price</th>
-                <th data-field="price">TotalPrice</th>
-            </tr>
-        </thead>
+<style type="text/css">
+    table tr:last-child td:nth-child(0) span{
+        display: none;
+    }
+    table tr:last-child td:nth-child(1) span{
+        display: none;
+    }
+    table tr:last-child td:nth-child(2) span{
+        display: none;
+    }
+    table tr:last-child td:nth-child(3) span{
+        display: none;
+    }
+    
 
-        <tbody>
-            @foreach (var item in Model.Orders)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(model => item.MealTitle)</td>
-                    <td>@Html.DisplayFor(model => item.Quantity)</td>
-                    <td>@Html.DisplayFor(model => item.Price)</td>
-                    <td>@Html.DisplayFor(model => item.TotalPrice)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <!--Import jQuery before materialize.js-->
-   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</style>
+<table class="centered bordered striped highlight">
+    <thead>
+    <tr>
+        <th>MealTitle</th>
+        <th>Quantity</th>
+        <th data-field="name">Price</th>
+        <th data-field="price">TotalPrice</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+            <td><span>@Html.DisplayFor(model => item.MealTitle)</span></td>
+            <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
+            <td><span>@Html.DisplayFor(model => item.Price)</span></td>
+            <td><span>@Html.DisplayFor(model => item.TotalPrice)</span></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
 </body>
 </html>
