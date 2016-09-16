@@ -172,15 +172,17 @@
     }
 
     $(".delete-event").click(function () {
-        var id = this.dataset.id;
-        var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
+        if (confirm('Da li sigurno zelite da zelite da otkazete narudzbinu?')) {
+            var id = this.dataset.id;
+            var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
 
-        $.post(url, function (data) {
-            if (data.success === true) {
-                fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
-                checkMealTitleDirection();
-            }
-        });
+            $.post(url, function (data) {
+                if (data.success === true) {
+                    fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
+                    checkMealTitleDirection();
+                }
+            });
+        }
     });
     $("#mealTitle").click(function () {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealTitle" })";
