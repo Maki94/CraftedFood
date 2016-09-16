@@ -529,3 +529,15 @@ h2 {
     border-radius: 0;
 
 }
+
+#ui-datepicker-div {
+        background-color: white;
+}
+
+.modal-body textarea {
+    width: 90%;
+}
+
+.quantity {
+   width: 38px;
+}

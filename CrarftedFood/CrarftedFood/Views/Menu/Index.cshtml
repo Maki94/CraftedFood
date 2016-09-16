@@ -151,7 +151,7 @@
                     <p>One fine body…</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-success">Order</a>
+                    <a href="#!" class="btn btn-success order-confirm">Order</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -189,35 +189,54 @@
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
+
 </div>
 
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
 <script src="~/Scripts/menu.js"></script>
 <script src="~/Scripts/search.js"></script>
 
 <script>
-    
+
     //ordering
     //collapse order button
     //$('.card__social').toggleClass('card__social--active');
     //$('#share').toggleClass('share-expanded');
 
-    $('.card__share > a').on('click', function (e) {
-        e.preventDefault() // prevent default action - hash doesn't appear in url
-        $(this).parent().find('div').toggleClass('card__social--active');
-        $(this).toggleClass('share-expanded');
-    });
 
-    var dialog = document.getElementById('order-dialog');
+    $('.order-confirm').on('click', function(e) {
+        self = this;
+        mealId = this.parentElement.parentElement.getElementsByClassName('meal-id')[0].attributes['data-id'].value;
+        note = this.parentElement.parentElement.getElementsByTagName('textarea')[0].value;
+        date = this.parentElement.parentElement.getElementsByClassName('date')[0].value;
+        quantity = this.parentElement.parentElement.getElementsByClassName('quantity')[0].value;
 
-    $('.card__social > a').on('click', function (e) {
-        debugger;
-        dialog.querySelector('.modal-body').innerHTML = "\ndatum je" + this.attributes['attr-day'].value;
-        mealId = this.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
-        dialog.querySelector('.modal-body').innerHTML += "\nmealId:" + mealId;
-        dialog.showModal();
+        $.ajax({
+            url: "@Url.Action("Order", "Menu")",
+            method: "POST",
+            data: {
+                mealId: mealId,
+                dateToDeliver: date,
+                note: note,
+                quantity: quantity
+            },
+            success: function (result) {
+                var snackbarContainer = document.querySelector('#demo-toast-example');
+                if (result.success === true) {
+                    var data = { message: 'Order complete' };
+                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                } else {
+                    var data = { message: 'Error' };
+                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                }
+                
+            }
+        });
+        
     });
+    
 
 
     //delete
@@ -320,7 +339,7 @@
         if (sendData.comment == null || sendData.comment.length < 1) {
             //prikazi poruku 
             var snackbarContainer = document.querySelector('#demo-toast-example');
-            var data = { message: 'Komentar je prazan' };
+            var data = { message: 'No comment to submit' };
             snackbarContainer.MaterialSnackbar.showSnackbar(data);
 
 

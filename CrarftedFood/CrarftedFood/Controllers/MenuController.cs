@@ -150,7 +150,15 @@ namespace CrarftedFood.Controllers
 
         #endregion
 
-        
+        #region ORDER
 
+        [HttpPost]
+        public ActionResult Order(int mealId, DateTime dateToDeliver, string note, float quantity)
+        {
+            Data.Entities.Meals.OrderMeal(mealId, UserSession.GetUser().EmployeeId, DateTime.Now, dateToDeliver, note, quantity);
+            return Json(new {success = true});
+        }
+
+        #endregion
     }
 }
