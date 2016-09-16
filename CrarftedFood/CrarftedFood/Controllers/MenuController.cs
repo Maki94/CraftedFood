@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CrarftedFood.Models;
+using CrarftedFood.Tests;
 using Data;
 using Data.DTOs;
 
@@ -14,7 +15,7 @@ namespace CrarftedFood.Controllers
     public class MenuController : Controller
     {
         #region MENU
-
+        
         public ActionResult Index()
         {
             MenuViewModel menu = new MenuViewModel();
@@ -26,6 +27,7 @@ namespace CrarftedFood.Controllers
 
         #region COMMENT
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.FeedbackMeal)]
         [HttpPost]
         public ActionResult CommentMeal(int mealId, string comment)
         {
@@ -34,14 +36,14 @@ namespace CrarftedFood.Controllers
                 return Json(new { success = false, message = "incorrect parameters" });
             }
 
-            Employee emp = UserSession.GetUser();
+            Data.DTOs.LoginDto emp = UserSession.GetUser();
             Data.Entities.Meals.CommentMeal(emp.EmployeeId, mealId, comment);
 
             return Json(new { success = true });
 
         }
 
-
+        
         [HttpPost]
         public ActionResult GetComments(int mealId)
         {
@@ -52,7 +54,8 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region RATE
-        
+
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.FeedbackMeal)]
         [HttpPost]
         public ActionResult RateMeal(int mealId, float rating)
         {
@@ -61,21 +64,23 @@ namespace CrarftedFood.Controllers
                 return Json(new { success = false, message = "incorrect parameters" });
             }
 
-            Employee emp = UserSession.GetUser();
+            Data.DTOs.LoginDto emp = UserSession.GetUser();
             Data.Entities.Meals.RateMeal(emp.EmployeeId, mealId, rating);
             float newrate = Data.Entities.Meals.GetAverageRate(mealId);
             return Json(new { success = true, newRating =  newrate});
-        } 
+        }
 
         #endregion
 
         #region ADD
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         public ActionResult AddMeal()
         {
             return View();
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         [HttpPost]
         public ActionResult EditMealImage(HttpPostedFileBase file, int mealId)
         {
@@ -93,6 +98,7 @@ namespace CrarftedFood.Controllers
             return Json(new {success = true});
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         [HttpPost]
         public ActionResult AddMeal(MenuMealItem model)
         {
@@ -114,12 +120,14 @@ namespace CrarftedFood.Controllers
 
         #region EDIT
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         public ActionResult EditMeal(int id)
         {
             MenuMealItem model = MenuMealItem.Load(id);
             return View(model);
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         [HttpPost]
         public ActionResult EditMeal(MenuMealItem model)
         {
@@ -142,6 +150,7 @@ namespace CrarftedFood.Controllers
 
         #region DELETE
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
         [HttpPost]
         public ActionResult DeleteEmployee(int mealId)
         {

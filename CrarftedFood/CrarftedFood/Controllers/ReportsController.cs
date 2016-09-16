@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using CrarftedFood.Models;
+using CrarftedFood.Tests;
 using Data.DTOs;
 using Data.Entities;
 using Rotativa.Options;
@@ -22,11 +23,15 @@ namespace CrarftedFood.Controllers
         //{
         //    return View();
         //}
+
+        //TODO permisija? delivery i allreports
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.SeeReports)]
         public ActionResult Index(bool delivery = false, bool order = false, bool invoice = false)
         {
             return View();
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.SeeReports)]
         public ActionResult Invoice(int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
         {
             DateTime startTime, endTime;
@@ -61,22 +66,5 @@ namespace CrarftedFood.Controllers
             fileStream.Close();
             return View(order);
         }
-
-        private string ViewToString(string viewName, object model)
-        {
-            ViewData.Model = model;
-            using (var sw = new System.IO.StringWriter())
-            {
-                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
-                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
-                return sw.GetStringBuilder().ToString();
-            }
-        }
-
-
-
-
     }
 }

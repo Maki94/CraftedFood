@@ -210,7 +210,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -324,7 +324,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -406,7 +406,7 @@ namespace Data
 		
 		private string _Password;
 		
-		private System.Nullable<int> _RoleId;
+		private int _RoleId;
 		
 		private bool _IsActive;
 		
@@ -430,7 +430,7 @@ namespace Data
     partial void OnMobileChanged();
     partial void OnPasswordChanging(string value);
     partial void OnPasswordChanged();
-    partial void OnRoleIdChanging(System.Nullable<int> value);
+    partial void OnRoleIdChanging(int value);
     partial void OnRoleIdChanged();
     partial void OnIsActiveChanging(bool value);
     partial void OnIsActiveChanged();
@@ -464,7 +464,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -484,7 +484,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Email
 		{
 			get
@@ -524,7 +524,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
 		public string Password
 		{
 			get
@@ -544,8 +544,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="Int")]
-		public System.Nullable<int> RoleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="Int NOT NULL")]
+		public int RoleId
 		{
 			get
 			{
@@ -641,7 +641,7 @@ namespace Data
 					}
 					else
 					{
-						this._RoleId = default(Nullable<int>);
+						this._RoleId = default(int);
 					}
 					this.SendPropertyChanged("Role");
 				}
@@ -1109,7 +1109,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -1850,7 +1850,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -1949,9 +1949,9 @@ namespace Data
 		
 		private int _RolePermissionId;
 		
-		private System.Nullable<int> _RoleId;
+		private int _RoleId;
 		
-		private System.Nullable<int> _PermissionId;
+		private int _PermissionId;
 		
 		private EntityRef<Permission> _Permission;
 		
@@ -1963,9 +1963,9 @@ namespace Data
     partial void OnCreated();
     partial void OnRolePermissionIdChanging(int value);
     partial void OnRolePermissionIdChanged();
-    partial void OnRoleIdChanging(System.Nullable<int> value);
+    partial void OnRoleIdChanging(int value);
     partial void OnRoleIdChanged();
-    partial void OnPermissionIdChanging(System.Nullable<int> value);
+    partial void OnPermissionIdChanging(int value);
     partial void OnPermissionIdChanged();
     #endregion
 		
@@ -1996,8 +1996,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="Int")]
-		public System.Nullable<int> RoleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="Int NOT NULL")]
+		public int RoleId
 		{
 			get
 			{
@@ -2020,8 +2020,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermissionId", DbType="Int")]
-		public System.Nullable<int> PermissionId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermissionId", DbType="Int NOT NULL")]
+		public int PermissionId
 		{
 			get
 			{
@@ -2071,7 +2071,7 @@ namespace Data
 					}
 					else
 					{
-						this._PermissionId = default(Nullable<int>);
+						this._PermissionId = default(int);
 					}
 					this.SendPropertyChanged("Permission");
 				}
@@ -2105,7 +2105,7 @@ namespace Data
 					}
 					else
 					{
-						this._RoleId = default(Nullable<int>);
+						this._RoleId = default(int);
 					}
 					this.SendPropertyChanged("Role");
 				}

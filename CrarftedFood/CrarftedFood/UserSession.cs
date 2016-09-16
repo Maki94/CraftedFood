@@ -8,16 +8,16 @@ namespace CrarftedFood
 {
     public class UserSession
     {
-        public static void SetUser(Employee emp)
+        public static void SetUser(Data.DTOs.LoginDto emp)
         {
             HttpContext.Current.Session["user"] = emp;
         }
 
-        public static Employee GetUser()
+        public static Data.DTOs.LoginDto GetUser()
         {
             if(HttpContext.Current.Session["user"] == null)
                 throw new Exception("Nije ulogovan");
-            return (Employee) HttpContext.Current.Session["user"];
+            return (Data.DTOs.LoginDto) HttpContext.Current.Session["user"];
         }
     }
 }
