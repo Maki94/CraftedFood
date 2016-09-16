@@ -27,7 +27,7 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
-        public ActionResult Invoice(int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
+        public ActionResult Invoice(string fileName, int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
         {
             DateTime startTime, endTime;
                 
@@ -56,8 +56,8 @@ namespace CrarftedFood.Controllers
                 PageSize = Size.A4
             };
             byte[] bytePDF = PDF.BuildPdf(this.ControllerContext);
-            var url = System.Web.HttpContext.Current.Server.MapPath("~") + "/Views/RESOURCES/" +
-                      DateTime.Now.ToLongDateString() + ".pdf";
+            var url = System.Web.HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" +
+                      fileName + ".pdf";
             var fileStream = new FileStream(url, FileMode.Create, FileAccess.Write);
             fileStream.Write(bytePDF, 0, bytePDF.Length);
             fileStream.Close();
