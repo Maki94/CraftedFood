@@ -24,118 +24,124 @@
                     <option value="@cat.Value">@cat.Text</option>
                 }
             </select>
-    </div>
+        </div>
 
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                <input type="radio" name="optionsRadios" id="cards-view" value="option1" checked="">
                 Cards view
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                <input type="radio" name="optionsRadios" id="table-view" value="option2">
                 Table view
             </label>
         </div>
     </div>
 
-    @foreach (MenuMealItem meal in Model.menu)
-    {
-        <div class="meal-wrapper show-search show-category">
-
-            <div class="card radius shadowDepth1" data-id="@meal.MealId">
-
-                @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
-                <a href="@Url.Action("EditMeal", "Menu", new {id = @meal.MealId})">
-                    <button class="edit-btn mdl-button mdl-js-button mdl-button--fab">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                </a>
+    <div class="menu-content" id="menu-content">
 
 
-                <button class="delete-btn mdl-button mdl-js-button mdl-button--fab" data-toggle="modal" data-target="#delete-dialog">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
 
+        @foreach (MenuMealItem meal in Model.menu)
+        {
+            <div class="meal-wrapper show-search show-category">
 
-                <div class="card__content card__padding">
-                    <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
-                    <div class="card__share">
-                        <div class="card__social">
-                        </div>
-                        <a class="share share-toggle share-icon" href="#"></a>
-                    </div>
+                <div class="card radius shadowDepth1" data-id="@meal.MealId">
 
-                    <div class="card__meta">
-                        <button id="@meal.MealId" class="mdl-js-button">
-                            <span class="rating">@(meal.Rating?.ToString() ?? "N/A")<i class="fa fa-star" aria-hidden="true"></i></span>
+                    @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
+                    <a href="@Url.Action("EditMeal", "Menu", new {id = @meal.MealId})">
+                        <button class="edit-btn mdl-button mdl-js-button mdl-button--fab">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>
-                        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect rating-list"
-                            for="@meal.MealId">
-                            <li class="mdl-menu__item">1</li>
-                            <li class="mdl-menu__item">2</li>
-                            <li class="mdl-menu__item">3</li>
-                            <li class="mdl-menu__item">4</li>
-                            <li class="mdl-menu__item">5</li>
-                        </ul>
-
-                        <span class="comments_button"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
+                    </a>
 
 
-                    </div>
+                    <button class="delete-btn mdl-button mdl-js-button mdl-button--fab" data-toggle="modal" data-target="#delete-dialog">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
 
-                    
 
-                    <article class="comments hide">
-                        <div>
+                    <div class="card__content card__padding">
+                        <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
+                        <div class="card__share">
+                            <div class="card__social">
+                            </div>
+                            <a class="share share-toggle share-icon" href="#"></a>
                         </div>
 
-                        <div class="add-comment-wrapper">
-                            <div class="add-comment mdl-textfield mdl-js-textfield">
-                                <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
-                                <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+                        <div class="card__meta">
+                            <button id="@meal.MealId" class="mdl-js-button">
+                                <span class="rating">@(meal.Rating?.ToString() ?? "N/A")<i class="fa fa-star" aria-hidden="true"></i></span>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect rating-list"
+                                for="@meal.MealId">
+                                <li class="mdl-menu__item">1</li>
+                                <li class="mdl-menu__item">2</li>
+                                <li class="mdl-menu__item">3</li>
+                                <li class="mdl-menu__item">4</li>
+                                <li class="mdl-menu__item">5</li>
+                            </ul>
+
+                            <span class="comments_button"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
+
+
+                        </div>
+
+
+
+                        <article class="comments hide comments-universal">
+                            <div>
                             </div>
 
-                            <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                        </div>
+                            <div class="add-comment-wrapper">
+                                <div class="add-comment mdl-textfield mdl-js-textfield">
+                                    <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
+                                    <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+                                </div>
+
+                                <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            </div>
 
 
 
-                    </article>
+                        </article>
 
-                    <article class="card__article">
-                        <div>
-                            <h2>
-                                <a href="#">@meal.Title</a>
-                            </h2>
-                            <span class="quantity">@meal.Quantity@meal.Unit.ToDescription()</span>
-                        </div>
+                        <article class="card__article">
+                            <div>
+                                <h2>
+                                    <a href="#">@meal.Title</a>
+                                </h2>
+                                <span class="quantity">@meal.Quantity@meal.Unit.ToDescription()</span>
+                            </div>
 
-                        <p class="description short">@meal.Description</p>
+                            <p class="description short">@meal.Description</p>
 
-                    </article>
-                </div>
+                        </article>
+                    </div>
 
-                <div class="card__action">
+                    <div class="card__action">
 
-                    <div class="card__author">
-                        <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
-                        <div class="card__author-content">
-                            <span class="mdl-chip">
-                                <span class="mdl-chip__text category">@meal.Category.ToDescription()</span>
-                            </span>
-                            <span>@meal.Price din</span>
+                        <div class="card__author">
+                            <!--<img src="http://lorempixel.com/40/40/sports/" alt="user">-->
+                            <div class="card__author-content">
+                                <span class="mdl-chip">
+                                    <span class="mdl-chip__text category">@meal.Category.ToDescription()</span>
+                                </span>
+                                <span>@meal.Price din</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
+        }
 
-            
-        </div>
-    }
+    </div>
+    <div id="menu-content-table" class="hide"></div>
 
-    
     <div id="order-dialog" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -203,170 +209,174 @@
     //$('.card__social').toggleClass('card__social--active');
     //$('#share').toggleClass('share-expanded');
 
-
-    $('.order-confirm').on('click', function(e) {
-        self = this;
-        mealId = this.parentElement.parentElement.getElementsByClassName('meal-id')[0].attributes['data-id'].value;
-        note = this.parentElement.parentElement.getElementsByTagName('textarea')[0].value;
-        date = this.parentElement.parentElement.getElementsByClassName('date')[0].value;
-        quantity = this.parentElement.parentElement.getElementsByClassName('quantity')[0].value;
-
-        $.ajax({
-            url: "@Url.Action("Order", "Menu")",
-            method: "POST",
-            data: {
-                mealId: mealId,
-                dateToDeliver: date,
-                note: note,
-                quantity: quantity
-            },
-            success: function (result) {
-                var snackbarContainer = document.querySelector('#demo-toast-example');
-                if (result.success === true) {
-                    var data = { message: 'Order complete' };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                } else {
-                    var data = { message: 'Error' };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                }
-                
-            }
-        });
-        
-    });
     
-
-
-    //delete
-    $('.delete-btn').on('click', function(e) {
-        idNum = this.parentElement.attributes['data-id'].value;
-        $('#delete-dialog .modal-footer .delete-confirm').attr("href", "@Url.Action("Delete", "Menu")" + "/" + idNum);
-    });
-    //search
-    searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
-
-    //category filter
-    $('#category-filter').change(function () {
-        $(".show-category").removeClass("show-category");
-
-        if ($('#category-filter option:selected').val() == -1) {
-            $('.meal-wrapper').addClass("show-category");
-        } else {
-            var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
-            var results = $('.meal-wrapper').has(pom);
-            results.addClass("show-category");
-        }
    
-    });
 
 
+        $('.order-confirm').on('click', function(e) {
+            self = this;
+            mealId = this.parentElement.parentElement.getElementsByClassName('meal-id')[0].attributes['data-id'].value;
+            note = this.parentElement.parentElement.getElementsByTagName('textarea')[0].value;
+            date = this.parentElement.parentElement.getElementsByClassName('date')[0].value;
+            quantity = this.parentElement.parentElement.getElementsByClassName('quantity')[0].value;
 
-    // postavljanje komentara na enter
-    var ENTER_CODE = 13;
-    function eventFire(el, etype) {
-        if (el.fireEvent) {
-            el.fireEvent('on' + etype);
-        } else {
-            var evObj = document.createEvent('Events');
-            evObj.initEvent(etype, true, false);
-            el.dispatchEvent(evObj);
-        }
-    }
-    $('#menu-comment').bind('keypress', function (event) {
-        var x = event.keyCode;
-        if (x === ENTER_CODE) {
-            eventFire(document.getElementById('menu-comment-share'), 'click');
-        }
-    });
-    // END
-
-    //rating
-    $('.rating-list > li').on('click', function(e) {
-        sendData = {
-            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
-            rating: parseInt(this.innerHTML.charAt(0))
-        };
-
-        $.ajax({
-            url: "@Url.Action("RateMeal","Menu")",
-            method: "POST",
-            data: sendData,
-            success: function(result) {
-                var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
-                document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
-            }
-        });
-    });
-
-    function formatDate(date) {
-        return date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
-    }
-
-    $('.comments_button').on('click', function (e) {
-
-        self = this;
-        mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
-        
-        if (this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.contains('hide')) {
-            //get comments
             $.ajax({
-                url: "@Url.Action("GetComments","Menu")",
+                url: "@Url.Action("Order", "Menu")",
                 method: "POST",
-                data: { mealId: mealId },
+                data: {
+                    mealId: mealId,
+                    dateToDeliver: date,
+                    note: note,
+                    quantity: quantity
+                },
                 success: function(result) {
+                    var snackbarContainer = document.querySelector('#demo-toast-example');
                     if (result.success === true) {
-                        var container = self.parentElement.parentElement.querySelector('.comments :first-child');
-                        container.innerHTML = "";
-                        for (var i = 0; i < result.comments.length; i++) {
-                            container.innerHTML += '<div><h6>' + result.comments[i].CommenterName + '</h6><span class="date">' + formatDate(new Date("" + result.comments[i].Date)) + '</span><p>' + result.comments[i].Comment + '</p></div>';
-                        }
+                        var data = { message: 'Order complete' };
+                        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                    } else {
+                        var data = { message: 'Error' };
+                        snackbarContainer.MaterialSnackbar.showSnackbar(data);
                     }
+
                 }
             });
+
+        });
+
+
+//delete
+        $('.delete-btn').on('click', function(e) {
+            idNum = this.parentElement.attributes['data-id'].value;
+            $('#delete-dialog .modal-footer .delete-confirm').attr("href", "@Url.Action("Delete", "Menu")" + "/" + idNum);
+        });
+        //search
+        searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
+
+        //category filter
+        $('#category-filter').change(function() {
+            $(".show-category").removeClass("show-category");
+
+            if ($('#category-filter option:selected').val() == -1) {
+                $('.meal-wrapper').addClass("show-category");
+            } else {
+                var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
+                var results = $('.meal-wrapper').has(pom);
+                results.addClass("show-category");
+            }
+
+        });
+
+
+// postavljanje komentara na enter
+        var ENTER_CODE = 13;
+
+        function eventFire(el, etype) {
+            if (el.fireEvent) {
+                el.fireEvent('on' + etype);
+            } else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
         }
 
-        ///hide immage
-        this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
+        $('#menu-comment').bind('keypress', function(event) {
+            var x = event.keyCode;
+            if (x === ENTER_CODE) {
+                eventFire(document.getElementById('menu-comment-share'), 'click');
+            }
+        });
+        // END
 
-        //toggle content
-        this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
-        this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
+        //rating
+        $('.rating-list > li').on('click', function(e) {
+            sendData = {
+                mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
+                rating: parseInt(this.innerHTML.charAt(0))
+            };
 
-        //toggle icon
-        $(this).children('i').toggleClass('fa-reply fa-comments');
-    });
-
-    $('.add-comment-wrapper button').on('click', function(e) {
-        input = this.parentElement.getElementsByTagName('textarea')[0];
-        sendData = {
-            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
-            comment: this.parentElement.getElementsByTagName('textarea')[0].value
-        }
-
-        if (sendData.comment == null || sendData.comment.length < 1) {
-            //prikazi poruku 
-            var snackbarContainer = document.querySelector('#demo-toast-example');
-            var data = { message: 'No comment to submit' };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-
-
-        } else {
-            //posalji komentar
             $.ajax({
-                url: "@Url.Action("CommentMeal", "Menu")",
+                url: "@Url.Action("RateMeal", "Menu")",
                 method: "POST",
                 data: sendData,
                 success: function(result) {
-                    var now = new Date();
-                    document.querySelector('*[data-id="' + sendData.mealId + '"]').parentElement.querySelector('.comments :first-child').innerHTML +=
-                        '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
+                    var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
+                    document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
                 }
             });
-            //obrisi text polje
-            input.value = "";
-        }
-    });
+        });
 
+        function formatDate(date) {
+            return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+        }
+
+        $('.comments_button').on('click', function(e) {
+
+            self = this;
+            mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
+
+            if (this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.contains('hide')) {
+                //get comments
+                $.ajax({
+                    url: "@Url.Action("GetComments", "Menu")",
+                    method: "POST",
+                    data: { mealId: mealId },
+                    success: function(result) {
+                        if (result.success === true) {
+                            var container = self.parentElement.parentElement.querySelector('.comments :first-child');
+                            container.innerHTML = "";
+                            for (var i = 0; i < result.comments.length; i++) {
+                                container.innerHTML += '<div><h6>' + result.comments[i].CommenterName + '</h6><span class="date">' + formatDate(new Date("" + result.comments[i].Date)) + '</span><p>' + result.comments[i].Comment + '</p></div>';
+                            }
+                        }
+                    }
+                });
+            }
+
+            ///hide immage
+            this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
+
+            //toggle content
+            this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
+            this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
+
+            //toggle icon
+            $(this).children('i').toggleClass('fa-reply fa-comments');
+        });
+
+        $('.add-comment-wrapper button').on('click', function(e) {
+            input = this.parentElement.getElementsByTagName('textarea')[0];
+            sendData = {
+                mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
+                comment: this.parentElement.getElementsByTagName('textarea')[0].value
+            }
+
+            if (sendData.comment == null || sendData.comment.length < 1) {
+                //prikazi poruku 
+                var snackbarContainer = document.querySelector('#demo-toast-example');
+                var data = { message: 'No comment to submit' };
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+
+            } else {
+                //posalji komentar
+                $.ajax({
+                    url: "@Url.Action("CommentMeal", "Menu")",
+                    method: "POST",
+                    data: sendData,
+                    success: function(result) {
+                        var now = new Date();
+                        document.querySelector('*[data-id="' + sendData.mealId + '"]').parentElement.querySelector('.comments :first-child').innerHTML +=
+                            '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
+                    }
+                });
+                //obrisi text polje
+                input.value = "";
+            }
+        });
+
+    
 
 </script>
 

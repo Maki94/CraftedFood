@@ -42,12 +42,14 @@ h2 {
 
 
 
-.menu-wrapper {
+.menu-wrapper, .menu-content, .menu-content-table {
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
     flex-wrap: wrap;
 }
+
+
 
 .meal-wrapper {
     max-width: 278px;
@@ -193,7 +195,7 @@ h2 {
 }
 
 
-.add-comment textarea {
+.add-comment textarea, .add-comment-table textarea{
     width: 180px;
     min-width: 180px;
     max-width: 180px;
@@ -205,26 +207,26 @@ h2 {
     font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 
-.comments, .card__article {
+.comments-universal, .card__article, .comments-table {
   max-height: 500px;
 }
 
-.comments {
+.comments-universal {
   margin-top: 30px;
   overflow: auto;
 }
 
-.comments > div {
+.comments-universal > div {
   margin-bottom: 0px;
 }
 
-.comments h6{
+.comments-universal h6{
   display: inline-block;
    font-weight: bold;
    margin: 0px;
 
 }
-.comments .date {
+.comments-universal .date {
   font-size: 0.7em;
 }
 

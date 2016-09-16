@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Data.DTOs.MenuMealItem>
+
+@{
+    ViewBag.Title = "GetTableView";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @{
+        int no = 0;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => item.MealId)
+                #@(no++)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+            <a href="#!" class="comments_button-table">Comments</a>
+            <a href="@Url.Action("EditMeal", "Menu", new {id = @item.MealId})">Edit</a>
+            <a href="@Url.Action("Delete", "Menu", new {id = @item.MealId})" class="text-warning">Delete</a>
+        </tr>
+    }
+</table>
+
+
+<article class="comments-table comments-universal">
+    <div>
+    </div>
+
+    <div class="add-comment-wrapper">
+        <div class="add-comment-table mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
+            <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+        </div>
+
+        <button id="menu-comment-table"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+    </div>
+
+
+
+</article>
+
+

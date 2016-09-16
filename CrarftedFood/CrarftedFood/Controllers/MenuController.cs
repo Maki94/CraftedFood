@@ -160,5 +160,55 @@ namespace CrarftedFood.Controllers
         }
 
         #endregion
+
+
+        #region table view
+
+        public class JsonModel
+        {
+            public string HTMLString { get; set; }
+            public bool NoMoreData { get; set; }
+            public int min { get; set; }
+            public int max { get; set; }
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult =
+                ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext
+                (ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+        [ChildActionOnly]
+        public ActionResult GetTableView(List<MenuMealItem> menu)
+        {
+            return PartialView(menu);
+        }
+        
+        public ActionResult TableView()
+        {
+            JsonModel jsonModel = new JsonModel();
+
+            List<MenuMealItem> menu = Data.Entities.Meals.GetMenu();
+
+
+            jsonModel.HTMLString = RenderPartialViewToString("GetTableView", menu);
+            return Json(jsonModel, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
     }
 }
