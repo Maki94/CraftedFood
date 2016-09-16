@@ -87,15 +87,7 @@
 
                     </div>
 
-                    <dialog id="order_dialog" class="mdl-dialog">
-                        <div class="mdl-dialog__content">
-                            <span> Dodaj napomenu </span>
-                        </div>
-                        <div class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button">Close</button>
-                            <button type="button" class="mdl-button">Order</button>
-                        </div>
-                    </dialog>
+                    
 
                     <article class="comments hide">
                         <div>
@@ -145,6 +137,28 @@
         </div>
     }
 
+    
+    <div id="order-dialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Order</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-success">Order</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="delete-dialog" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
 
@@ -184,6 +198,28 @@
 
 <script>
     
+    //ordering
+    //collapse order button
+    //$('.card__social').toggleClass('card__social--active');
+    //$('#share').toggleClass('share-expanded');
+
+    $('.card__share > a').on('click', function (e) {
+        e.preventDefault() // prevent default action - hash doesn't appear in url
+        $(this).parent().find('div').toggleClass('card__social--active');
+        $(this).toggleClass('share-expanded');
+    });
+
+    var dialog = document.getElementById('order-dialog');
+
+    $('.card__social > a').on('click', function (e) {
+        debugger;
+        dialog.querySelector('.modal-body').innerHTML = "\ndatum je" + this.attributes['attr-day'].value;
+        mealId = this.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
+        dialog.querySelector('.modal-body').innerHTML += "\nmealId:" + mealId;
+        dialog.showModal();
+    });
+
+
     //delete
     $('.delete-btn').on('click', function(e) {
         idNum = this.parentElement.attributes['data-id'].value;
@@ -221,6 +257,7 @@
     });
     // END
 
+    //rating
     $('.rating-list > li').on('click', function(e) {
         sendData = {
             mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,

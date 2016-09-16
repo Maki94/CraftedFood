@@ -60,7 +60,7 @@ namespace Data
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.CraftedFoodConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
