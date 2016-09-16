@@ -275,6 +275,8 @@ _:-ms-input-placeholder, :root .demo-graph {
     z-index: 0;
 }
 
+
+
 @media screen and (min-width: 1025px) {
    .mdl-layout__header {
     display: none;

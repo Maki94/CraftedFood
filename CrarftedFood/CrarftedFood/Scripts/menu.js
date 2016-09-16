@@ -2,8 +2,8 @@ $(document).ready(function($) {
 
     var days = ["pon", "uto", "sre", "cet", "pet"];
     var today = new Date().getDay() -1;
-    for(var i=0; today + i < 5 ; i++){
-      $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" ' + 'attr-day="' + (today+i) + '">' + days[today + i] + '</span></a>');
+    for (var i = 0; today + i < 5 || i < 2; i++) {
+        $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" ' + 'attr-day="' + ((today + i) % 5) + '">' + days[(today + i) % 5] + '</span></a>');
     }
       $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" >' + '<i class="fa fa-calendar" aria-hidden="true"></i>' + '</span></a>');
 
@@ -23,11 +23,12 @@ $(document).ready(function($) {
           var fullDate = new Date();
           if (this.attributes['attr-day']) {
               var date = this.attributes['attr-day'].value - today;
+              if (date < 0)
+                  date = date + 7;
               fullDate.setDate(new Date().getDate() + date);
           }
 
-          var dateString = fullDate.getDay() + "/" + fullDate.getMonth() + "/" + fullDate.getYear();
-
+          var dateString = fullDate.getDate() + "/" + (fullDate.getMonth() + 1) + "/" + fullDate.getFullYear();
 
           body += '<div class="form-horizontal">';
 
@@ -58,6 +59,10 @@ $(document).ready(function($) {
 
           dialog.querySelector('.modal-body').innerHTML = body;
           $('.modal-body input.date').datepicker({
+              minDate: new Date(),
+              autosize: true,
+              firstDay: 1,
+              prevText: "",
           });
       });
 

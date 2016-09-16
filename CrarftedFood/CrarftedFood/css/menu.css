@@ -159,6 +159,11 @@ h2 {
   vertical-align: middle;
 }
 
+.comments_button i.fa-reply{
+     font-size: 20px;
+    height: 23px;
+}
+
 .add-comment-wrapper {
     display: flex;
     flex-direction: row;
@@ -530,10 +535,6 @@ h2 {
 
 }
 
-#ui-datepicker-div {
-        background-color: white;
-}
-
 .modal-body textarea {
     width: 90%;
 }
@@ -541,3 +542,4 @@ h2 {
 .quantity {
    width: 38px;
 }
+

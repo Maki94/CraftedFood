@@ -40,8 +40,6 @@
         </div>
     </div>
 
-   
-
     @foreach (MenuMealItem meal in Model.menu)
     {
         <div class="meal-wrapper show-search show-category">
@@ -295,7 +293,7 @@
     });
 
     function formatDate(date) {
-        return date.getDate() + "." + date.getMonth() + "." + date.getYear();
+        return date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
     }
 
     $('.comments_button').on('click', function (e) {
@@ -324,9 +322,12 @@
         ///hide immage
         this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
 
-        //toggle
+        //toggle content
         this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
         this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
+
+        //toggle icon
+        $(this).children('i').toggleClass('fa-reply fa-comments');
     });
 
     $('.add-comment-wrapper button').on('click', function(e) {
