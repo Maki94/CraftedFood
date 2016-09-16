@@ -548,3 +548,29 @@ h2 {
 .mdl-chip {
     cursor: pointer;
 }
+
+.comments-table-dialog {
+    position: absolute;
+    top: 40px;
+}
+
+.comments-table-dialog textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+.add-comment-table {
+    width: 100%;
+}
+
+#add-comment-table {
+    width: 10%;
+}
+
+#menu-content-table {
+    width: 90%;
+}
+
+#menu-content-table tr:hover button {
+    background-color: inherit;
+}

@@ -5,8 +5,9 @@
 }
 
 
-<table class="table">
+<table class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp is-upgraded">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -22,7 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Rating)
         </th>
-        <th></th>
         <th></th>
         <th></th>
     </tr>
@@ -50,10 +50,23 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                <button id="@item.MealId" class="mdl-js-button">
+                    @if (item.Rating?.ToString() == null)
+                    {
+                        <span class="rating">-</span>
+
+                    }
+                    else
+                    {
+                        <span class="rating">@(item.Rating.ToString())<i class="fa fa-star" aria-hidden="true"></i></span>
+
+                    }
+
+
+                </button>
             </td>
             <td>
-            <a href="#!" class="comments_button-table">Comments</a>
+            <a href="#" class="comments_button-table" >Comments</a>
             <a href="@Url.Action("EditMeal", "Menu", new {id = @item.MealId})">Edit</a>
             <a href="@Url.Action("Delete", "Menu", new {id = @item.MealId})" class="text-warning">Delete</a>
         </tr>
@@ -61,21 +74,39 @@
 </table>
 
 
-<article class="comments-table comments-universal">
-    <div>
-    </div>
 
-    <div class="add-comment-wrapper">
-        <div class="add-comment-table mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
-            <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+
+
+<div class="modal-dialog comments-table-dialog hide">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Comments</h4>
+        </div>
+        <div class="modal-body">
+            <div class="comments-table comments-universal">
+                <div>
+                </div>
+
+                <div class="add-comment-wrapper">
+                    <div class="add-comment-table mdl-textfield mdl-js-textfield">
+                        <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
+                        <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
+                    </div>
+
+                    <button id="add-comment-table"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
 
-        <button id="menu-comment-table"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-    </div>
+</div>
 
 
-
-</article>
 
 

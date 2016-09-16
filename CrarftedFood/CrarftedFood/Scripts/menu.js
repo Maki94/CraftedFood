@@ -117,8 +117,8 @@ $(document).ready(function($) {
     };
 
     var globalMealId = -1;
-
     function tableViewInit() {
+
         $('.comments_button-table').on('click', function (e) {
             self = this;
             mealId = this.parentElement.parentElement.querySelector('#item_MealId').value;
@@ -139,6 +139,12 @@ $(document).ready(function($) {
                 }
             });
 
+
+            $('.comments-table-dialog').removeClass('hide');
+        });
+
+        $('.comments-table-dialog [data-dismiss="modal"]').on('click', function(e) {
+            $('.comments-table-dialog').addClass('hide');
         });
 
 
