@@ -270,6 +270,10 @@ _:-ms-input-placeholder, :root .demo-graph {
     position: fixed;
 }
 
+.modal-backdrop.in {
+    opacity: 0;
+    z-index: 0;
+}
 
 @media screen and (min-width: 1025px) {
    .mdl-layout__header {

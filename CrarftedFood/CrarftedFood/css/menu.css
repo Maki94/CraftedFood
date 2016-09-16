@@ -488,9 +488,17 @@ h2 {
     
 }
 
-.edit-btn:hover {
+.delete-btn {
+    display: none;
+    position: absolute;
+    top: 5px;
+    left: 60px;
     background-color: #37474f;
-    
+    color: tomato;
+}
+
+.edit-btn:hover, .delete-btn:hover{
+    background-color: #37474f;
     display: block;
 }
 
@@ -498,11 +506,15 @@ h2 {
     color: #40c4ff;
 }
 
-.edit-btn i {
+.delete-btn:hover  i {
+    color: red;
+}
+
+.edit-btn i, delete-btn i {
     color: white;
 }
 
-.card__image:hover + a .edit-btn, .emp-wrapper:hover .edit-btn {
+.card__image:hover + a .edit-btn, .card__image:hover ~ button.delete-btn {
     background-color: #37474f;
     display: block;
 }
