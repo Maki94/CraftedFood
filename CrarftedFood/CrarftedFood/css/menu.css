@@ -453,22 +453,56 @@ h2 {
     width: 100%;
 
     margin-left: 30px;
-    margin-right: 30px;
     margin-bottom: 20px;
 
 }
 
 #menu-options .radio {
     margin: 0px;
-    display: inline-table;
-    margin-right: 15px;
+    min-width: 130px;
     
 }
 
-#menu-options .radio:last-child {
-    margin-right: 60px;
-}
 
 .meal-wrapper:not( .show-search ) {
     display: none;
+}
+
+.meal-wrapper:not( .show-category ) {
+    display: none;
+}
+
+.card__image {
+    position: relative;
+}
+
+.card {
+    position: relative;
+}
+.edit-btn {
+    display: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: #37474f;
+    
+}
+
+.edit-btn:hover {
+    background-color: #37474f;
+    
+    display: block;
+}
+
+.edit-btn:hover  i {
+    color: #40c4ff;
+}
+
+.edit-btn i {
+    color: white;
+}
+
+.card__image:hover + a .edit-btn {
+    background-color: #37474f;
+    display: block;
 }

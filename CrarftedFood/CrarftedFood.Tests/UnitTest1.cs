@@ -71,6 +71,7 @@ namespace CrarftedFood.Tests
         public void EnumCreateListExtention()
         {
             var a = Data.Enums.Units.grams.CreateSelectListItem();
+            var b = Data.Enums.Categories.bakery.CreateSelectListItem();
 
 
         }
