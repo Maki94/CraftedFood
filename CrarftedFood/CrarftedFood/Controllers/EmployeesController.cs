@@ -8,7 +8,10 @@ using CrarftedFood.Models;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Helpers;
 using Data;
+using Data.Entities;
+using Rotativa;
 
 namespace CrarftedFood.Controllers
 {
@@ -138,5 +141,21 @@ namespace CrarftedFood.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+        [HttpPost]
+        public ActionResult CheckPassword(string pass)
+        {
+            bool state = Login.CheckUsernameAndPassword(UserSession.GetUser().Email, pass) != null;
+            return Json(new {success = state});
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(int id, string password, string oldPassowrd)
+        {
+            if (Login.CheckUsernameAndPassword(UserSession.GetUser().Email, oldPassowrd) != null)
+            {
+                Employees.ChangePassword(id, password);
+            }
+            return Redirect("/Login/");
+        }
     }
 }
