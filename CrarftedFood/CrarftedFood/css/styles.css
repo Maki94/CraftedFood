@@ -277,20 +277,56 @@ _:-ms-input-placeholder, :root .demo-graph {
 
  #form-wrapper {
         margin: 2% 5%;
-        width: 60%;
+        width: 572px;
         padding-top: 2%;
 }
 
-#submint-button {
+.form-horizontal {
+    min-width: 800px;
+
+ }
+
+.form-group input.btn {
     float: left;
 }
-#form-wrapper-horizontal {
-    width: 130%;
-}
-#btn-file-wrapper {
+
+.form-group input.btn-file {
     display: block;
+    
 }
 
+.form-group label.btn-file {
+    float: left;
+}
+
+.form-group  .btn-save {
+    margin-right: 15px;
+}
+
+.form-control {
+    min-width: 95%;
+}
+
+#menu-options .form-control {
+    min-width: 0%;
+}
+
+#order-dialog .modal-dialog{
+    width: 540px;
+}
+
+
+#order-dialog .modal-footer {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 150px;
+    padding-top: 0px;
+}
+
+#order-dialog .form-group label {
+    max-width: 150px;
+    width: 150px;
+    }
 
 @media screen and (min-width: 1025px) {
    .mdl-layout__header {

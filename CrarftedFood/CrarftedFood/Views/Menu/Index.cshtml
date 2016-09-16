@@ -156,7 +156,7 @@
                     <p>One fine body…</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="btn btn-success order-confirm">Order</a>
+                    <a href="#!" class="btn btn-success order-confirm" data-dismiss="modal">Order</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -304,8 +304,15 @@
                 success: function(result) {
                     var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
                     document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
+                    var snackbarContainer = document.querySelector('#demo-toast-example');
+                    var data = { message: 'Rate submited' };
+                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
                 }
             });
+
+           
+
+
         });
 
         function formatDate(date) {

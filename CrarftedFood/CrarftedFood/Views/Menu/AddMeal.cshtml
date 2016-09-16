@@ -15,6 +15,7 @@
 @using (Html.BeginForm("AddMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
+
     <div id="form-wrapper" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
        
@@ -82,18 +83,20 @@
 
 
 
+            
             <div class="form-group">
                 <label class="control-label col-md-2" for="file">Image</label>
-                <div class="col-md-10">
-                    <input type="file" name="file" id="file" /><br><br>
+                <div class="col-md-3">
+                    <label class="btn btn-default btn-file">
+                        Choose a picture <input type="file" id="file" style="display: none;">
+                    </label>
                 </div>
             </div>
 
 
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-6">
-                    <input id="submint-button" type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-success" />
                 </div>
             </div>
         </div>
