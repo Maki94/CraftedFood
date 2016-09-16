@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="~/css/datepicker.css">
 
     <style>
+        #password-change-footer {
+            text-align: left;
+        }
+        #change-password-modal-content {
+            width: 85%;
+        }
+        .expand-input {
+            min-width: 95%;
+        }
     </style>
 
 </head>
@@ -64,24 +73,24 @@
         <!-- Modal Change password-->
         <div class="modal fade" id="change-password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" id="change-password-modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                        <h4 class="modal-title" id="exampleModalLabel">Change password</h4>
                     </div>
                     <form action="@Url.Action("ChangePassword","Employees")" method="post" onsubmit="checkOldPass()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="old-password" class="control-label">Old password:</label>
-                                <input type="password" class="form-control" id="old-password" required name="oldPassowrd">
+                                <input type="password" class="form-control expand-input" id="old-password" required name="oldPassowrd">
                             </div>
                             <div class="form-group">
                                 <label for="new-password" class="control-label">New password:</label>
-                                <input type="password" name="password" class="form-control" id="new-password" required>
+                                <input type="password" name="password" class="form-control expand-input" id="new-password" required>
                                 <input type="hidden" name="id" value="@UserSession.GetUser().EmployeeId" />
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" id="password-change-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
