@@ -543,3 +543,6 @@ h2 {
    width: 38px;
 }
 
+.mdl-chip {
+    cursor: pointer;
+}

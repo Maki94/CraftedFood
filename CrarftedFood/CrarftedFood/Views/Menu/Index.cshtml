@@ -18,7 +18,7 @@
         <div class="col-md-10">
             <select id="category-filter" name="category" class="form-control" data-tooltip-text="Filter by category" data-tooltip-direction="bottom">
 
-                <option value="-1">Filter by category</option>
+                <option value="-1">All categories</option>
                 @foreach (var cat in categories)
                 {
                     <option value="@cat.Value">@cat.Text</option>
@@ -248,12 +248,18 @@
     //category filter
     $('#category-filter').change(function () {
         $(".show-category").removeClass("show-category");
-        var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
-        var results = $('.meal-wrapper').has(pom);
-        results.addClass("show-category");
+
+        if ($('#category-filter option:selected').val() == -1) {
+            $('.meal-wrapper').addClass("show-category");
+        } else {
+            var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
+            var results = $('.meal-wrapper').has(pom);
+            results.addClass("show-category");
+        }
+   
     });
 
-    
+
 
     // postavljanje komentara na enter
     var ENTER_CODE = 13;

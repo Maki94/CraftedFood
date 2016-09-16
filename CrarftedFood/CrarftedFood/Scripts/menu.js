@@ -73,6 +73,11 @@ $(document).ready(function($) {
     });
 
 
+    $('.mdl-chip').on('click', function (e) {
+        var val = this.getElementsByTagName('span')[0].innerHTML;
+        $('#category-filter option:contains("' + val + '")').attr('selected', 'selected');
+        $('#category-filter').trigger('change');
+    });
 
 
 
