@@ -95,3 +95,22 @@
 a:hover span{
     text-decoration: none;
 }
+
+#members .edit-btn {
+    display: none;
+    width: 115px;
+    height: 25px;
+    padding: 0px;
+    padding-left: 7px;
+}
+
+#members .emp-wrapper:hover .edit-btn {
+    display: flex;
+}
+
+#members .edit-btn span {
+    font-family: Roboto;
+    color: white;
+    font-size: 13px;
+    margin-left: 3px;
+}
