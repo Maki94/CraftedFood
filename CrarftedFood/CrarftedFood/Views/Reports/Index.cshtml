@@ -44,7 +44,7 @@
                 <input id="report-date-from" type="date" class="datepicker" placeholder="Pick a date" required>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-end" type="date" class="datepicker" disabled="" placeholder="Pick a date" required="" aria-required="true">
+                <input id="report-date-end" type="date" class="datepicker" placeholder="Pick a date" required="" aria-required="true">
             </div>
             <div class="mdl-cell mdl-cell--1-col">
                 <button id="find-pdf" class="btn waves-effect waves-light" type="button" name="action">
@@ -55,7 +55,8 @@
         </div>
     </form>
 
-    <iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Action("Invoice","Reports")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
+    <iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Content("~/RESOURCES/lala.pdf")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
+    @*<iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Action("Invoice","Reports")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -90,6 +91,7 @@
                 '&endDay=' + endDay +
                 '&endMonth=' + endMonth +
                 '&endYear=' + endYear;
+            $("#pdf-iframe").src =url;
 
         } else {
             alert("potrebno je uneti sve vrednosti");

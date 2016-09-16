@@ -209,6 +209,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\Helper.cshtml" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="RESOURCES\lala.pdf" />
+    <Content Include="RESOURCES\petak, 16. septembar 2016..pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

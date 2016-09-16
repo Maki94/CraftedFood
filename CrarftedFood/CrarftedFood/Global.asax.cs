@@ -14,6 +14,9 @@ namespace CrarftedFood
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteTable.Routes.IgnoreRoute("{file}.js");
+            //RouteTable.Routes.IgnoreRoute("{file}.html");
+            RouteTable.Routes.IgnoreRoute("{file}.pdf");
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
