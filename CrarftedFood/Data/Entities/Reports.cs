@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Data.DTOs;
-using iTextSharp.tool.xml;
 
 
 
@@ -111,32 +110,6 @@ namespace Data.Entities
                         Note = a.Note
                     }).ToList();
             }
-        }
-
-        public static void SavePDF(string xhtml, DataClassesDataContext dc = null)
-        {
-            
-            using (dc = dc ?? new DataClassesDataContext())
-            {
-                
-                byte[] bytes;
-                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
-                {
-                    using (iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate()))
-                    {
-                        using (iTextSharp.text.pdf.PdfWriter w = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(HttpContext.Current.Server.MapPath("~") + "/RESOURCES/" + DateTime.Now.ToLongDateString() + ".pdf", FileMode.Create)))
-                        {
-                            doc.Open();
-                            doc.NewPage();
-                            XMLWorkerHelper.GetInstance().ParseXHtml(w, doc, new StringReader(xhtml));
-                            doc.AddTitle(DateTime.Now.ToLongDateString() + ".pdf");
-                            doc.Close();
-                            bytes = ms.ToArray();
-                        }
-                    }
-                }
-            }
-
         }
 
     }
