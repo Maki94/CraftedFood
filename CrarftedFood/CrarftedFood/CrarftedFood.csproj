@@ -200,12 +200,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\datepicker.css" />
     <Content Include="css\employees.css" />
+    <Content Include="css\login.css" />
     <Content Include="css\menu.css" />
     <Content Include="css\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="RESOURCES\logo.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
