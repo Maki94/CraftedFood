@@ -118,7 +118,6 @@ namespace Data.Entities
             }
         }
 
-
         public static float GetAverageRate(int? mealId)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
@@ -269,6 +268,19 @@ namespace Data.Entities
                 {
                     return false;
                 }
+            }
+        }
+        
+        public static void CommentRequest(int reqId, int empId, string comment)
+        {
+            using (DataClassesDataContext dc = new DataClassesDataContext())
+            {
+                Request request = dc.Requests.First(x => x.RequestId == reqId);
+                if (request.EmployeeId == empId)
+                {
+                    request.Comment = comment;
+                }
+                dc.SubmitChanges();
             }
         }
     }

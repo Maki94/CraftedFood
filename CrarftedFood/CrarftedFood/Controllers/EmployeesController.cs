@@ -36,8 +36,8 @@ namespace CrarftedFood.Controllers
                 return RedirectToAction("Error", "Login");
             }
         }
-
-        [AuthorizeUser(Permission = new int[] {((int) Permissions.ManageEmployees), ((int) Permissions.EditProfile)})]
+        
+        //all
         public ActionResult Profile(int id)
         {
             try
@@ -193,8 +193,8 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region EDIT
-
-        [AuthorizeUser(Permission = new int[] {((int) Permissions.ManageEmployees), ((int) Permissions.EditProfile)})]
+        
+        //all
         public ActionResult EditProfile(int empId)
         {
             try
@@ -212,8 +212,7 @@ namespace CrarftedFood.Controllers
             }
         }
 
-
-        [AuthorizeUser(Permission = new int[] {((int) Permissions.ManageEmployees), ((int) Permissions.EditProfile)})]
+        //all
         [HttpPost]
         public ActionResult Profile(Data.DTOs.EmployeeDto model)
         {
