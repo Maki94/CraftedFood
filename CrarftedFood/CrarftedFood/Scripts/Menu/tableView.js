@@ -3,7 +3,7 @@ var cardContent = document.getElementById('menu-content').innerHTML;
 
 
 //show table view
-document.querySelector('.radio #table-view').onclick = function () {
+document.querySelector('.radio #table-view').onchange = function () {
     if (tableContent.length == 0) {
         $.ajax({
             url: url.tableView,
@@ -29,7 +29,7 @@ function formatDate(date) {
 
 
 //show cards view
-document.querySelector('.radio #cards-view').onclick = function () {
+document.querySelector('.radio #cards-view').onchange = function () {
     document.getElementById('menu-content').classList.toggle('hide');
     document.getElementById('menu-content-table').classList.toggle('hide');
 
@@ -38,6 +38,23 @@ document.querySelector('.radio #cards-view').onclick = function () {
 var globalMealId = -1;
 //add listeners
 function tableViewInit() {
+
+    searchPage('#searchMealsText', '#menu-content-table', '.table-meal', containersAttribute = 'data-id', false);
+    
+    //TODO kopiran kod (ne zna za funckije u menu fajlu)
+    //filter category
+    $(".show-category").removeClass("show-category");
+
+    if ($('#category-filter option:selected').val() == -1) {
+        $('.meal-wrapper').addClass("show-category");
+        $('.table-meal').addClass("show-category");
+    } else {
+        var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
+        var results = $('.meal-wrapper, .table-meal').has(pom);
+        results.addClass("show-category");
+    }
+
+
 
     //get commnets for meal
     $('.comments_button-table').on('click', function (e) {
@@ -69,6 +86,28 @@ function tableViewInit() {
         $('.comments-table-dialog').addClass('hide');
     });
 
+
+    //TODO kopiran kod
+    // postavljanje komentara na enter
+    var ENTER_CODE = 13;
+    function eventFire(el, etype) {
+        if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+        } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+        }
+    }
+
+    $('#menu-comment').bind('keypress', function (event) {
+        var x = event.keyCode;
+        debugger;
+        if (x === ENTER_CODE) {
+            eventFire(document.getElementById('add-comment-table'), 'click');
+        }
+    });
+    // END
 
     //add comment
     $('#add-comment-table').on('click', function (e) {

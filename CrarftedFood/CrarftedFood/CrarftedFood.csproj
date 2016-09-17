@@ -207,6 +207,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="RESOURCES\favicon.ico" />
     <Content Include="RESOURCES\logo.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
@@ -279,8 +280,8 @@
     <Content Include="Views\Menu\GetTableView.cshtml" />
     <Content Include="Views\Login\New.cshtml" />
     <Content Include="Views\Login\Unauthorized.cshtml" />
-    <Content Include="Views\Reports\Order.cshtml" />
     <Content Include="Views\Reports\Delivery.cshtml" />
+    <Content Include="Views\Reports\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

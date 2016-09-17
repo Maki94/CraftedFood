@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.ModelBinding;
 using System.Web.UI.WebControls;
@@ -25,7 +26,8 @@ namespace Data.Entities
                         Quantity = quantity,
                         Image = image,
                         Price = price,
-                        UnitId = (int) unit
+                        UnitId = (int) unit,
+                        IsDeleted = false
                     };
 
                     dc.Meals.InsertOnSubmit(meal);
@@ -39,7 +41,7 @@ namespace Data.Entities
             }
         }
 
-        public static void DeleteMeal(int mealId)
+        public static List<Data.DTOs.SendMailDto> DeleteMeal(int mealId)
         {
             using (var dc = new DataClassesDataContext())
             {
@@ -49,11 +51,28 @@ namespace Data.Entities
                     dc.Ratings.DeleteAllOnSubmit(ratings);
 
                     var meal = dc.Meals.First(x => x.MealId == mealId);
-                    dc.Meals.DeleteOnSubmit(meal);
+                    meal.IsDeleted = true;
+ 
+                    var requests =
+                        dc.Requests.Where(x => x.MealId == mealId && x.DateToDeliver > DateTime.Today).Include(x => x.Employee).Include(x => x.Meal).ToList();
+                    dc.Requests.DeleteAllOnSubmit(requests);
 
-                    //TODO request-i???
+                    var sendMail = new List<Data.DTOs.SendMailDto>();
+                    foreach (var request in requests)
+                    {
+                        string body =
+                        "<p>Poštovani {0},</p> <p> Vaša narudžbina za obrok <strong>{1}</strong> je otkazana zbog uklanjanja istog iz naše baze podataka. Tako da Vas molimo da napravite novu porudžbu za <font color=blue>{2}</p><p>Srdačno, <br>Vatrene školjke</p>";
+                        string message = string.Format(body, request.Employee.Name, request.Meal.Title, request.DateToDeliver.ToShortDateString());
+                        sendMail.Add(new SendMailDto()
+                        {
+                            Email = request.Employee.Email,
+                            Message = message
+                        });
+                    }
 
                     dc.SubmitChanges();
+
+                    return sendMail;
                 }
                 catch (Exception)
                 {
@@ -92,7 +111,7 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                Meal m = dc.Meals.First(a => a.MealId == mealId);
+                Meal m = dc.Meals.First(a => a.MealId == mealId && !a.IsDeleted);
                 m.Image = new System.Data.Linq.Binary(file);
                 dc.SubmitChanges();
 
@@ -112,7 +131,7 @@ namespace Data.Entities
         {
             using (var dc = new DataClassesDataContext())
             {
-                return dc.Meals.Select(meal => new MenuMealItem
+                return dc.Meals.Where(x => !x.IsDeleted).Select(meal => new MenuMealItem
                 {
                     MealId = meal.MealId,
                     Title = meal.Title,
@@ -149,7 +168,7 @@ namespace Data.Entities
             {
                 return dc.Ratings.Where(a=> a.MealId == mealId).Select(r => new MealCommentDTO
                 {
-                    Date = string.Format("{0:MM-dd-yy}", r.Date),
+                    Date = $"{r.Date:MM-dd-yy}",
                     Comment = r.Comment,
                     CommenterName = r.Employee.Name
                 }).ToList();
@@ -184,7 +203,7 @@ namespace Data.Entities
         {
             using (var dc = new DataClassesDataContext())
             {
-                return dc.Meals.First(x => x.MealId == mealId);
+                return dc.Meals.First(x => x.MealId == mealId && !x.IsDeleted);
             }
         }
 
@@ -192,7 +211,7 @@ namespace Data.Entities
         {
             using (var dc = new DataClassesDataContext())
             {
-                return dc.Meals.Where(x => x.MealId == mealId).Select(x=> new Data.DTOs.MenuMealItem()
+                return dc.Meals.Where(x => x.MealId == mealId && !x.IsDeleted).Select(x=> new Data.DTOs.MenuMealItem()
                 {
                     MealId = x.MealId,
                     Title = x.Title,

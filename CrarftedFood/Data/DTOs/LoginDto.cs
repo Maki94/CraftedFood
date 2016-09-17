@@ -15,4 +15,10 @@ namespace Data.DTOs
         public List<int> Permissions { get; set; }
         public int RoleId { get; set; }
     }
+
+    public class SendMailDto
+    {
+        public string Email { get; set; }
+        public string Message { get; set; }
+    }
 }

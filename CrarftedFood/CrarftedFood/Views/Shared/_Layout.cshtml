@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link rel="icon" href="../../RESOURCES/favicon.ico" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
@@ -51,17 +52,17 @@
             <header class="demo-drawer-header">
                 <a href=#>Crafted food</a>
                 <div class="demo-avatar-dropdown">
-                    <span>@user.Email</span>
+                    <span>@user.Name</span>
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
                 <a class="mdl-navigation__link" href="@Url.Action("Index", "Menu")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_dinings</i>Menu</a>
-                @if (UserSession.IfAdmin())
+                @if (!UserSession.IfClient())
                 {
                     <a class="mdl-navigation__link" href="@Url.Action("Index", "Reports")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Reports</a>
                 }
-                @if (UserSession.GetUser().RoleId == (int)Data.Enums.Roles.User)
+                @if (UserSession.IfClient())
                 {
                     <a class="mdl-navigation__link" href="@Url.Action("Index", "Order")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">done</i>My Orders</a>
                 }
