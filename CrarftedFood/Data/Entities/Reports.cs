@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Data.DTOs;
-
-
+using System.Data.Entity;
 
 namespace Data.Entities
 {
@@ -15,14 +14,16 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Include(a => a.Employee).Select(a => new OrderDto
                 {
                     OrderId = a.RequestId,
                     Quantity = a.Quantity,
                     Price = a.Meal.Price * a.Quantity,
                     MealTitle = a.Meal.Title,
-                    Note = a.Note
-                }).ToList();
+                    Note = a.Note,
+                    EmployeeId = a.EmployeeId,
+                    EmployeeName = a.Employee.Name
+                }).ToList().OrderBy(a => a.EmployeeId).ToList();
             }
         }
 

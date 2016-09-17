@@ -45,11 +45,13 @@ namespace Data.Entities
             {
                 try
                 {
+                    var ratings = dc.Ratings.Where(x => x.MealId == mealId).ToList();
+                    dc.Ratings.DeleteAllOnSubmit(ratings);
+
                     var meal = dc.Meals.First(x => x.MealId == mealId);
                     dc.Meals.DeleteOnSubmit(meal);
 
-                    var ratings = dc.Ratings.Where(x => x.MealId == mealId).ToList();
-                    dc.Ratings.DeleteAllOnSubmit(ratings);
+                    //TODO request-i???
 
                     dc.SubmitChanges();
                 }
