@@ -20,9 +20,11 @@
         #password-change-footer {
             text-align: left;
         }
+
         #change-password-modal-content {
             width: 85%;
         }
+
         .expand-input {
             min-width: 95%;
         }
@@ -84,7 +86,9 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="exampleModalLabel">Change password</h4>
                     </div>
-                    <form action="@Url.Action("ChangePassword","Employees")" method="post" onsubmit="checkOldPass()">
+                    @*<form action="@Url.Action("ChangePassword","Employees")" method="post" onsubmit="checkOldPass()">*@
+
+                    <div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="old-password" class="control-label">Old password:</label>
@@ -97,10 +101,12 @@
                             </div>
                         </div>
                         <div class="modal-footer" id="password-change-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="button-close-modal-reset-password">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="checkOldPass()">Submit</button>
                         </div>
-                    </form>
+                    </div>
+
+                    @*</form>*@
                 </div>
             </div>
         </div>
@@ -118,22 +124,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script>
-        $('#old-password').bind('keypress', function () {
-            var url = '@Url.Action("CheckPassword","Employees")' + '?pass=' + this.value;
-            $.post(url, function (data) {
-                if (data.success === true) {
-                    document.getElementById("old-password").setAttribute("disabled", "disabled");
-                    document.getElementById("new-password").removeAttribute("disabled");
-                }
-            });
-        });
+        var oldPass = document.getElementById("old-password");
+        var newPass = document.getElementById("new-password");
+        function eventFire(el, etype) {
+            if (el.fireEvent) {
+                el.fireEvent('on' + etype);
+            } else {
+                var evObj = document.createEvent('Events');
+                evObj.initEvent(etype, true, false);
+                el.dispatchEvent(evObj);
+            }
+        }
         var checkOldPass = function () {
-            var url = '@Url.Action("CheckPassword","Employees")' + '?pass=' + this.value;
+            if (oldPass.value === "" || newPass.value === "") return;
+            var url = '@Url.Action("ChangePassword","Employees")' + '?id=' + '@UserSession.GetUser().EmployeeId' + '&password=' + newPass.value + '&oldPassowrd=' + oldPass.value;
+
             $.post(url, function (data) {
-                if (data.success === true) {
-                    return true;
+                if (data.success) {
+                    eventFire(document.getElementById('button-close-modal-reset-password'), 'click');
                 } else {
-                    return false;
+                    alert("Potrebno je uneti valjanu sifru");
                 }
             });
         }

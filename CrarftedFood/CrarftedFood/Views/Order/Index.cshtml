@@ -210,15 +210,7 @@
     var setDeleteId = function(id) {
         deleteId = id;
     };
-    function eventFire(el, etype) {
-        if (el.fireEvent) {
-            el.fireEvent('on' + etype);
-        } else {
-            var evObj = document.createEvent('Events');
-            evObj.initEvent(etype, true, false);
-            el.dispatchEvent(evObj);
-        }
-    }
+    
     $("#delete-yes").click(function() {
         if (deleteId !== -1) {
             var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + deleteId;
