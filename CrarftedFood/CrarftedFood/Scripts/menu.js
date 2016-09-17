@@ -148,7 +148,7 @@ $(document).ready(function($) {
         });
 
 
-        $('#menu-comment-table').on('click', function (e) {
+        $('#add-comment-table').on('click', function (e) {
             input = this.parentElement.getElementsByTagName('textarea')[0];
             sendData = {
                 mealId: globalMealId,
