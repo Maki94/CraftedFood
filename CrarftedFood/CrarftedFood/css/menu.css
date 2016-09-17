@@ -471,11 +471,11 @@ h2 {
 }
 
 
-.meal-wrapper:not( .show-search ) {
+.meal-wrapper:not( .show-search ), .table-meal:not( .show-search ) {
     display: none;
 }
 
-.meal-wrapper:not( .show-category ) {
+.meal-wrapper:not( .show-category ), .table-meal:not( .show-category ) {
     display: none;
 }
 

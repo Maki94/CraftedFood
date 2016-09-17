@@ -213,7 +213,8 @@
 
 <script>
 
-    var userName = "'@UserSession.GetUser().Name'";
+    var userName = "@UserSession.GetUser().Name";
+
     var url = {
         del: "@Url.Action("Delete", "Menu")",
         order: "@Url.Action("Order", "Menu")",

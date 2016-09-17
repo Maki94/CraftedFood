@@ -40,16 +40,24 @@ $( document ).ready(function() {
 
 //unutar containera trazi text koji je u textFieldu i prikazuje elemente u okviru containerSelector (koji jos ima i atribut containersAttribute) gde je nesto nadjeno
 //potreban css: (ContainerSelector).emp-container:not( .show-search ) {   display: none;}
-function searchPage(textFieldSelector, container, containerSelector,  containersAttribute = 'data-id') {
-  $(textFieldSelector).on('change keydown paste input', function () {
-        if (this.value.length > 0) {
-            $(".show-search").removeClass("show-search");
-            var results = $(container).children(containerSelector).find(':contains("' + $(textFieldSelector).val() + '")').filter(function () {
-                return $(this).attr('data-id');
-            });
+function searchPage(textFieldSelector, container, containerSelector, containersAttribute = 'data-id', filter = true) {
+    $(textFieldSelector).on('change keydown paste input', function() {
+        pom(textFieldSelector, container, containerSelector, containersAttribute, filter);
+    });
+    pom(textFieldSelector, container, containerSelector, containersAttribute, filter);
+};
+
+    function pom(textFieldSelector, container, containerSelector, containersAttribute = 'data-id', filter = true) {
+        if ($(textFieldSelector).val().length > 0) {
+            $(container + " .show-search").removeClass("show-search");
+            var results = $(container).find(containerSelector).find(':contains("' + $(textFieldSelector).val() + '")');
+            if (filter) {
+                results = results.filter(function() {
+                    return $(this).attr('data-id');
+                });
+            }
             results.parent().addClass("show-search");
         } else {
             $(containerSelector).addClass("show-search");
         }
-    });
-}
+    }
