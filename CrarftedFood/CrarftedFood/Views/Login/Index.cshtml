@@ -55,19 +55,33 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script>
-        $(document).ready(function($) {
-            document.getElementById('forgot-account').onclick = function() {
+        $(document).ready(function ($) {
+
+            forgot = true;
+
+            document.getElementById('forgot-account').onclick = function () {
+
+                if (!forgot) {
+                    var email = document.getElementById("inputEmail").value;
+                    var uri = '@Url.Action("Index","Login")';
+                    uri += "?" + "recoverdEmail=" + email;
+                    window.location.href = uri;
+                }
+
+                this.innerHTML = 'Return';
+                forgot = false;
+
                 $('#inputPassword, .checkbox label').addClass('hide');
                 var btn = document.getElementById('submit');
                 btn.innerHTML = 'recover';
                 btn.href = "#!";
 
-                btn.addEventListener("click", function() {
+                btn.addEventListener("click", function () {
                     var email = document.getElementById("inputEmail").value;
-                   
+
                     $.ajax({
                         url: '@Url.Action("PasswordRecovery", "Employees")',
                         method: "POST",
@@ -79,9 +93,9 @@
                             var snackbarContainer = document.querySelector('#demo-toast-example');
                             if (result.success === true) {
                                 snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Password changed' });
-                                
+
                                 //go back to loginpage
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     var uri = '@Url.Action("Index","Login")';
                                     uri += "?" + "recoverdEmail=" + email;
                                     window.location.href = uri;
@@ -91,13 +105,15 @@
                             }
                         }
                     });
-                   
+
 
                 });
             }
+
+
         });
 
-    
+
     </script>
 </body>
 </html>
