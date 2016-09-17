@@ -36,12 +36,6 @@ namespace CrarftedFood.Controllers
                 endTime = t;
             }
 
-            //NOTE: temporary 
-
-
-            //startTime = new DateTime(2000, 1,1);
-            //endTime = new DateTime(2017, 1,1);
-
             var order = new ReportViewModel
             {
                 Orders = Reports.GetInvoiceReport(startTime, endTime)
@@ -59,27 +53,28 @@ namespace CrarftedFood.Controllers
 
             var delivery = new ReportViewModel
             {
+                //TODO ovde treba da se prikaze samo ime i kolicina
                 Orders = Reports.GetDeliveryReport(date)
             };
 
             CreatePdf(fileName, delivery);
 
-            return View(delivery);
+            return null;
         }
 
         [AuthorizeUser(Permission = new[] { (int)Data.Enums.Permissions.SeeReports })]
         public ActionResult Orders(string fileName, int startDay = -1, int startMonth = -1, int startYear = -1)
         {
             DateTime date = new DateTime(startYear, startMonth, startDay);
-
-            var order = new ReportViewModel
-            {//TODO pazi
+            
+            var order = new ReportViewModel()
+            {//TODO ovo treba da se drugacije prikazuje, treba da se grupise po emp, lista je sortirana po empId, tako da bi mogo da prikazes ime emp (takodje ga imas u Dto) pa onda ispod samo njegove narudzbine ...
                 Orders = Reports.GetOrderReport(date)
             };
 
             CreatePdf(fileName, order);
 
-            return View(order);
+            return null;
         }
 
         private void CreatePdf(string fileName, object model)
