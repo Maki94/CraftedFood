@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -56,12 +57,22 @@ namespace Data.Entities
 
     public class Login
     {
-        public static Employee CheckUsernameAndPassword(string email, string password)
+        public static Data.DTOs.LoginDto CheckUsernameAndPassword(string email, string password)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
                 var pass = HashPassword.SaltedHashPassword(password, email);
-                var find = dc.Employees.Where(a => a.Email == email && a.Password == pass);
+                var find = dc.Employees.Where(a => a.Email == email && a.Password == pass && a.IsActive == true)
+                    .Include(a => a.Role.RolePermissions.Select(x=>x.PermissionId))
+                    .Select(a => new Data.DTOs.LoginDto()
+                    {
+                        Name = a.Name,
+                        Email = a.Email,
+                        Mobile = a.Mobile,
+                        EmployeeId = a.EmployeeId,
+                        RoleId = (int)a.RoleId,
+                        Permissions = a.Role.RolePermissions.Select(x=>x.PermissionId).ToList()
+                    });
                 if (find.Any())
                 {
                     return find.First();

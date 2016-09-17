@@ -17,7 +17,7 @@ namespace CrarftedFood.Controllers
             var pass = "A^>gF:@";
             ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
          
-            Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
             if (emp == null)
             {
                 return Json(new { success = false, message = "incorrect credientals" });
@@ -37,7 +37,7 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult Index(LoginViewModel model)
         {
-            Employee emp = Data.Entities.Login.CheckUsernameAndPassword(model.Email, model.Password);
+            Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(model.Email, model.Password);
             if (emp == null)
             {
                 return View();

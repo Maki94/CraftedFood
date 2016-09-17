@@ -1,0 +1,13 @@
+diff a/CrarftedFood/CrarftedFood/RESOURCES/petak, 16. septembar 2016..pdf b/CrarftedFood/CrarftedFood/RESOURCES/petak, 16. septembar 2016..pdf	(rejected hunks)
+@@ -1,6 +0,6 @@
+-      MealTitle       EmployeeName  Quantity  Price  TotalPrice
+-Sendvic sa pecenicom                    2     150       300
+-                                        1     120       120
+-      Extra fries                       0       0       420
++       MealTitle      Quantity  Price TotalPrice
++Sendvic sa pecenicom      2     150 300
++                          1     120 120
++      Extra fries         0       0 420
+         SALDO
+ 
+\ No newline at end of file
