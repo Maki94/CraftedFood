@@ -35,10 +35,8 @@
         <table class="centered bordered striped highlight">
             <thead>
                 <tr>
-                    <th>Employee</th>
                     <th>Meal Title</th>
                     <th>Quantity</th>
-                    <th>Note</th>
                 </tr>
             </thead>
 
@@ -46,10 +44,8 @@
                 @foreach (var item in Model.Orders)
                 {
                     <tr>
-                        <td><span>@Html.DisplayFor(model => item.EmployeeName)</span></td>
                         <td><span>@Html.DisplayFor(model => item.MealTitle)</span></td>
                         <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
-                        <td><span>@Html.DisplayFor(model => item.Note)</span></td>
                     </tr>
                 }
             </tbody>
@@ -57,7 +53,7 @@
     }
     else
     {
-        <h1>There is no order for this day</h1>
+        <h1>There is no Delviery for this day</h1>
     }
 
     <!--Import jQuery before materialize.js-->
