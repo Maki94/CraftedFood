@@ -21,7 +21,8 @@ namespace CrarftedFood.Controllers
 
 
             var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+            var pass = "";
+            //pass = "A^>gF:@";
 
 
 
