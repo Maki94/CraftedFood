@@ -26,17 +26,9 @@ namespace CrarftedFood.Controllers
 
 
 
-            Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
-            if (emp == null)
-            {
-                return View();
-            }
-            UserSession.SetUser(emp);
-            Session.Timeout = 525600;
 
 
       
-            return RedirectToAction("Index", "Menu");
 
 
             return View();

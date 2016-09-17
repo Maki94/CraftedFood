@@ -2,42 +2,97 @@
             /*min-width: 200px;*/
         }
         body {
+            background-color: #37474F;
+            width: 100%;
+            height: 100%;
+        }
+
+       #wrapper {
             display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            background-size: contain;
+            margin-right: 10%;
+           padding: 0 15px;
         }
         
         #form-wrapper {
             display: flex;
-            width: 25%;
-            padding: 10px 0;
+            flex-direction: column;
+            max-width: 500px;
+            box-sizing: border-box;
+            padding: 30px 20px;
+
             min-width: 235px;
             max-height: 400px;
+            margin-top: 15%;
+            width: 100%;
+            height: 100%;
+            margin-left: 2%;
+            margin-right: 2%;
         }
+        
+        .background {
+          content: "";
+          position: relative;
+          z-index: -1;
+
+          display: block;
+        
+          background-image: url('../RESOURCES/logo.png');
+          width: 600px;
+          height:  600px;
+          background-size: cover;
+
+          margin-top: 3%;
+          filter: blur(1px);
+        }
+
+        .logo {
+          position: relative;
+          display: none;
+          background-image: url('../RESOURCES/logo23.png');
+          width: 80%;
+          margin: 0 auto;
+          height: 120px;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+
 
         h2 {
             margin-top: 2px;
-margin-bottom: 10px;
+            margin-bottom: 10px;
             text-align: left;
         }
-
-        #wrapper {
-            width: 100%;
-            max-height: 500px;
-            background: url("../RESOURCES/logo.png") no-repeat center right;
-            background-size: contain;
-            margin-right: 10%;
-            margin-top: 10%;
-        }
-        input {
-            min-width: 0;
-        }
         
-        @@media screen and (max-width: 480px) {
-            #form-wrapper {
-            display: flex;
-            width: 90%;
-            padding: 10% 0; 
+        .form-signin {
+            min-width: 100%;
+            padding: 0px;
         }
-        }
-        .form-control {
+         .form-control {
             min-width: 100%;
         }
+
+
+        @media screen and (max-width: 1300px) {
+                .background, .form-signin-heading {
+                    display: none;
+                }
+
+                .logo {
+                    display: block;
+                }
+
+               
+        }
+
+@media screen and (max-width: 380px) {
+    .logo {
+        height: 100px;
+    }
+}
+     
+       
+        
