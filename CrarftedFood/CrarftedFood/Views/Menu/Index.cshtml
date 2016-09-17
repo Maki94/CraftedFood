@@ -200,194 +200,24 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
-<script src="~/Scripts/menu.js"></script>
-<script src="~/Scripts/search.js"></script>
+
 
 <script>
 
-    //global variables
-    userName = @UserSession.GetUser().Name;
-    url = new {
+    var userName = "'@UserSession.GetUser().Name'";
+    var url = {
         del: "@Url.Action("Delete", "Menu")",
         order: "@Url.Action("Order", "Menu")",
         rateMeal: "@Url.Action("RateMeal", "Menu")",
         commentMeal: "@Url.Action("CommentMeal", "Menu")",
         getComments: "@Url.Action("GetComments", "Menu")",
-    }
-
-    //ordering
-
-
-
-
-
-    $('.order-confirm').on('click', function(e) {
-        self = this;
-        mealId = this.parentElement.parentElement.getElementsByClassName('meal-id')[0].attributes['data-id'].value;
-        note = this.parentElement.parentElement.getElementsByTagName('textarea')[0].value;
-        date = this.parentElement.parentElement.getElementsByClassName('date')[0].value;
-        quantity = this.parentElement.parentElement.getElementsByClassName('quantity')[0].value;
-
-        $.ajax({
-            url: "@Url.Action("Order", "Menu")",
-            method: "POST",
-            data: {
-                mealId: mealId,
-                dateToDeliver: date,
-                note: note,
-                quantity: quantity
-            },
-            success: function(result) {
-                var snackbarContainer = document.querySelector('#demo-toast-example');
-                if (result.success === true) {
-                    var data = { message: 'Order complete' };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                } else {
-                    var data = { message: 'Error' };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                }
-
-            }
-        });
-
-    });
-
-
-
-    //search
-    searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
-
-    //category filter
-    $('#category-filter').change(function() {
-        $(".show-category").removeClass("show-category");
-
-        if ($('#category-filter option:selected').val() == -1) {
-            $('.meal-wrapper').addClass("show-category");
-        } else {
-            var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
-            var results = $('.meal-wrapper').has(pom);
-            results.addClass("show-category");
-        }
-
-    });
-
-
-// postavljanje komentara na enter
-    var ENTER_CODE = 13;
-
-    function eventFire(el, etype) {
-        if (el.fireEvent) {
-            el.fireEvent('on' + etype);
-        } else {
-            var evObj = document.createEvent('Events');
-            evObj.initEvent(etype, true, false);
-            el.dispatchEvent(evObj);
-        }
-    }
-
-    $('#menu-comment').bind('keypress', function(event) {
-        var x = event.keyCode;
-        if (x === ENTER_CODE) {
-            eventFire(document.getElementById('menu-comment-share'), 'click');
-        }
-    });
-    // END
-
-    //rating
-    $('.rating-list > li').on('click', function(e) {
-        sendData = {
-            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
-            rating: parseInt(this.innerHTML.charAt(0))
-        };
-
-        $.ajax({
-            url: "@Url.Action("RateMeal", "Menu")",
-            method: "POST",
-            data: sendData,
-            success: function(result) {
-                var inner = document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML;
-                document.getElementById(sendData.mealId).getElementsByClassName('rating')[0].innerHTML = result.newRating + " " + inner.substr(inner.indexOf("<"));
-                var snackbarContainer = document.querySelector('#demo-toast-example');
-                var data = { message: 'Rate submited' };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-            }
-        });
-
-
-
-
-    });
-
-    function formatDate(date) {
-        return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
-    }
-
-    $('.comments_button').on('click', function(e) {
-
-        self = this;
-        mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
-
-        if (this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.contains('hide')) {
-            //get comments
-            $.ajax({
-                url: "@Url.Action("GetComments", "Menu")",
-                method: "POST",
-                data: { mealId: mealId },
-                success: function(result) {
-                    if (result.success === true) {
-                        var container = self.parentElement.parentElement.querySelector('.comments :first-child');
-                        container.innerHTML = "";
-                        for (var i = 0; i < result.comments.length; i++) {
-                            container.innerHTML += '<div><h6>' + result.comments[i].CommenterName + '</h6><span class="date">' + formatDate(new Date("" + result.comments[i].Date)) + '</span><p>' + result.comments[i].Comment + '</p></div>';
-                        }
-                    }
-                }
-            });
-        }
-
-        ///hide immage
-        this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
-
-        //toggle content
-        this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
-        this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
-
-        //toggle icon
-        $(this).children('i').toggleClass('fa-reply fa-comments');
-    });
-
-    $('.add-comment-wrapper button').on('click', function(e) {
-        input = this.parentElement.getElementsByTagName('textarea')[0];
-        sendData = {
-            mealId: this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML,
-            comment: this.parentElement.getElementsByTagName('textarea')[0].value
-        }
-
-        if (sendData.comment == null || sendData.comment.length < 1) {
-            //prikazi poruku
-            var snackbarContainer = document.querySelector('#demo-toast-example');
-            var data = { message: 'No comment to submit' };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-
-
-        } else {
-            //posalji komentar
-            $.ajax({
-                url: "@Url.Action("CommentMeal", "Menu")",
-                method: "POST",
-                data: sendData,
-                success: function(result) {
-                    var now = new Date();
-                    document.querySelector('*[data-id="' + sendData.mealId + '"]').parentElement.querySelector('.comments :first-child').innerHTML +=
-                        '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
-                }
-            });
-            //obrisi text polje
-            input.value = "";
-        }
-    });
-
-
+        tableView: "@Url.Action("TableView","Menu")",
+        getTableView: "@Url.Action("GetTableView","Menu")",
+    };
 </script>
 
-
+<script src="~/Scripts/menu.js"></script>
+<script src="~/Scripts/Menu/tableView.js"></script>
+<script src="~/Scripts/Menu/ordering.js"></script>
+<script src="~/Scripts/Menu/commentsAndRating.js"></script>
+<script src="~/Scripts/search.js"></script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure.Design;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,16 +14,21 @@ namespace CrarftedFood.Controllers
         // GET: Login
         public ActionResult Index(string recoverdEmail)
         {
-            //var email = "masadordevic@gmail.com";
-            //var pass = "A^>gF:@";
+
             ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
 
+
+
+            //var email = "masadordevic@gmail.com";
+            //var pass = "A^>gF:@";
+
+
+            
             //Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
             //if (emp == null)
             //{
-            //    return Json(new { success = false, message = "incorrect credientals" });
+            //    return View();
             //}
-
             //UserSession.SetUser(emp);
             //Session.Timeout = 525600;
 
@@ -34,6 +40,10 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
+        public ActionResult New()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Index(LoginViewModel model)
         {
