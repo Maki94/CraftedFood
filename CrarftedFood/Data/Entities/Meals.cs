@@ -61,8 +61,8 @@ namespace Data.Entities
                     foreach (var request in requests)
                     {
                         string body =
-                        "<p>Poštovani {0},</p> <p> Vaša narudžbina za obrok {1} je otkazana zbog uklanjanja istog iz naše baze podataka. Tako da Vas molimo da napravite novu porudžbu za {2}</p><p>Srdačno, <br> Admin tim</p>";
-                        string message = string.Format(body, request.Employee.Name, request.Meal.Title, request.DateToDeliver);
+                        "<p>Poštovani {0},</p> <p> Vaša narudžbina za obrok <strong>{1}</strong> je otkazana zbog uklanjanja istog iz naše baze podataka. Tako da Vas molimo da napravite novu porudžbu za <font color=blue>{2}</p><p>Srdačno, <br>Vatrene školjke</p>";
+                        string message = string.Format(body, request.Employee.Name, request.Meal.Title, request.DateToDeliver.ToShortDateString());
                         sendMail.Add(new SendMailDto()
                         {
                             Email = request.Employee.Email,
