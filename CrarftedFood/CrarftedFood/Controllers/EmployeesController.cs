@@ -187,7 +187,7 @@ namespace CrarftedFood.Controllers
             {
                 Employees.ChangePassword(id, password);
             }
-            return Redirect("/Login/");
+            return null;
         }
     }
 }
