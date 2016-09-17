@@ -28,9 +28,9 @@
     
 
 </style>
+    <h6>@DateTime.Now.ToString("MMMM dd, yyyy")</h6>
     @if (Model.Orders.Count != 0)
     {
-
         <table class="centered bordered striped highlight">
             <thead>
             <tr>
@@ -56,7 +56,7 @@
     }
     else
     {
-        <h1>There is no inovice for that period</h1>
+        <h1>There is no invoice for that period</h1>
     }
 
 <!--Import jQuery before materialize.js-->

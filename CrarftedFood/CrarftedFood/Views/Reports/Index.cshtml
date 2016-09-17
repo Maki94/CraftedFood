@@ -12,9 +12,6 @@
         margin-left: 10%;
     }
 
-    .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
-        /*padding: 0 16px !important;*/
-    }
 </style>
 <div id="wrapper">
     <form class="col s12">
@@ -104,7 +101,7 @@
             var endMonth = "";
             var endYear = "";
 
-            var fileName = new Date().toISOString().slice(0, 10);
+            var fileName = "";
             var url = "";
 
             if (reportFrom.value !== "") {
@@ -114,7 +111,7 @@
                 startYear = dateFrom[2];
 
                 if (delivery) {
-                    fileName = 'delivery-' + fileName;
+                    fileName = 'delivery';
 
                     url = '@Url.Action("Delivery", "Reports")' +
                         '?fileName=' + fileName +
@@ -123,7 +120,7 @@
                         '&startYear=' + startYear;
 
                 } else if (order) {
-                    fileName = 'order-' + fileName;
+                    fileName = 'order';
 
                     url = '@Url.Action("Orders", "Reports")' +
                         '?fileName=' + fileName +
@@ -139,7 +136,7 @@
                 endYear = dateEnd[2];
 
                 if (invoice && reportFrom.value !== "") {
-                    fileName = 'invoice-' + fileName;
+                    fileName = 'invoice';
 
                     url = '@Url.Action("Invoice", "Reports")' +
                     '?fileName=' + fileName +
