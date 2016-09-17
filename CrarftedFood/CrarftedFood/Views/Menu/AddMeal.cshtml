@@ -5,34 +5,19 @@
     ViewBag.Title = "Add Meal";
 }
 <style>
-    @@media screen and (max-width: 992px) {
-        #form-wrapper {
-            margin: auto;
-            background: #00bfff;
-            /*width: 80%;*/
-        }
+    .form-horizontal {
+        min-width: 700px;
+        margin: auto;
+        padding-top: 5%;
     }
-    @@media screen and (max-width: 520px) {
-        
-        .form-control {
-            min-width: 80%;
-        }
+
+    #form-wrapper-meal {
+        margin: auto;
+        width: 700px;
     }
-    @@media screen and (max-width: 520px) {
-        .form-control {
-            min-width: 55%;
-        }
-    }
-    @@media screen and (max-width: 420px) {
-        
-        .form-control {
-            min-width: 60%;
-        }
-    }
-    @@media screen and (max-width: 768px) {
-        #xs-submit {
-           margin-left: 16.66666667%;
-        }
+
+    #add-meal-form {
+        margin-top: 5%;
     }
 </style>
 
@@ -42,11 +27,11 @@
     List<SelectListItem> categories = Data.Enums.Categories.bakery.CreateSelectListItem();
 }
 
-@using (Html.BeginForm("AddMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+@using (Html.BeginForm("AddMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data", id= "add-meal-form" }))
 {
     @Html.AntiForgeryToken()
 
-    <div id="form-wrapper" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <div id="form-wrapper-meal" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
        
         <div class="form-horizontal">
@@ -54,7 +39,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6 col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
@@ -62,7 +47,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6 col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
@@ -70,7 +55,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6 col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
@@ -78,7 +63,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6 col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                 </div>
@@ -86,7 +71,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6  col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     <select id="unit" name="unit" class="tooltippable form-control" data-tooltip-text="Change unit" data-tooltip-direction="bottom">
                         @foreach (var unit in units)
                         {
@@ -99,7 +84,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
-                <div class="col-md-6 col-sm-6 ">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3 ">
                     <select id="category" name="category" class="tooltippable form-control" data-tooltip-text="Change category" data-tooltip-direction="bottom">
                         @foreach (var cat in categories)
                         {
@@ -113,7 +98,7 @@
             
             <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-2" for="file">Image</label>
-                <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3">
                     <label class="btn btn-default btn-file">
                         Choose a picture <input type="file" id="file" style="display: none;">
                     </label>
@@ -122,7 +107,8 @@
 
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-6 col-sm-offset-2 col-sm-6 col-sx-offset-2 col-sx-6" id="xs-submit">
+                <span class="control-label col-md-2 col-sm-2 col-xs-2"></span>
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3">
                     <input type="submit" value="Create" class="btn btn-success" />
                 </div>
             </div>
