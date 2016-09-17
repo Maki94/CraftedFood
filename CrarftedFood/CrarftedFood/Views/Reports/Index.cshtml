@@ -17,7 +17,6 @@
 </style>
 <div id="wrapper">
     <form class="col s12">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
         <div id="radio-buttons-wrapper" class="mdl-grid">
             <div class="mdl-cell mdl-cell--2-col">
@@ -41,10 +40,10 @@
 
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-from" type="date" class="datepicker" placeholder="Pick a date" required>
+                <input id="report-date-from" class="datepicker date" placeholder="Pick a date" required>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-end" type="date" class="datepicker" placeholder="Pick a date" required="" aria-required="true">
+                <input id="report-date-end"  class="datepicker date" placeholder="Pick a date" required="" aria-required="true">
             </div>
             <div class="mdl-cell mdl-cell--1-col">
                 <button id="find-pdf" class="btn waves-effect waves-light" type="button" name="action">
@@ -61,13 +60,15 @@
     @*<iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Action("Invoice","Reports")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
 
 <script>
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
+    $('.datepicker').datepicker({
+        minDate: new Date(),
+        autosize: true,
+        firstDay: 1,
+        prevText: "",
     });
 </script>
 <script>
