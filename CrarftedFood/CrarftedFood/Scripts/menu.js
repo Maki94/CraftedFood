@@ -1,7 +1,7 @@
 $(document).ready(function ($) {
 
     //search
-    searchPage('#searchMealsText', '#menu-wrapper', '.meal-wrapper', containersAttribute = 'data-id');
+    searchPage('#searchMealsText', '#menu-content', '.meal-wrapper', containersAttribute = 'data-id');
 
     //menu description expanding
     $('.description').on('click', function (e) {
@@ -27,9 +27,10 @@ $(document).ready(function ($) {
 
         if ($('#category-filter option:selected').val() == -1) {
             $('.meal-wrapper').addClass("show-category");
+            $('.table-meal').addClass("show-category");
         } else {
             var pom = $('#menu-wrapper .category').parent().find(':contains("' + $('#category-filter option:selected').text() + '")');
-            var results = $('.meal-wrapper').has(pom);
+            var results = $('.meal-wrapper, .table-meal').has(pom);
             results.addClass("show-category");
         }
     });
