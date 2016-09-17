@@ -48,7 +48,7 @@ $('.comments_button :not(.disabled)').on('click', function (e) {
     self = this;
     mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
 
-    if (this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.contains('hide')) {
+    if (this.parentElement.parentElement.parentElement.getElementsByClassName('comments')[0].classList.contains('hide')) {
         //get comments
         $.ajax({
             url: url.getComments,
@@ -56,7 +56,7 @@ $('.comments_button :not(.disabled)').on('click', function (e) {
             data: { mealId: mealId },
             success: function (result) {
                 if (result.success === true) {
-                    var container = self.parentElement.parentElement.querySelector('.comments :first-child');
+                    var container = self.parentElement.parentElement.parentElement.querySelector('.comments :first-child');
                     container.innerHTML = "";
                     for (var i = 0; i < result.comments.length; i++) {
                         container.innerHTML += '<div><h6>' + result.comments[i].CommenterName + '</h6><span class="date">' + formatDate(new Date("" + result.comments[i].Date)) + '</span><p>' + result.comments[i].Comment + '</p></div>';
@@ -67,11 +67,11 @@ $('.comments_button :not(.disabled)').on('click', function (e) {
     }
 
     ///hide immage
-    this.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
+    this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('card__image')[0].classList.toggle('shrink');
 
     //toggle content
-    this.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
-    this.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
+    this.parentElement.parentElement.parentElement.getElementsByClassName('comments')[0].classList.toggle('hide');
+    this.parentElement.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
 
     //toggle icon
     $(this).children('i').toggleClass('fa-reply fa-comments');
