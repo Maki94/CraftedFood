@@ -279,9 +279,10 @@
     <Content Include="Views\Menu\EditMeal.cshtml" />
     <Content Include="Views\Menu\GetTableView.cshtml" />
     <Content Include="Views\Login\New.cshtml" />
-    <Content Include="Views\Login\Unauthorized.cshtml" />
     <Content Include="Views\Reports\Delivery.cshtml" />
     <Content Include="Views\Reports\Order.cshtml" />
+    <Content Include="Views\Login\Unauthorized.cshtml" />
+    <Content Include="Views\Login\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

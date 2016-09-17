@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -11,17 +12,26 @@ namespace CrarftedFood.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: Order
+        #region MY ORDERS
 
-        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders)})]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
         public ActionResult Index()
         {
-            var order = new ReportViewModel()
+            try
             {
-                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
-            };
-            return View(order);
+                var order = new ReportViewModel()
+                {
+                    Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
+                };
+                return View(order);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
+
+        #endregion
 
         #region CRUD
 
@@ -29,12 +39,19 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult NewOrder(List<AddOrderModel> models)
         {
-            foreach (AddOrderModel m in models)
+            try
             {
-                Data.Entities.Meals.OrderMeal(m.MealId, m.EmployeeId, m.DateRequested, m.DateToDeliver, m.Note,
-                    m.Quantity);
+                foreach (AddOrderModel m in models)
+                {
+                    Data.Entities.Meals.OrderMeal(m.MealId, m.EmployeeId, m.DateRequested, m.DateToDeliver, m.Note,
+                        m.Quantity);
+                }
+                return View();
             }
-            return View();
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.OrderMeal)})]
@@ -42,40 +59,59 @@ namespace CrarftedFood.Controllers
         public ActionResult CancelOrder(int orderId)
         {
 
-            if (!Meals.CancelOrder(orderId))
-                return Json(new { success = false});
-
-            var order = new ReportViewModel
+            try
             {
-                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
-            };
+                if (!Meals.CancelOrder(orderId))
+                    return Json(new { success = false });
 
-            return Json(new { success = true, message = Json(order.Orders)});
+                var order = new ReportViewModel
+                {
+                    Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
+                };
+
+                return Json(new { success = true, message = Json(order.Orders) });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
+
+        #region GET ORDERS
+
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
         [HttpPost]
         public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
         {
-            var order = new ReportViewModel()
+            try
             {
-                Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
-            };
+                var order = new ReportViewModel()
+                {
+                    Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
+                };
 
-            switch (orderType)
-            {
-                case "mealTitle":
-                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.MealTitle)) });
-                case "quantity":
-                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Quantity)) });
-                case "price":
-                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Price)) });
-                case "note":
-                    return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Note)) });
-                default:
-                    return Json(new { success = true, message = Json(order.Orders) });
+                switch (orderType)
+                {
+                    case "mealTitle":
+                        return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.MealTitle)) });
+                    case "quantity":
+                        return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Quantity)) });
+                    case "price":
+                        return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Price)) });
+                    case "note":
+                        return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Note)) });
+                    default:
+                        return Json(new { success = true, message = Json(order.Orders) });
+                }
             }
-        }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
+        } 
+
+        #endregion
     }
 }
