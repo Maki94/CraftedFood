@@ -58,7 +58,7 @@
             </header>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
                 <a class="mdl-navigation__link" href="@Url.Action("Index", "Menu")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_dinings</i>Menu</a>
-                @if (UserSession.IfAdmin())
+                @if (UserSession.IfAdmin() || UserSession.IfClient())
                 {
                     <a class="mdl-navigation__link" href="@Url.Action("Index", "Reports")"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Reports</a>
                 }

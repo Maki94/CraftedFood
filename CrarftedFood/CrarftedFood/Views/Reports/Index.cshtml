@@ -11,39 +11,43 @@
         display: inline-flex;
         margin-left: 10%;
     }
+
     .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
-      /*padding: 0 16px !important;*/
+        /*padding: 0 16px !important;*/
     }
 </style>
 <div id="wrapper">
     <form class="col s12">
-
         <div id="radio-buttons-wrapper" class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col">
-                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="delivery">
-                    <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true">
-                    <span class="mdl-radio__label">Delivery</span>
-                </label>
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order">
-                    <input type="radio" id="order" class="mdl-radio__button" name="report" value="true">
-                    <span class="mdl-radio__label">Order</span>
-                </label>
+            @if (UserSession.IfAdmin())
+            {
+                <div class="mdl-cell mdl-cell--2-col">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="delivery">
+                        <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true">
+                        <span class="mdl-radio__label">Delivery</span>
+                    </label>
+                </div>
+                <div class="mdl-cell mdl-cell--2-col">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order">
+                        <input type="radio" id="order" class="mdl-radio__button" name="report" value="true">
+                        <span class="mdl-radio__label">Order</span>
+                    </label>
 
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invoice">
-                    <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true" checked>
-                    <span class="mdl-radio__label">Invoice</span>
-                </label>
+                </div>
+                <div class="mdl-cell mdl-cell--2-col">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invoice">
+                        <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true" checked>
+                        <span class="mdl-radio__label">Invoice</span>
+                    </label>
 
-            </div>
+                </div>
+            }
+
             <div class="mdl-cell mdl-cell--2-col">
                 <input id="report-date-from" class="datepicker date form-control" placeholder="Pick a date" required>
             </div>
             <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-end"  class="datepicker date form-control" placeholder="Pick a date" required="" aria-required="true">
+                <input id="report-date-end" class="datepicker date form-control" placeholder="Pick a date" required="" aria-required="true">
             </div>
             <div class="mdl-cell mdl-cell--1-col">
                 <button id="find-pdf" class="btn btn-success" type="button" name="action">
@@ -55,8 +59,7 @@
     </form>
 
     <iframe id="pdf-iframe" style="border: 1px solid #666CCC" title="PDF in an i-Frame"
-            frameborder="1" scrolling="auto" height="1100" width="850">
-    </iframe>
+            frameborder="1" scrolling="auto" height="1100" width="850"></iframe>
     @*<iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Action("Invoice","Reports")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
 </div>
 
@@ -73,7 +76,7 @@
 </script>
 <script>
     var datePickerFrom = document.getElementById("report-date-end");
-    $('#delivery').click(function() {
+    $('#delivery').click(function () {
         $("#report-date-end").fadeOut();
     });
     $('#order').click(function () {
@@ -86,10 +89,10 @@
     var reportEnd = document.getElementById("report-date-end");
 
     $("#find-pdf")
-        .click(function() {
-            var delivery = $('#delivery').is(':checked');
-            var order = $('#order').is(':checked');
-            var invoice = $('#invoice').is(':checked');
+        .click(function () {
+            var delivery = !$('#delivery') || $('#delivery').is(':checked');
+            var order = !$('#order') ||  $('#order').is(':checked');
+            var invoice = !$('#invoice') || $('#invoice').is(':checked');
 
             var dateFrom = "";
             var startDay = "";
@@ -114,7 +117,7 @@
                     fileName = 'delivery-' + fileName;
 
                     url = '@Url.Action("Delivery", "Reports")' +
-                        '?fileName=' + fileName + 
+                        '?fileName=' + fileName +
                         '&startDay=' + startDay +
                         '&startMonth=' + startMonth +
                         '&startYear=' + startYear;
