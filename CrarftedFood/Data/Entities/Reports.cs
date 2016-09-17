@@ -14,16 +14,32 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Include(a => a.Employee).Select(a => new OrderDto
+                var order =
+                    dc.Requests.Where(a => a.DateToDeliver.Date == date.Date)
+                        .Include(a => a.Employee)
+                        .Include(a => a.Meal)
+                        .Select(a => new OrderDto
+                        {
+                            EmployeeName = a.Employee.Name,
+                            MealTitle = a.Meal.Title,
+                            Quantity = a.Quantity,
+                            Note = a.Note
+                        }).ToList().OrderBy(a => a.EmployeeName).ToList();
+
+                string previous = "";
+                foreach (OrderDto orderDto in order)
                 {
-                    OrderId = a.RequestId,
-                    Quantity = a.Quantity,
-                    Price = a.Meal.Price * a.Quantity,
-                    MealTitle = a.Meal.Title,
-                    Note = a.Note,
-                    EmployeeId = a.EmployeeId,
-                    EmployeeName = a.Employee.Name
-                }).ToList().OrderBy(a => a.EmployeeId).ToList();
+                    if (previous == orderDto.EmployeeName)
+                    {
+                        orderDto.EmployeeName = null;
+                    }
+                    else
+                    {
+                        previous = orderDto.EmployeeName;
+                    }
+                }
+
+                return order;
             }
         }
 
@@ -31,16 +47,29 @@ namespace Data.Entities
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
+                List<OrderDto> order = new List<OrderDto>();
+
+                List<MenuMealItem> meals = Data.Entities.Meals.GetMenu();
+
+                foreach (MenuMealItem meal in meals)
                 {
-                    OrderId = a.RequestId,
-                    EmployeeId = a.EmployeeId,
-                    EmployeeName = a.Employee.Name,
-                    Quantity = a.Quantity,
-                    Price = a.Meal.Price * a.Quantity,
-                    MealTitle = a.Meal.Title,
-                    Note = a.Note
-                }).ToList();
+                    float totalQuantity =
+                        dc.Requests.Where(
+                                a => a.MealId == meal.MealId && a.DateToDeliver == date)
+                            .Select(a => a.Quantity)
+                            .ToList()
+                            .Sum();
+
+                    if (totalQuantity != 0)
+                    {
+                        order.Add(new OrderDto()
+                        {
+                            MealTitle = meal.Title,
+                            Quantity = totalQuantity,
+                        });
+                    }
+                }
+                return order;
             }
         }
 
@@ -56,7 +85,7 @@ namespace Data.Entities
                 {
                     float totalQuantity =
                         dc.Requests.Where(
-                                a => a.MealId == meal.MealId && a.DateDelivered >= start && a.DateDelivered <= end)
+                                a => a.MealId == meal.MealId && a.DateToDeliver >= start && a.DateToDeliver <= end)
                             .Select(a => a.Quantity)
                             .ToList()
                             .Sum();
