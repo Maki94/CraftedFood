@@ -11,11 +11,11 @@ namespace Data.Entities
 {
     public static class Reports
     {
-        public static List<OrderDto> GetOrderReport(int empId, DateTime date)
+        public static List<OrderDto> GetOrderReport(DateTime date)
         {
             using (DataClassesDataContext dc = new DataClassesDataContext())
             {
-                return dc.Requests.Where(a => a.EmployeeId == empId && a.DateRequested.Date == date.Date).Select(a => new OrderDto
+                return dc.Requests.Where(a => a.DateRequested.Date == date.Date).Select(a => new OrderDto
                 {
                     OrderId = a.RequestId,
                     Quantity = a.Quantity,
@@ -97,7 +97,6 @@ namespace Data.Entities
                 }
                 if (end == null)
                 {
-                    end = new DateTime(9999, 12, 31); 
                     end = new DateTime(9999, 12, 31);
                 }
                 return dc.Requests.Where(a => a.EmployeeId == empId && start.Value.Date <= a.DateRequested.Date && a.DateRequested.Date <= end.Value.Date)

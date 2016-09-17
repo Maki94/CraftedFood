@@ -13,10 +13,10 @@ namespace CrarftedFood.Controllers
     {
         // GET: Order
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.SeePersonalOrders)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders)})]
         public ActionResult Index()
         {
-            var order = new OrderViewModel
+            var order = new ReportViewModel()
             {
                 Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
@@ -25,7 +25,7 @@ namespace CrarftedFood.Controllers
 
         #region CRUD
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.OrderMeal)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.OrderMeal)})]
         [HttpPost]
         public ActionResult NewOrder(List<AddOrderModel> models)
         {
@@ -37,7 +37,7 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.OrderMeal)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.OrderMeal)})]
         [HttpPost]
         public ActionResult CancelOrder(int orderId)
         {
@@ -45,7 +45,7 @@ namespace CrarftedFood.Controllers
             if (!Meals.CancelOrder(orderId))
                 return Json(new { success = false});
 
-            var order = new OrderViewModel
+            var order = new ReportViewModel
             {
                 Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
@@ -54,11 +54,11 @@ namespace CrarftedFood.Controllers
         }
 
         #endregion
-        //TODO sta je ovo koja permisija
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
         [HttpPost]
         public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
         {
-            var order = new OrderViewModel
+            var order = new ReportViewModel()
             {
                 Orders = Reports.GetOrdersOfEmployee(UserSession.GetUser().EmployeeId)
             };
