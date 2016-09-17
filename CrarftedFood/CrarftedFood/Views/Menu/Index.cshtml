@@ -93,7 +93,7 @@
                                 <li class="mdl-menu__item">5</li>
                             </ul>
                             
-                            <span class="comments_button @(UserSession.IfClient() ? "" : "disabled")" ><i class="fa fa-comments-o" aria-hidden="true"></i></span>
+                            <span class="comments_button"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
 
 
                         </div>
@@ -104,7 +104,9 @@
                             <div>
                             </div>
 
-                            <div class="add-comment-wrapper">
+                            @if (UserSession.IfClient())
+                            {
+                                <div class="add-comment-wrapper">
                                 <div class="add-comment mdl-textfield mdl-js-textfield">
                                     <textarea class="mdl-textfield__input" type="text" id="menu-comment"></textarea>
                                     <label class="mdl-textfield__label" for="menu-comment">Add comment</label>
@@ -112,6 +114,9 @@
 
                                 <button id="menu-comment-share"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                             </div>
+
+                            }
+                            
 
 
 
