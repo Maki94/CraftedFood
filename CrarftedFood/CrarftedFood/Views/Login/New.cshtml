@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/menu.css">
+    <link rel="stylesheet" href="~/css/employees.css">
+    <link rel="stylesheet" href="~/css/datepicker.css">
+
+    <style>
+        .expand-input {
+            /*min-width: 200px;*/
+        }
+        body {
+            background-size: cover;
+            -ms-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -webkit-background-size: cover;
+            /*background: url("http://2.bp.blogspot.com/-mkqzB3vUaHc/VjtLUzLLwmI/AAAAAAAADPw/xh41RKYVjn4/s1600/Agnes-Lim-Christmas-Outfit-41_www.FullHDWpp.com_.jpg") no-repeat center center fixed;*/
+            background: url("https://wallpaperscraft.com/image/japanese_cuisine_food_dinner_88348_1920x1080.jpg") no-repeat center center;
+        }
+        
+        #form-wrapper {
+            display: flex;
+            width: 25%;
+            padding: 10% 0; 
+        }
+        
+        @@media screen and (max-width: 480px) {
+            #form-wrapper {
+            display: flex;
+            width: 90%;
+            padding: 10% 0; 
+        }
+        }
+        .form-control {
+            min-width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    <form class="form-signin">
+
+        <div id="form-wrapper" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+
+            <div class="container">
+                <form class="form-signin col-md-4 col-sm-4">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" class="form-control expand-input" placeholder="Email address" required="" autofocus="">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control expand-input" placeholder="Password" required="">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</button>
+                </form>
+
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>
