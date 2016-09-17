@@ -13,6 +13,7 @@ using CrarftedFood.Tests;
 using Data;
 using Data.Entities;
 using Data.Enums;
+using Microsoft.Ajax.Utilities;
 using Rotativa;
 
 namespace CrarftedFood.Controllers
@@ -21,30 +22,34 @@ namespace CrarftedFood.Controllers
     {
         #region LIST OF EMPLOYEES AND PROFILES
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] {((int) Permissions.ManageEmployees)})]
         public ActionResult Index()
         {
             EmployeesViewModel model = EmployeesViewModel.Load();
             return View(model);
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Permissions.ManageEmployees), ((int)Permissions.EditProfile) })]
         public ActionResult Profile(int id)
         {
-            Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
-            return View(model);
+            if (UserSession.CheckUserID(id) || UserSession.IfAdmin(id))
+            {
+                Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
+                return View(model);
+            }
+            return RedirectToAction("Unauthorized", "Login");
         }
         #endregion
 
         #region ADD
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageEmployees)})]
         public ActionResult AddEmployee()
         {
             return View();
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageEmployees)})]
         [HttpPost]
         public async Task<ActionResult> AddEmployee(Data.DTOs.EmployeeDto model)
         {
@@ -60,6 +65,7 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region PASSWORD RECOVERY
+        //all
         [HttpPost]
         public async Task<ActionResult> PasswordRecovery(string email)
         {
@@ -78,7 +84,7 @@ namespace CrarftedFood.Controllers
 
             return Json(new { success = false, message = "deleted" });
         }
-
+        //all
         public async Task SendEmail(string email, string title, string body, byte[] pdf = null)
         {
             //MemoryStream stream = new MemoryStream(pdf);
@@ -111,7 +117,7 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region ADMIN EDIT
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageEmployees)})]
         public ActionResult EditEmployee(int empId)
         {
             Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
@@ -119,7 +125,7 @@ namespace CrarftedFood.Controllers
             return View(model);
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageEmployees)})]
         [HttpPost]
         public ActionResult EditEmployee(Data.DTOs.EmployeeDto model)
         {
@@ -129,25 +135,36 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region EDIT
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
+
+        [AuthorizeUser(Permission = new int[] { ((int)Permissions.ManageEmployees), ((int)Permissions.EditProfile) })]
         public ActionResult EditProfile(int empId)
         {
-            Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
-            //TODO view
-            return View(model);
+            if (UserSession.CheckUserID(empId) || UserSession.IfAdmin(empId))
+            {
+                Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
+                return View(model);
+            }
+            return RedirectToAction("Unauthorized", "Login");
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
+
+        [AuthorizeUser(Permission = new int[] {((int) Permissions.ManageEmployees), ((int) Permissions.EditProfile)})]
         [HttpPost]
         public ActionResult Profile(Data.DTOs.EmployeeDto model)
         {
-            Data.Entities.Employees.EditEmployee(model.EmployeeId, model.Name, model.Email, model.Mobile, model.Role);
-            return RedirectToAction("Index");
+            if (UserSession.CheckUserID(model.EmployeeId) || UserSession.IfAdmin(model.EmployeeId))
+            {
+                Data.Entities.Employees.EditEmployee(model.EmployeeId, model.Name, model.Email, model.Mobile, model.Role);
+                return RedirectToAction("Index");
+
+            }
+            return RedirectToAction("Unauthorized", "Login");
         }
+
         #endregion
 
         #region DELETE
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageEmployees)})]
         [HttpPost]
         public ActionResult DeleteEmployee(int id)
         {
@@ -162,6 +179,7 @@ namespace CrarftedFood.Controllers
             bool state = Login.CheckUsernameAndPassword(UserSession.GetUser().Email, pass) != null;
             return Json(new {success = state});
         }
+        //all
         [HttpPost]
         public ActionResult ChangePassword(int id, string password, string oldPassowrd)
         {

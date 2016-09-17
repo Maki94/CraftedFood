@@ -11,24 +11,20 @@ namespace CrarftedFood.Tests
 {
     public class AuthorizeUserAttribute : AuthorizeAttribute
     {
-        public int Permission { get; set; }
+        public int[] Permission { get; set; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            bool p = true;
+            bool p = false;
             Data.DTOs.LoginDto user = UserSession.GetUser();
-            //foreach (int permission in this.Permission)
-            //{
-                if (user != null && user.Permissions.Contains(this.Permission))
+            foreach (int permission in this.Permission)
+            {
+                if (user != null && user.Permissions.Contains(permission))
                 {
-                    return true;
+                    p = true;
                 }
-                else
-                {
-                    return false;
-                }
-            //}
-            //return p;
+            }
+            return p;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -38,7 +34,7 @@ namespace CrarftedFood.Tests
                             new
                             {
                                 controller = "Login",
-                                action = "Index",
+                                action = "Unauthorized",
 
                             })
                         );

@@ -75,7 +75,10 @@ namespace CrarftedFood.Controllers
         //            break;
         //    }
         //}
-
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
 
     }
 }

@@ -275,6 +275,7 @@
     <Content Include="Views\Employees\AddEmployee.cshtml" />
     <Content Include="Views\Menu\EditMeal.cshtml" />
     <Content Include="Views\Menu\GetTableView.cshtml" />
+    <Content Include="Views\Login\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

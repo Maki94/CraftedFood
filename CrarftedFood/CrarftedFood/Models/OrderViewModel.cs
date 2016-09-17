@@ -4,7 +4,7 @@ using Data.DTOs;
 
 namespace CrarftedFood.Models
 {
-    public class OrderViewModel
+    public class ReportViewModel
     {
         public List<OrderDto> Orders { get; set; }
     }
