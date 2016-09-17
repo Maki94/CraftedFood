@@ -15,6 +15,8 @@ namespace CrarftedFood.Tests
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            try
+            {
                 bool p = false;
                 Data.DTOs.LoginDto user = UserSession.GetUser();
                 foreach (int permission in this.Permission)
@@ -25,6 +27,11 @@ namespace CrarftedFood.Tests
                     }
                 }
                 return p;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

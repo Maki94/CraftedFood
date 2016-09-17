@@ -110,7 +110,33 @@ namespace CrarftedFood.Controllers
             {
                 return RedirectToAction("Error", "Login");
             }
-        } 
+        }
+
+        #endregion
+
+        #region COMMENT
+
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
+        [HttpPost]
+        public ActionResult CommentDelivery(int requestId, string comment)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(comment))
+                {
+                    return Json(new { success = false, message = "incorrect parameters" });
+                }
+
+                Data.DTOs.LoginDto emp = UserSession.GetUser();
+                Data.Entities.Meals.CommentRequest(requestId, emp.EmployeeId, comment);
+
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
+        }
 
         #endregion
     }

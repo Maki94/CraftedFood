@@ -40,7 +40,7 @@ namespace CrarftedFood.Controllers
         {
             try
             {
-                if (mealId == null || String.IsNullOrEmpty(comment))
+                if (String.IsNullOrEmpty(comment))
                 {
                     return Json(new { success = false, message = "incorrect parameters" });
                 }
