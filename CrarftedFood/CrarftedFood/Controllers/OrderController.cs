@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using CrarftedFood.Models;
+using CrarftedFood.Tests;
 using Data.DTOs;
 using Data.Entities;
 
@@ -11,6 +12,8 @@ namespace CrarftedFood.Controllers
     public class OrderController : Controller
     {
         // GET: Order
+
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.SeePersonalOrders)]
         public ActionResult Index()
         {
             var order = new OrderViewModel
@@ -19,9 +22,10 @@ namespace CrarftedFood.Controllers
             };
             return View(order);
         }
-        
+
         #region CRUD
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.OrderMeal)]
         [HttpPost]
         public ActionResult NewOrder(List<AddOrderModel> models)
         {
@@ -33,6 +37,7 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.OrderMeal)]
         [HttpPost]
         public ActionResult CancelOrder(int orderId)
         {
@@ -49,7 +54,7 @@ namespace CrarftedFood.Controllers
         }
 
         #endregion
-
+        //TODO sta je ovo koja permisija
         [HttpPost]
         public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
         {

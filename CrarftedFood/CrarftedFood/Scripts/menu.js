@@ -148,7 +148,7 @@ $(document).ready(function($) {
         });
 
 
-        $('#menu-comment-table').on('click', function (e) {
+        $('#add-comment-table').on('click', function (e) {
             input = this.parentElement.getElementsByTagName('textarea')[0];
             sendData = {
                 mealId: globalMealId,
@@ -169,7 +169,7 @@ $(document).ready(function($) {
                 success: function(result) {
                     var now = new Date();
                     document.querySelector('.comments-table :first-child').innerHTML +=
-                        '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
+                        '<div><h6>' + userName + '</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
                 }
             });
             //obrisi text polje
@@ -178,7 +178,11 @@ $(document).ready(function($) {
         });
     }
 
-    
+    //delete
+    $('.delete-btn').on('click', function(e) {
+        idNum = this.parentElement.attributes['data-id'].value;
+        $('#delete-dialog .modal-footer .delete-confirm').attr("href", url.del + "/" + idNum);
+    });
 
 
 });
