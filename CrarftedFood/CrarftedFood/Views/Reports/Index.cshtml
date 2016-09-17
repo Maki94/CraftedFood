@@ -12,7 +12,7 @@
         margin-left: 10%;
     }
     .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
-      padding: 0 16px !important;
+      /*padding: 0 16px !important;*/
     }
 </style>
 <div id="wrapper">
@@ -21,7 +21,7 @@
         <div id="radio-buttons-wrapper" class="mdl-grid">
             <div class="mdl-cell mdl-cell--2-col">
                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="delivery">
-                    <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true" checked>
+                    <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true">
                     <span class="mdl-radio__label">Delivery</span>
                 </label>
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="mdl-cell mdl-cell--2-col">
                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invoice">
-                    <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true">
+                    <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true" checked>
                     <span class="mdl-radio__label">Invoice</span>
                 </label>
 
@@ -46,8 +46,8 @@
                 <input id="report-date-end"  class="datepicker date" placeholder="Pick a date" required="" aria-required="true">
             </div>
             <div class="mdl-cell mdl-cell--1-col">
-                <button id="find-pdf" class="btn waves-effect waves-light" type="button" name="action">
-                    Submit
+                <button id="find-pdf" class="btn btn-success" type="button" name="action">
+                    Submit&nbsp;
                     <i class="material-icons right">send</i>
                 </button>
             </div>
@@ -55,7 +55,7 @@
     </form>
 
     <iframe id="pdf-iframe" style="border: 1px solid #666CCC" title="PDF in an i-Frame"
-            src="@Url.Content("~/RESOURCES/lala.pdf")" frameborder="1" scrolling="auto" height="1100" width="850">
+            frameborder="1" scrolling="auto" height="1100" width="850">
     </iframe>
     @*<iframe id="pdf-iframe" style="border:1px solid #666CCC" title="PDF in an i-Frame" src="@Url.Action("Invoice","Reports")" frameborder="1" scrolling="auto" height="1100" width="850"></iframe>*@
 </div>
@@ -65,22 +65,22 @@
 
 <script>
     $('.datepicker').datepicker({
-        minDate: new Date(),
+        minDate: new Date(2014, 1, 1, 1, 1, 1, 1, 1),
         autosize: true,
         firstDay: 1,
-        prevText: "",
+        prevText: ""
     });
 </script>
 <script>
     var datePickerFrom = document.getElementById("report-date-end");
     $('#delivery').click(function() {
-        $("#report-date-end").fadeIn();
+        $("#report-date-end").fadeOut();
     });
     $('#order').click(function () {
         $("#report-date-end").fadeOut();
     });
     $('#invoice').click(function () {
-        $("#report-date-end").fadeOut();
+        $("#report-date-end").fadeIn();
     });
     var reportFrom = document.getElementById("report-date-from");
     var reportEnd = document.getElementById("report-date-end");
@@ -91,19 +91,54 @@
             var order = $('#order').is(':checked');
             var invoice = $('#invoice').is(':checked');
 
-            if (reportFrom.value !== "" && reportEnd.value !== "") {
-                var dateFrom = reportFrom.value.split(" ");
-                var startDay = dateFrom[0];
-                var startMonth = monthToNumber(dateFrom[1].substring(0, dateFrom[1].length - 1));
-                var startYear = dateFrom[2];
+            var dateFrom = "";
+            var startDay = "";
+            var startMonth = "";
+            var startYear = "";
 
-                var dateEnd = reportEnd.value.split(" ");
-                var endDay = dateEnd[0];
-                var endMonth = monthToNumber(dateEnd[1].substring(0, dateEnd[1].length - 1));
-                var endYear = dateEnd[2];
+            var dateEnd = "";
+            var endDay = "";
+            var endMonth = "";
+            var endYear = "";
 
-                var fileName = new Date().toISOString().slice(0, 10);
-                var uri = '@Url.Action("Invoice", "Reports")' +
+            var fileName = new Date().toISOString().slice(0, 10);
+            var url = "";
+
+            if (reportFrom.value !== "") {
+                dateFrom = reportFrom.value.split("/");
+                startDay = dateFrom[1];
+                startMonth = dateFrom[0];
+                startYear = dateFrom[2];
+
+                if (delivery) {
+                    fileName = 'delivery-' + fileName;
+
+                    url = '@Url.Action("Delivery", "Reports")' +
+                        '?fileName=' + fileName + 
+                        '&startDay=' + startDay +
+                        '&startMonth=' + startMonth +
+                        '&startYear=' + startYear;
+
+                } else if (order) {
+                    fileName = 'order-' + fileName;
+
+                    url = '@Url.Action("Orders", "Reports")' +
+                        '?fileName=' + fileName +
+                        '&startDay=' + startDay +
+                        '&startMonth=' + startMonth +
+                        '&startYear=' + startYear;
+                }
+            }
+            if (reportEnd.value !== "") {
+                dateEnd = reportEnd.value.split("/");
+                endDay = dateEnd[1];
+                endMonth = dateEnd[0];
+                endYear = dateEnd[2];
+
+                if (invoice && reportFrom.value !== "") {
+                    fileName = 'invoice-' + fileName;
+
+                    url = '@Url.Action("Invoice", "Reports")' +
                     '?fileName=' + fileName +
                     '&startDay=' + startDay +
                     '&startMonth=' + startMonth +
@@ -111,17 +146,14 @@
                     '&endDay=' + endDay +
                     '&endMonth=' + endMonth +
                     '&endYear=' + endYear;
-
-                $.post(uri, function (data) {
+                }
+            }
+            if (reportFrom.value !== "") {
+                $.post(url, function (data) {
                     var pdfFrame = document.getElementById("pdf-iframe");
-
-                    //pdfFrame.setAttribute("src", "//www.elfak.ni.ac.rs/downloads/informacije/studenti/raspored-ispita/2016/raspored-ispita-septembar-2016-oas.pdf");
                     pdfFrame.setAttribute("src", '@Url.Content("~/RESOURCES/")' + fileName + '.pdf');
                 });
 
-
-            } else {
-                alert("potrebno je uneti sve vrednosti");
             }
         });
 
