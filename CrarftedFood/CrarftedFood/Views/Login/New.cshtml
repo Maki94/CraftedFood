@@ -17,48 +17,19 @@
     <link rel="stylesheet" href="~/css/menu.css">
     <link rel="stylesheet" href="~/css/employees.css">
     <link rel="stylesheet" href="~/css/datepicker.css">
+    <link rel="stylesheet" href="~/css/login.css">
 
-    <style>
-        .expand-input {
-            /*min-width: 200px;*/
-        }
-        body {
-            background-size: cover;
-            -ms-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            -webkit-background-size: cover;
-            /*background: url("http://2.bp.blogspot.com/-mkqzB3vUaHc/VjtLUzLLwmI/AAAAAAAADPw/xh41RKYVjn4/s1600/Agnes-Lim-Christmas-Outfit-41_www.FullHDWpp.com_.jpg") no-repeat center center fixed;*/
-            background: url("https://wallpaperscraft.com/image/japanese_cuisine_food_dinner_88348_1920x1080.jpg") no-repeat center center;
-        }
-        
-        #form-wrapper {
-            display: flex;
-            width: 25%;
-            padding: 10% 0; 
-        }
-        
-        @@media screen and (max-width: 480px) {
-            #form-wrapper {
-            display: flex;
-            width: 90%;
-            padding: 10% 0; 
-        }
-        }
-        .form-control {
-            min-width: 100%;
-        }
-    </style>
 
 </head>
 <body>
+<div id="wrapper">
     <form class="form-signin">
 
         <div id="form-wrapper" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
             <div class="container">
                 <form class="form-signin col-md-4 col-sm-4">
-                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <h2 class="form-signin-heading">Sign in</h2>
                     <label for="inputEmail" class="sr-only">Email address</label>
                     <input type="email" id="inputEmail" class="form-control expand-input" placeholder="Email address" required="" autofocus="">
                     <label for="inputPassword" class="sr-only">Password</label>
@@ -75,5 +46,7 @@
 
         </div>
     </form>
+</div>
+
 </body>
 </html>

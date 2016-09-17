@@ -1,12 +1,10 @@
 diff a/CrarftedFood/CrarftedFood/Controllers/LoginController.cs b/CrarftedFood/CrarftedFood/Controllers/LoginController.cs	(rejected hunks)
-@@ -13,8 +13,8 @@
-         // GET: Login
+@@ -15,7 +15,7 @@
          public ActionResult Index(string recoverdEmail)
          {
--            var email = "masadordevic@gmail.com";
+             var email = "masadordevic@gmail.com";
 -            var pass = "A^>gF:@";
-+            var email = "markomihajlovicfm@gmail.com";
-+            var pass = "ZQ]O4uq";
++            var pass = "A@";
              ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
           
-             Employee emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+             Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);

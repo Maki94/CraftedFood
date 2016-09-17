@@ -32,7 +32,7 @@ namespace CrarftedFood.Controllers
         [AuthorizeUser(Permission = new int[] { ((int)Permissions.ManageEmployees), ((int)Permissions.EditProfile) })]
         public ActionResult Profile(int id)
         {
-            if (UserSession.CheckUserID(id) || UserSession.IfAdmin(id))
+            if (UserSession.CheckUserID(id) || UserSession.IfAdmin())
             {
                 Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
                 return View(model);
@@ -139,7 +139,7 @@ namespace CrarftedFood.Controllers
         [AuthorizeUser(Permission = new int[] { ((int)Permissions.ManageEmployees), ((int)Permissions.EditProfile) })]
         public ActionResult EditProfile(int empId)
         {
-            if (UserSession.CheckUserID(empId) || UserSession.IfAdmin(empId))
+            if (UserSession.CheckUserID(empId) || UserSession.IfAdmin())
             {
                 Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
                 return View(model);
@@ -152,7 +152,7 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult Profile(Data.DTOs.EmployeeDto model)
         {
-            if (UserSession.CheckUserID(model.EmployeeId) || UserSession.IfAdmin(model.EmployeeId))
+            if (UserSession.CheckUserID(model.EmployeeId) || UserSession.IfAdmin())
             {
                 Data.Entities.Employees.EditEmployee(model.EmployeeId, model.Name, model.Email, model.Mobile, model.Role);
                 return RedirectToAction("Index");

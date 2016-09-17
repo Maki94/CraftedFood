@@ -20,14 +20,19 @@ namespace CrarftedFood
             return (Data.DTOs.LoginDto) HttpContext.Current.Session["user"];
         }
 
-        internal static bool CheckUserID(int id)
+        public static bool CheckUserID(int id)
         {
             return UserSession.GetUser().EmployeeId == id;
         }
 
-        internal static bool IfAdmin(int id)
+        public static bool IfAdmin()
         {
             return UserSession.GetUser().RoleId == (int) Data.Enums.Roles.Admin;
+        }
+
+        public static bool IfClient()
+        {
+            return UserSession.GetUser().RoleId == (int)Data.Enums.Roles.Client;
         }
     }
 }

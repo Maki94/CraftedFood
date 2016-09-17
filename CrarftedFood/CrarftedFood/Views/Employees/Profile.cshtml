@@ -61,8 +61,12 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-2">
-                        <input type="submit" value="Save" class="btn btn-default btn-save" />
-                        <a href="@Url.Action("DeleteEmployee", "Employees", new {id=@Model.EmployeeId})" class="delete-confirm btn btn-danger">Delete</a>
+                        <input type="submit" value="Save" class="btn btn-default btn-save"/>
+                        @if (UserSession.IfAdmin() && UserSession.CheckUserID(Model.EmployeeId))
+                        {
+                            <a href="@Url.Action("DeleteEmployee", "Employees", new {id=@Model.EmployeeId})" class="delete-confirm btn btn-danger">Delete</a>
+
+                        }
                     </div>
                 </div>
             </div>

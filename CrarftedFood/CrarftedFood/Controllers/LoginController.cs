@@ -15,7 +15,7 @@ namespace CrarftedFood.Controllers
         public ActionResult Index(string recoverdEmail)
         {
             var email = "masadordevic@gmail.com";
-            var pass = "A@";
+            var pass = "A^>gF:@";
             ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
          
             Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
@@ -36,10 +36,6 @@ namespace CrarftedFood.Controllers
             return View();
         }
 
-        public ActionResult New()
-        {
-            return View();
-        }
         [HttpPost]
         public ActionResult Index(LoginViewModel model)
         {

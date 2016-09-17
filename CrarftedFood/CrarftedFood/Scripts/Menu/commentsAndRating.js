@@ -44,7 +44,7 @@ function formatDate(date) {
 }
 
 //show comments
-$('.comments_button').on('click', function (e) {
+$('.comments_button :not(.disabled)').on('click', function (e) {
     self = this;
     mealId = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
 

@@ -51,28 +51,37 @@
                 <div class="card radius shadowDepth1" data-id="@meal.MealId">
 
                     @Helper.Image(@meal.Image, "class", "card__image border-tlr-radius")
-                    <a href="@Url.Action("EditMeal", "Menu", new {id = @meal.MealId})">
-                        <button class="edit-btn mdl-button mdl-js-button mdl-button--fab">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
+
+                    @if (UserSession.IfAdmin())
+                    {
+                        <a href="@Url.Action("EditMeal", "Menu", new {id = @meal.MealId})">
+                            <button class="edit-btn mdl-button mdl-js-button mdl-button--fab">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </a>
+
+
+                        <button class="delete-btn mdl-button mdl-js-button mdl-button--fab" data-toggle="modal" data-target="#delete-dialog">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
-                    </a>
-
-
-                    <button class="delete-btn mdl-button mdl-js-button mdl-button--fab" data-toggle="modal" data-target="#delete-dialog">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </button>
+                    }
+                  
 
 
                     <div class="card__content card__padding">
                         <span class="meal-id" hidden data-id="@meal.MealId">@meal.MealId</span>
-                        <div class="card__share">
-                            <div class="card__social">
+                        @if (UserSession.IfClient())
+                        {
+                            <div class="card__share">
+                                <div class="card__social">
+                                </div>
+                                <a class="share share-toggle share-icon" href="#"></a>
                             </div>
-                            <a class="share share-toggle share-icon" href="#"></a>
-                        </div>
+                        }
+                       
 
                         <div class="card__meta">
-                            <button id="@meal.MealId" class="mdl-js-button">
+                            <button id="@meal.MealId" class="mdl-js-button" @(UserSession.IfClient() ? "" : "disabled") >
                                 <span class="rating">@(meal.Rating?.ToString() ?? "N/A")<i class="fa fa-star" aria-hidden="true"></i></span>
                             </button>
                             <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect rating-list"
@@ -83,8 +92,8 @@
                                 <li class="mdl-menu__item">4</li>
                                 <li class="mdl-menu__item">5</li>
                             </ul>
-
-                            <span class="comments_button"><i class="fa fa-comments-o" aria-hidden="true"></i></span>
+                            
+                            <span class="comments_button @(UserSession.IfClient() ? "" : "disabled")" ><i class="fa fa-comments-o" aria-hidden="true"></i></span>
 
 
                         </div>
