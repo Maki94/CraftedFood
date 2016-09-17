@@ -14,23 +14,28 @@ namespace CrarftedFood.Controllers
         // GET: Login
         public ActionResult Index(string recoverdEmail)
         {
-            var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+
+           
             ViewBag.recoveredEmail = string.IsNullOrEmpty(recoverdEmail) ? "" : recoverdEmail;
-         
-            Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
-            if (emp == null)
-            {
-                return View();
-                return Json(new { success = false, message = "incorrect credientals" });
-            }
-
-            UserSession.SetUser(emp);
-            Session.Timeout = 525600;
 
 
-            //priveremeno
-            return RedirectToAction("Index", "Menu");
+
+            //var email = "masadordevic@gmail.com";
+            //var pass = "A^>gF:@";
+
+
+            
+            //Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            //if (emp == null)
+            //{
+            //    return View();
+            //}
+            //UserSession.SetUser(emp);
+            //Session.Timeout = 525600;
+
+
+            ////priveremeno
+            //return RedirectToAction("Index", "Menu");
 
 
             return View();
@@ -50,10 +55,7 @@ namespace CrarftedFood.Controllers
             Session.Timeout = model.RememberMe ? 525600 : 20;
 
 
-            //priveremeno
-            return Json(new { success = true, message = "logged in" });
-
-            //return Redirect((Data.Entities.Roles)emp.RoleId);
+            return RedirectToAction("Index","Menu");
         }
 
         public ActionResult Logout()
@@ -62,7 +64,7 @@ namespace CrarftedFood.Controllers
             return RedirectToAction("Index");
         }
 
-        //public ActionResult Redirect(Data.Entities.Roles role)
+        //public ActionResult Redirect(Data.Enums.Roles role)
         //{
         //    switch (role)
         //    {
@@ -77,6 +79,7 @@ namespace CrarftedFood.Controllers
         //            break;
         //    }
         //}
+
         public ActionResult Unauthorized()
         {
             return View();

@@ -107,7 +107,7 @@ namespace Data.Entities
                     if (emp.IsActive)
                     {
                         var hashedPass = HashPassword.SaltedHashPassword(password, emp.Email);
-                        emp.Name = hashedPass;
+                        emp.Password = hashedPass;
                         dc.SubmitChanges();
                     }
                 }
