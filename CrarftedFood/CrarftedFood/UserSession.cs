@@ -19,5 +19,15 @@ namespace CrarftedFood
                 throw new Exception("Nije ulogovan");
             return (Data.DTOs.LoginDto) HttpContext.Current.Session["user"];
         }
+
+        internal static bool CheckUserID(int id)
+        {
+            return UserSession.GetUser().EmployeeId == id;
+        }
+
+        internal static bool IfAdmin(int id)
+        {
+            return UserSession.GetUser().RoleId == (int) Data.Enums.Roles.Admin;
+        }
     }
 }

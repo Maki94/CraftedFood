@@ -15,7 +15,7 @@ namespace CrarftedFood.Controllers
     public class MenuController : Controller
     {
         #region MENU
-        
+        //all
         public ActionResult Index()
         {
             MenuViewModel menu = new MenuViewModel();
@@ -26,8 +26,8 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region COMMENT
-
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.FeedbackMeal)]
+        
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.FeedbackMeal)})]
         [HttpPost]
         public ActionResult CommentMeal(int mealId, string comment)
         {
@@ -43,7 +43,7 @@ namespace CrarftedFood.Controllers
 
         }
 
-        
+        //all
         [HttpPost]
         public ActionResult GetComments(int mealId)
         {
@@ -55,7 +55,7 @@ namespace CrarftedFood.Controllers
 
         #region RATE
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.FeedbackMeal)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.FeedbackMeal)})]
         [HttpPost]
         public ActionResult RateMeal(int mealId, float rating)
         {
@@ -74,13 +74,13 @@ namespace CrarftedFood.Controllers
 
         #region ADD
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         public ActionResult AddMeal()
         {
             return View();
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult EditMealImage(HttpPostedFileBase file, int mealId)
         {
@@ -98,7 +98,7 @@ namespace CrarftedFood.Controllers
             return Json(new {success = true});
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult AddMeal(MenuMealItem model)
         {
@@ -120,14 +120,14 @@ namespace CrarftedFood.Controllers
 
         #region EDIT
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         public ActionResult EditMeal(int id)
         {
             MenuMealItem model = MenuMealItem.Load(id);
             return View(model);
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult EditMeal(MenuMealItem model)
         {
@@ -149,7 +149,8 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region DELETE
-        
+
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals) })]
         public ActionResult Delete(int id)
         {
             Data.Entities.Meals.DeleteMeal(id);
@@ -160,7 +161,7 @@ namespace CrarftedFood.Controllers
 
         #region ORDER
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageMeals)]
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.OrderMeal)})]
         [HttpPost]
         public ActionResult Order(int mealId, DateTime dateToDeliver, string note, float quantity)
         {
@@ -199,13 +200,13 @@ namespace CrarftedFood.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
-
+        //all
         [ChildActionOnly]
         public ActionResult GetTableView(List<MenuMealItem> menu)
         {
             return PartialView(menu);
         }
-        
+        //all
         public ActionResult TableView()
         {
             JsonModel jsonModel = new JsonModel();
