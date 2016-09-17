@@ -105,7 +105,6 @@
                 </div>
             </div>
         </div>
-        @*<form action="../../Controllers/LoginController.cs" method="post"><input id="recoverdEmail-hidden" name="recoverdEmail" hidden/></form>*@
     }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -145,19 +144,11 @@
 
             $.post(url, function (data) {
                 if (data.success === true) {;
-
-                    @*var uri = '@Url.Action("Index","Login")';
-                    uri += "?"+"recoverdEmail=" + email;
-                    //window.location.reload(false);
-                    window.location.href = uri;*@
-                    //window.open(uri);
                 } else {
                     document.getElementById("text-reset-danger").innerHTML = "Morate uneti validan mail";
-                    //submitButtonReset.parentElement.appendChild(paragraph);
                 }
                 var uri = '@Url.Action("Index","Login")';
                 uri += "?" + "recoverdEmail=" + email;
-                //window.location.reload(false);
                 window.location.href = uri;
             });
         });
