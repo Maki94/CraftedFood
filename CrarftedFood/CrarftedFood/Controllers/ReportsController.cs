@@ -69,6 +69,7 @@ namespace CrarftedFood.Controllers
 
             var delivery = new ReportViewModel()
             {
+                //TODO ovde treba da se prikaze samo ime i kolicina
                 Orders = Reports.GetDeliveryReport(Date)
             };
 
@@ -83,7 +84,7 @@ namespace CrarftedFood.Controllers
             DateTime Date = new DateTime(year, month, day);
 
             var order = new ReportViewModel()
-            {//TODO pazi
+            {//TODO ovo treba da se drugacije prikazuje, treba da se grupise po emp, lista je sortirana po empId, tako da bi mogo da prikazes ime emp (takodje ga imas u Dto) pa onda ispod samo njegove narudzbine ...
                 Orders = Reports.GetOrderReport(Date)
             };
 

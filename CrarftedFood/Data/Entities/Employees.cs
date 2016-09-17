@@ -103,7 +103,7 @@ namespace Data.Entities
             {
                 try
                 {
-                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId && x.IsActive);
                     if (emp.IsActive)
                     {
                         var hashedPass = HashPassword.SaltedHashPassword(password, emp.Email);
@@ -122,7 +122,7 @@ namespace Data.Entities
         {
             using (var dc = new DataClassesDataContext())
             {
-                return dc.Employees.Any(x => x.Email == email);
+                return dc.Employees.Any(x => x.Email == email && x.IsActive);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Data.Entities
             {
                 try
                 {
-                    var emp = dc.Employees.First(x => x.EmployeeId == empId);
+                    var emp = dc.Employees.First(x => x.EmployeeId == empId && x.IsActive);
 
                     if (emp.IsActive)
                     {
@@ -193,7 +193,7 @@ namespace Data.Entities
                 try
                 {
                     var ret = new List<object>();
-                    var emp = dc.Employees.First(x => x.Email == email);
+                    var emp = dc.Employees.First(x => x.Email == email && x.IsActive);
                     if (emp.IsActive)
                     {
                         var pass = Membership.GeneratePassword(7, 0);
