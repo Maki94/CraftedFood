@@ -41,7 +41,7 @@ namespace CrarftedFood.Controllers
                 Orders = Reports.GetInvoiceReport(startTime, endTime)
             };
 
-            CreatePdf(fileName, order);
+            CreatePdf(fileName, order, "Invoice");
 
             return View(order);
         }
@@ -57,7 +57,7 @@ namespace CrarftedFood.Controllers
                 Orders = Reports.GetDeliveryReport(date)
             };
 
-            CreatePdf(fileName, delivery);
+            CreatePdf(fileName, delivery, "Delivery");
 
             return null;
         }
@@ -72,14 +72,14 @@ namespace CrarftedFood.Controllers
                 Orders = Reports.GetOrderReport(date)
             };
 
-            CreatePdf(fileName, order);
+            CreatePdf(fileName, order, "Order");
 
             return null;
         }
 
-        private void CreatePdf(string fileName, object model)
+        private void CreatePdf(string fileName, object model, string actionName)
         {
-            var pdf = new Rotativa.ViewAsPdf("Invoice", model)
+            var pdf = new Rotativa.ViewAsPdf(actionName, model)
             {
                 PageSize = Size.A4
             };

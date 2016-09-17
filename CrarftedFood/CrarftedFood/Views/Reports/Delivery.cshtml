@@ -1,0 +1,64 @@
+﻿@model CrarftedFood.Models.ReportViewModel
+
+@{
+    Layout = null;
+}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <style type="text/css">
+        /*table tr:last-child td:nth-child(0) span {
+            display: none;
+        }
+
+        table tr:last-child td:nth-child(1) span {
+            display: none;
+        }
+
+        table tr:last-child td:nth-child(2) span {
+            display: none;
+        }
+
+        table tr:last-child td:nth-child(3) span {
+            display: none;
+        }*/
+    </style>
+    @if (Model.Orders.Count != 0)
+    {
+
+        <table class="centered bordered striped highlight">
+            <thead>
+                <tr>
+                    <th>Meal Title</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td><span>@Html.DisplayFor(model => item.MealTitle)</span></td>
+                        <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1>There is no Delviery for this day</h1>
+    }
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+</body>
+</html>
