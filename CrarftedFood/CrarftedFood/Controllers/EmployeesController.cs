@@ -12,6 +12,7 @@ using System.Web.Helpers;
 using CrarftedFood.Tests;
 using Data;
 using Data.Entities;
+using Data.Enums;
 using Rotativa;
 
 namespace CrarftedFood.Controllers
@@ -27,7 +28,7 @@ namespace CrarftedFood.Controllers
             return View(model);
         }
 
-        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         public ActionResult Profile(int id)
         {
             Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);

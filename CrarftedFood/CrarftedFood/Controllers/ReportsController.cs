@@ -30,13 +30,10 @@ namespace CrarftedFood.Controllers
         {
             return View();
         }
-
-<<<<<<< HEAD
-        public ActionResult Invoice(string fileName, int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
-=======
+        
         [AuthorizeUser(Permission = (int)Data.Enums.Permissions.SeeReports)]
-        public ActionResult Invoice(int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
->>>>>>> Role&Permission
+        public ActionResult Invoice(string fileName, int startDay = -1, int startMonth = -1, int startYear = -1, int endDay = -1, int endMonth = -1, int endYear = -1)
+
         {
             DateTime startTime, endTime;
                 
