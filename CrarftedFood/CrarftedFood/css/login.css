@@ -75,6 +75,14 @@
             min-width: 100%;
         }
 
+         #forgot-account {
+             text-decoration: none;
+             float: right;
+         }
+
+          #forgot-account:hover {
+              cursor: pointer;
+         }
 
         @media screen and (max-width: 1300px) {
                 .background, .form-signin-heading {

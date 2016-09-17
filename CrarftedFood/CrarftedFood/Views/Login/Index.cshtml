@@ -13,33 +13,90 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
-  
+
     <link rel="stylesheet" href="~/css/login.css">
 
 
 </head>
 <body>
-@using (Html.BeginForm())
-{
-    <div id="wrapper">
-        <div id="form-wrapper" class="table mdl-data-table mdl-shadow--2dp">
-            <div class="logo"></div>
-            <form class="form-signin col-md-4 col-sm-4">
-                <h2 class="form-signin-heading">Sign in</h2>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" name="Email" class="form-control expand-input" placeholder="Email address" required="" autofocus="">
-                <label for="inputPassword"  class="sr-only">Password</label>
-                <input type="password" id="inputPassword" name="Password" class="form-control expand-input" placeholder="Password" required="">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="RememberMe"  value="remember-me"> Remember me
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</button>
-            </form>
+    @using (Html.BeginForm())
+    {
+        <div id="wrapper">
+            <div id="form-wrapper" class="table mdl-data-table mdl-shadow--2dp">
+                <div class="logo"></div>
+                <form class="form-signin col-md-4 col-sm-4">
+                    <h2 class="form-signin-heading">Sign in</h2>
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" name="Email" class="form-control expand-input" placeholder="Email address" required="" autofocus="" value="@(ViewBag.recoveredEmail ?? "")">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" name="Password" class="form-control expand-input" placeholder="Password" required="">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="RememberMe" value="remember-me"> Remember me
+                        </label>
+
+                        <a id="forgot-account" class="text-center text-info">Forgot password</a>
+
+
+
+
+                    </div>
+                    <a id="submit" class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</a>
+                </form>
+            </div>
+            <div class="background"></div>
         </div>
-        <div class="background"></div>
+    }
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
     </div>
-}
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script>
+        $(document).ready(function($) {
+            document.getElementById('forgot-account').onclick = function() {
+                $('#inputPassword, .checkbox label').addClass('hide');
+                var btn = document.getElementById('submit');
+                btn.innerHTML = 'recover';
+                btn.href = "#!";
+
+                btn.addEventListener("click", function() {
+                    var email = document.getElementById("inputEmail").value;
+                   
+                    $.ajax({
+                        url: '@Url.Action("PasswordRecovery", "Employees")',
+                        method: "POST",
+                        data: {
+                            email: email
+                        },
+                        success: function (result) {
+
+                            var snackbarContainer = document.querySelector('#demo-toast-example');
+                            if (result.success === true) {
+                                snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Password changed' });
+                                
+                                //go back to loginpage
+                                setTimeout(function() {
+                                    var uri = '@Url.Action("Index","Login")';
+                                    uri += "?" + "recoverdEmail=" + email;
+                                    window.location.href = uri;
+                                }, 4000);
+                            } else {
+                                snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Email incorrect' });
+                            }
+                        }
+                    });
+                   
+
+                });
+            }
+        });
+
+    
+    </script>
 </body>
 </html>
