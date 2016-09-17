@@ -20,22 +20,22 @@ namespace CrarftedFood.Controllers
 
 
 
-            var email = "masadordevic@gmail.com";
-            var pass = "A^>gF:@";
+            //var email = "masadordevic@gmail.com";
+            //var pass = "A^>gF:@";
 
 
 
-            Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
-            if (emp == null)
-            {
-                return View();
-            }
-            UserSession.SetUser(emp);
-            Session.Timeout = 525600;
+            //Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(email, pass);
+            //if (emp == null)
+            //{
+            //    return View();
+            //}
+            //UserSession.SetUser(emp);
+            //Session.Timeout = 525600;
 
 
       
-            return RedirectToAction("Index", "Menu");
+            //return RedirectToAction("Index", "Menu");
 
 
             return View();

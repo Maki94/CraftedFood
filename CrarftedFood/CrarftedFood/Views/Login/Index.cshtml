@@ -1,157 +1,43 @@
-﻿@model CrarftedFood.Models.LoginViewModel
-@{
+﻿@{
     Layout = null;
 }
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/Scripts/jquery.validate.min.js")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
+  
+    <link rel="stylesheet" href="~/css/login.css">
+
 
 </head>
 <body>
-    <style>
-        body {
-            background-size: cover;
-            -ms-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            -webkit-background-size: cover;
-            /*background: url("http://2.bp.blogspot.com/-mkqzB3vUaHc/VjtLUzLLwmI/AAAAAAAADPw/xh41RKYVjn4/s1600/Agnes-Lim-Christmas-Outfit-41_www.FullHDWpp.com_.jpg") no-repeat center center fixed;*/
-            background: url("https://wallpaperscraft.com/image/japanese_cuisine_food_dinner_88348_1920x1080.jpg") no-repeat center center;
-        }
-
-        .panel-default {
-            margin-top: 30px;
-            opacity: 0.9;
-        }
-
-        .form-group.last {
-            margin-bottom: 0;
-        }
-
-        #forgot-account:hover {
-            cursor: pointer !important;
-            text-decoration: underline !important;
-        }
-    </style>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <span class="glyphicon glyphicon-lock"> </span>
-                            <span id="login-text">Login</span>
-                        </div>
-                        <div class="panel-body">
-                            @if (ViewBag.message != null)
-                            {
-                                <h4>@ViewBag.message</h4>
-                            }
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                            <div class="form-group" id="email-wrapper">
-                                <div class="col-md-12">
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-12 ", @id = "Email", @placeholder = "Email" } })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group" id="password-wrapper">
-                                <div class="col-sm-12">
-                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-sm-12", @id = "passwordLogin", @placeholder = "Lozinka" } })
-                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group" id="remember-me-wrapper">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="col-md-6">
-                                        <div id="checkbox-remember" class="checkbox">
-                                            @Html.EditorFor(model => model.RememberMe, "Zapamti me")
-                                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 text-center">
-                                        <small id="forgot-account" class="text-center text-info">
-                                            Forgot account
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10 col-sm-10 text-center" id="submint-wrapper">
-                                    <p id="text-reset-danger" class="text-danger"></p>
-                                    <input id="submit-button-login" type="submit" value="Prijavi se" class="btn btn-default"/>
-                                    <input id="submit-button-reset" type="button" value="Resetuj Password" class="btn btn-default hide"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div id="wrapper">
+    <div id="form-wrapper" class="table mdl-data-table mdl-shadow--2dp">
+        <div class="logo"></div>
+        <form class="form-signin col-md-4 col-sm-4">
+            <h2 class="form-signin-heading">Sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control expand-input" placeholder="Email address" required="" autofocus="">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control expand-input" placeholder="Password" required="">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
             </div>
-        </div>
-    }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-        var forgotAccount = document.getElementById("forgot-account");
-        var rememberCheckboxWrapper = document.getElementById("remember-me-wrapper");
-        var passwordWrapper = document.getElementById("password-wrapper");
-        var submitButtonLogin = document.getElementById("submit-button-login");
-        var submitButtonReset = document.getElementById("submit-button-reset");
-        var loginTextSpam = document.getElementById("login-text");
+            <button class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</button>
+        </form>
+    </div>
+    <div class="background"></div>
+ </div>
 
-        var recEmail = "@ViewBag.recoveredEmail";
-        if (recEmail !== "") {
-            document.getElementById("Email").value = recEmail;
-        }
-
-        forgotAccount.addEventListener("click", function () {
-            rememberCheckboxWrapper.className += " " + "hide";
-            passwordWrapper.className += " " + "hide";
-            forgotAccount.className += "" + "hide";
-            submitButtonLogin.className = "hide";
-            submitButtonReset.className = "btn btn-default";
-            loginTextSpam.innerHTML = "Reset";
-        });
-        submitButtonReset.addEventListener("click", function () {
-            var url = '@Url.Action("PasswordRecovery", "Employees")';
-            var email = document.getElementById("Email").value;
-            url += "?email=" + email;
-
-            var paragraph = document.createElement("p");
-            paragraph.className = "text-info";
-            paragraph.innerHTML = "Nova sifra ce Vam biti poslata na mail";
-            submitButtonReset.parentElement.innerHTML = paragraph.innerHTML;
-
-            //setTimeout(function () { }, 300); // TODO: ne radi time setTimeout funkcija
-
-            $.post(url, function (data) {
-                if (data.success === true) {;
-                } else {
-                    document.getElementById("text-reset-danger").innerHTML = "Morate uneti validan mail";
-                }
-                var uri = '@Url.Action("Index","Login")';
-                uri += "?" + "recoverdEmail=" + email;
-                window.location.href = uri;
-            });
-        });
-    </script>
 </body>
 </html>
