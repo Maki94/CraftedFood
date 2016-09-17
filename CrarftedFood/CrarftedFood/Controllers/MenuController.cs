@@ -18,9 +18,16 @@ namespace CrarftedFood.Controllers
         //all
         public ActionResult Index()
         {
-            MenuViewModel menu = new MenuViewModel();
-            menu.menu = Data.Entities.Meals.GetMenu();
-            return View(menu);
+            try
+            {
+                MenuViewModel menu = new MenuViewModel();
+                menu.menu = Data.Entities.Meals.GetMenu();
+                return View(menu);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -31,15 +38,22 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult CommentMeal(int mealId, string comment)
         {
-            if (mealId == null || String.IsNullOrEmpty(comment))
+            try
             {
-                return Json(new { success = false, message = "incorrect parameters" });
+                if (String.IsNullOrEmpty(comment))
+                {
+                    return Json(new { success = false, message = "incorrect parameters" });
+                }
+
+                Data.DTOs.LoginDto emp = UserSession.GetUser();
+                Data.Entities.Meals.CommentMeal(emp.EmployeeId, mealId, comment);
+
+                return Json(new { success = true });
             }
-
-            Data.DTOs.LoginDto emp = UserSession.GetUser();
-            Data.Entities.Meals.CommentMeal(emp.EmployeeId, mealId, comment);
-
-            return Json(new { success = true });
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
 
         }
 
@@ -47,8 +61,15 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult GetComments(int mealId)
         {
-            var cmms = Data.Entities.Meals.GetComments(mealId);
-            return Json(new { success = true , comments = cmms });
+            try
+            {
+                var cmms = Data.Entities.Meals.GetComments(mealId);
+                return Json(new { success = true, comments = cmms });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -59,15 +80,22 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult RateMeal(int mealId, float rating)
         {
-            if (mealId == null || rating == null)
+            try
             {
-                return Json(new { success = false, message = "incorrect parameters" });
-            }
+                if (mealId == null || rating == null)
+                {
+                    return Json(new { success = false, message = "incorrect parameters" });
+                }
 
-            Data.DTOs.LoginDto emp = UserSession.GetUser();
-            Data.Entities.Meals.RateMeal(emp.EmployeeId, mealId, rating);
-            float newrate = Data.Entities.Meals.GetAverageRate(mealId);
-            return Json(new { success = true, newRating =  newrate});
+                Data.DTOs.LoginDto emp = UserSession.GetUser();
+                Data.Entities.Meals.RateMeal(emp.EmployeeId, mealId, rating);
+                float newrate = Data.Entities.Meals.GetAverageRate(mealId);
+                return Json(new { success = true, newRating = newrate });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -77,43 +105,64 @@ namespace CrarftedFood.Controllers
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         public ActionResult AddMeal()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult EditMealImage(HttpPostedFileBase file, int mealId)
         {
-            if (file != null)
+            try
             {
-                byte[] array;
-                using (MemoryStream ms = new MemoryStream())
+                if (file != null)
                 {
-                    file.InputStream.CopyTo(ms);
-                    array = ms.GetBuffer();
+                    byte[] array;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        array = ms.GetBuffer();
+                    }
+                    Data.Entities.Meals.editImage(mealId, array);
                 }
-                Data.Entities.Meals.editImage(mealId, array);
-            }
 
-            return Json(new {success = true});
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult AddMeal(MenuMealItem model)
         {
-            if (model.file != null)
+            try
             {
-                byte[] array;
-                using (MemoryStream ms = new MemoryStream())
+                if (model.file != null)
                 {
-                    model.file.InputStream.CopyTo(ms);
-                    array = ms.GetBuffer();
+                    byte[] array;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        model.file.InputStream.CopyTo(ms);
+                        array = ms.GetBuffer();
+                    }
+                    model.Image = array;
                 }
-                model.Image = array;
+                Data.Entities.Meals.AddMeal(model.Title, model.Description, model.Image, model.Price, model.Quantity, model.Unit, model.Category);
+                return RedirectToAction("Index");
             }
-            Data.Entities.Meals.AddMeal(model.Title, model.Description, model.Image, model.Price, model.Quantity, model.Unit, model.Category);
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -123,27 +172,41 @@ namespace CrarftedFood.Controllers
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         public ActionResult EditMeal(int id)
         {
-            MenuMealItem model = MenuMealItem.Load(id);
-            return View(model);
+            try
+            {
+                MenuMealItem model = MenuMealItem.Load(id);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals)})]
         [HttpPost]
         public ActionResult EditMeal(MenuMealItem model)
         {
-            if (model.file != null)
+            try
             {
-                byte[] array;
-                using (MemoryStream ms = new MemoryStream())
+                if (model.file != null)
                 {
-                    model.file.InputStream.CopyTo(ms);
-                    array = ms.GetBuffer();
+                    byte[] array;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        model.file.InputStream.CopyTo(ms);
+                        array = ms.GetBuffer();
+                    }
+                    model.Image = array;
                 }
-                model.Image = array;
+                Data.Entities.Meals.EditMeal(model.MealId, model.Title, model.Description, model.Image, model.Price,
+                    model.Quantity, model.Unit, model.Category);
+                return RedirectToAction("Index");
             }
-            Data.Entities.Meals.EditMeal(model.MealId, model.Title, model.Description, model.Image, model.Price,
-                model.Quantity, model.Unit, model.Category);
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -153,12 +216,19 @@ namespace CrarftedFood.Controllers
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals) })]
         public async System.Threading.Tasks.Task<ActionResult> Delete(int id)
         {
-            List<Data.DTOs.SendMailDto> sendMail = Data.Entities.Meals.DeleteMeal(id);
-            foreach (SendMailDto sendMailDto in sendMail)
+            try
             {
-                await EmployeesController.SendEmail(sendMailDto.Email, "Automatsko otkazivanje narudžbine", sendMailDto.Message);
+                List<Data.DTOs.SendMailDto> sendMail = Data.Entities.Meals.DeleteMeal(id);
+                foreach (SendMailDto sendMailDto in sendMail)
+                {
+                    await EmployeesController.SendEmail(sendMailDto.Email, "Automatsko otkazivanje narudžbine", sendMailDto.Message);
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
@@ -169,14 +239,20 @@ namespace CrarftedFood.Controllers
         [HttpPost]
         public ActionResult Order(int mealId, DateTime dateToDeliver, string note, float quantity)
         {
-            Data.Entities.Meals.OrderMeal(mealId, UserSession.GetUser().EmployeeId, DateTime.Now, dateToDeliver, note, quantity);
-            return Json(new {success = true});
+            try
+            {
+                Data.Entities.Meals.OrderMeal(mealId, UserSession.GetUser().EmployeeId, DateTime.Now, dateToDeliver, note, quantity);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
 
-
-        #region table view
+        #region TABLE VIEW
 
         public class JsonModel
         {
@@ -204,22 +280,38 @@ namespace CrarftedFood.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+
         //all
         [ChildActionOnly]
         public ActionResult GetTableView(List<MenuMealItem> menu)
         {
-            return PartialView(menu);
+            try
+            {
+                return PartialView(menu);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
+
         //all
         public ActionResult TableView()
         {
-            JsonModel jsonModel = new JsonModel();
+            try
+            {
+                JsonModel jsonModel = new JsonModel();
 
-            List<MenuMealItem> menu = Data.Entities.Meals.GetMenu();
+                List<MenuMealItem> menu = Data.Entities.Meals.GetMenu();
 
 
-            jsonModel.HTMLString = RenderPartialViewToString("GetTableView", menu);
-            return Json(jsonModel, JsonRequestBehavior.AllowGet);
+                jsonModel.HTMLString = RenderPartialViewToString("GetTableView", menu);
+                return Json(jsonModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Login");
+            }
         }
 
         #endregion
