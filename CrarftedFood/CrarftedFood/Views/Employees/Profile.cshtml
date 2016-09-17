@@ -60,13 +60,15 @@
 
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-2">
-                        <input type="submit" value="Save" class="btn btn-default btn-save"/>
-                        @if (UserSession.IfAdmin() && UserSession.CheckUserID(Model.EmployeeId))
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" value="Save" class="btn btn-success btn-save"/>
+                        @if (UserSession.IfAdmin() && !UserSession.CheckUserID(Model.EmployeeId))
                         {
-                            <a href="@Url.Action("DeleteEmployee", "Employees", new {id=@Model.EmployeeId})" class="delete-confirm btn btn-danger">Delete</a>
+                            <a href="@Url.Action("DeleteEmployee", "Employees", new {id=@Model.EmployeeId})" class="delete-confirm btn btn-danger" style="float: left">Delete</a>
 
                         }
+                        <a  href="@Url.Action("Index", "Employees")" class="btn btn-default" style="float: right">Cancel</a>
+
                     </div>
                 </div>
             </div>
