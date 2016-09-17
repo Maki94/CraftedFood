@@ -3,7 +3,7 @@ var cardContent = document.getElementById('menu-content').innerHTML;
 
 
 //show table view
-document.querySelector('.radio #table-view').onclick = function () {
+document.querySelector('.radio #table-view').onchange = function () {
     if (tableContent.length == 0) {
         $.ajax({
             url: url.tableView,
@@ -29,7 +29,7 @@ function formatDate(date) {
 
 
 //show cards view
-document.querySelector('.radio #cards-view').onclick = function () {
+document.querySelector('.radio #cards-view').onchange = function () {
     document.getElementById('menu-content').classList.toggle('hide');
     document.getElementById('menu-content-table').classList.toggle('hide');
 
