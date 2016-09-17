@@ -1,7 +1,8 @@
 
-﻿using System;
-﻿using CrarftedFood.Extentions;
+using System;
+using CrarftedFood.Extentions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Data.Entities;
 
 namespace CrarftedFood.Tests
 {
@@ -41,14 +42,16 @@ namespace CrarftedFood.Tests
         //    }
         //}
 
-        //[TestMethod]
-        //public void AddLookups()
-        //{
-        //    Lookups.DeleteAllLookups();
-        //    Lookups.AddCategories();
-        //    Lookups.AddRoles();
-        //    Lookups.AddUnits();
-        //}
+        [TestMethod]
+        public void AddLookups()
+        {
+            Lookups.DeleteAllLookups();
+            //Lookups.AddCategories();
+            //Lookups.AddUnits();
+            //Lookups.AddRoles();
+            Lookups.AddPermissions();
+            Lookups.AddRolesPermisons();
+        }
 
 
         //[TestMethod]

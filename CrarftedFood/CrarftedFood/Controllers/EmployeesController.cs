@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Helpers;
+using CrarftedFood.Tests;
 using Data;
 using Data.Entities;
 using Rotativa;
@@ -18,12 +19,15 @@ namespace CrarftedFood.Controllers
     public class EmployeesController : Controller
     {
         #region LIST OF EMPLOYEES AND PROFILES
+
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         public ActionResult Index()
         {
             EmployeesViewModel model = EmployeesViewModel.Load();
             return View(model);
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
         public ActionResult Profile(int id)
         {
             Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
@@ -32,11 +36,14 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region ADD
+
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         public ActionResult AddEmployee()
         {
             return View();
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         [HttpPost]
         public async Task<ActionResult> AddEmployee(Data.DTOs.EmployeeDto model)
         {
@@ -103,6 +110,7 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region ADMIN EDIT
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         public ActionResult EditEmployee(int empId)
         {
             Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
@@ -110,6 +118,7 @@ namespace CrarftedFood.Controllers
             return View(model);
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
         [HttpPost]
         public ActionResult EditEmployee(Data.DTOs.EmployeeDto model)
         {
@@ -119,6 +128,7 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region EDIT
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
         public ActionResult EditProfile(int empId)
         {
             Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
@@ -126,6 +136,7 @@ namespace CrarftedFood.Controllers
             return View(model);
         }
 
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.EditProfile)]
         [HttpPost]
         public ActionResult Profile(Data.DTOs.EmployeeDto model)
         {
@@ -135,6 +146,8 @@ namespace CrarftedFood.Controllers
         #endregion
 
         #region DELETE
+        [AuthorizeUser(Permission = (int)Data.Enums.Permissions.ManageEmployees)]
+        [HttpPost]
         public ActionResult DeleteEmployee(int id)
         {
             Data.Entities.Employees.DeleteEmployee(id);
