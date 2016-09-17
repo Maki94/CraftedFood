@@ -44,7 +44,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            <td class="description">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
@@ -72,7 +72,7 @@
             <td>
                 <span class="mdl-chip__text category">@item.Category.ToDescription()</span>
             </td>
-            <td>
+            <td class="links">
             <a href="#" class="comments_button-table" >Comments</a>
             <a href="@Url.Action("EditMeal", "Menu", new {id = @item.MealId})">Edit</a>
             <a href="@Url.Action("Delete", "Menu", new {id = @item.MealId})" class="text-warning">Delete</a>

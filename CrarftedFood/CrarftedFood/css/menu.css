@@ -574,3 +574,30 @@ h2 {
 #menu-content-table tr:hover button {
     background-color: inherit;
 }
+
+td {
+    overflow-x: auto;
+}
+
+td.description {
+    max-width: 800px;
+}
+
+@media screen and (max-width: 1700px) {
+   td.description {
+    max-width: 700px;
+}
+}
+
+@media screen and (max-width: 1500px) {
+   td.description {
+    max-width: 400px;
+}
+}
+
+@media screen and (max-width: 1300px) {
+   td.description {
+    max-width: 200px;
+}
+}
+

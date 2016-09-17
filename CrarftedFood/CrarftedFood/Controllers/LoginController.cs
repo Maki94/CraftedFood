@@ -40,8 +40,8 @@ namespace CrarftedFood.Controllers
             Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(model.Email, model.Password);
             if (emp == null)
             {
-                return View();
-                return Json(new { success = false, message = "incorrect credientals" });
+                
+                return Json(new { success = false, message = "incorrect credientals" }, JsonRequestBehavior.AllowGet);
             }
 
             UserSession.SetUser(emp);
