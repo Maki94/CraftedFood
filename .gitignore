@@ -16,6 +16,7 @@ Data/*
 *.Debug.config
 *.Release.config
 *.settings
+*.pdf
 .vs/*
 .vs/
 CraftedFood/Data/app.config

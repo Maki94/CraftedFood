@@ -28,28 +28,37 @@
     
 
 </style>
-<table class="centered bordered striped highlight">
-    <thead>
-    <tr>
-        <th>MealTitle</th>
-        <th>Quantity</th>
-        <th data-field="name">Price</th>
-        <th data-field="price">TotalPrice</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    @foreach (var item in Model.Orders)
+    @if (Model.Orders.Count != 0)
     {
-        <tr>
-            <td><span>@Html.DisplayFor(model => item.MealTitle)</span></td>
-            <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
-            <td><span>@Html.DisplayFor(model => item.Price)</span></td>
-            <td><span>@Html.DisplayFor(model => item.TotalPrice)</span></td>
-        </tr>
+
+        <table class="centered bordered striped highlight">
+            <thead>
+            <tr>
+                <th>MealTitle</th>
+                <th>Quantity</th>
+                <th data-field="name">Price</th>
+                <th data-field="price">TotalPrice</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td><span>@Html.DisplayFor(model => item.MealTitle)</span></td>
+                    <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
+                    <td><span>@Html.DisplayFor(model => item.Price)</span></td>
+                    <td><span>@Html.DisplayFor(model => item.TotalPrice)</span></td>
+                </tr>
+            }
+            </tbody>
+        </table>
     }
-    </tbody>
-</table>
+    else
+    {
+        <h1>There is no inovice for that period</h1>
+    }
+
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>

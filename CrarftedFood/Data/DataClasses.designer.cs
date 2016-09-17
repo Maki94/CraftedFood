@@ -715,6 +715,8 @@ namespace Data
 		
 		private int _CategoryId;
 		
+		private bool _IsDeleted;
+		
 		private EntitySet<Rating> _Ratings;
 		
 		private EntitySet<Request> _Requests;
@@ -743,6 +745,8 @@ namespace Data
     partial void OnUnitIdChanged();
     partial void OnCategoryIdChanging(int value);
     partial void OnCategoryIdChanged();
+    partial void OnIsDeletedChanging(bool value);
+    partial void OnIsDeletedChanged();
     #endregion
 		
 		public Meal()
@@ -918,6 +922,26 @@ namespace Data
 					this._CategoryId = value;
 					this.SendPropertyChanged("CategoryId");
 					this.OnCategoryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit NOT NULL")]
+		public bool IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this.OnIsDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsDeleted = value;
+					this.SendPropertyChanged("IsDeleted");
+					this.OnIsDeletedChanged();
 				}
 			}
 		}
