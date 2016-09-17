@@ -151,9 +151,13 @@ namespace CrarftedFood.Controllers
         #region DELETE
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.ManageMeals) })]
-        public ActionResult Delete(int id)
+        public async System.Threading.Tasks.Task<ActionResult> Delete(int id)
         {
-            Data.Entities.Meals.DeleteMeal(id);
+            List<Data.DTOs.SendMailDto> sendMail = Data.Entities.Meals.DeleteMeal(id);
+            foreach (SendMailDto sendMailDto in sendMail)
+            {
+                await EmployeesController.SendEmail(sendMailDto.Email, "Automatsko otkazivanje narudžbine", sendMailDto.Message);
+            }
             return RedirectToAction("Index");
         }
 
