@@ -4,26 +4,30 @@
     var days = ["pon", "uto", "sre", "cet", "pet"];
     var today = new Date().getDay() - 1;
     if (today < 0)
-        today += 7;
+        today += 6;
     for (var i = 0; today + i < 5 || i < 2; i++) {
         $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" ' + 'attr-startDay="' + ((today + i) % 5) + '">' + days[(today + i) % 5] + '</span></a>');
     }
     $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" >' + '<i class="fa fa-calendar" aria-hidden="true"></i>' + '</span></a>');
+
+    function addZero(date) {
+        return ('0' + date).slice(-2);
+    }
 
     //open order dialog
     $('.order-btn').on('click', function (e) {
         var body = "";
         var mealId = this.parentElement.parentElement.parentElement.getElementsByClassName('meal-id')[0].innerHTML;
         var fullDate = new Date();
-        if (this.attributes['attr-day']) {
-            var date = this.attributes['attr-day'].value - today;
+        if (this.attributes['attr-startDay']) {
+            var date = this.attributes['attr-startDay'].value - today;
             if (date < 0)
-                date = date + 7;
+                date = date + 6;
             fullDate.setDate(new Date().getDate() + date);
         }
 
-        var dateString = fullDate.getDate() + "/" + (fullDate.getMonth() + 1) + "/" + fullDate.getFullYear();
-
+        var dateString = addZero(fullDate.getDate()) + "/" + addZero(fullDate.getMonth() + 1) + "/" + fullDate.getFullYear();
+        
         body += '<div class="form-horizontal">';
 
         body += '<div class="form-group"> \
@@ -58,6 +62,7 @@
             autosize: true,
             firstDay: 1,
             prevText: "",
+            dateFormat: 'dd/mm/yy'
         });
     });
 });
