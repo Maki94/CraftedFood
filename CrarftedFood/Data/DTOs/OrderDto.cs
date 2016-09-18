@@ -18,6 +18,7 @@ namespace Data.DTOs
         public double Price { get; set; }
 
         public string Date { get; set; }
+        public DateTime DateToDeliver { get; set; }
         public bool Delivered { get; set; }
         public string Comment { get; set; }
 
