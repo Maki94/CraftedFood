@@ -100,15 +100,17 @@
             <div class="comments-table comments-universal">
                 <div>
                 </div>
+@if (UserSession.IfClient())
+{
+    <div class="add-comment-wrapper">
+        <div class="add-comment-table mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" id="menu-comment" placeholder="Add comment"></textarea>
 
-                <div class="add-comment-wrapper">
-                    <div class="add-comment-table mdl-textfield mdl-js-textfield">
-                        <textarea class="mdl-textfield__input" type="text" id="menu-comment" placeholder="Add comment"></textarea>
-                 
-                     </div>
+        </div>
 
-                    <button id="add-comment-table"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                </div>
+        <button id="add-comment-table"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+    </div>
+}
             </div>
         </div>
             <div class="modal-footer">

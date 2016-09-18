@@ -138,6 +138,7 @@ namespace Data.Entities
                         MealTitle = a.Meal.Title,
                         Note = a.Note,
                         Date = $"{a.DateToDeliver:MM-dd-yy}",
+                        DateToDeliver = a.DateToDeliver,
                         Comment = a.Comment,
                         Delivered = a.DateDelivered != null
                     }).ToList();
