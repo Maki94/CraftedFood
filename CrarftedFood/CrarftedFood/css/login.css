@@ -48,7 +48,7 @@ body {
 
 .logo {
     position: relative;
-    display: none;
+    display: block;
     background-image: url('../RESOURCES/logo23.png');
     width: 80%;
     margin: 0 auto;
@@ -99,16 +99,6 @@ h2 {
         font-size: 1.2em;
        
       }
-
-@media screen and (max-width: 1300px) {
-    .background, .form-signin-heading {
-        display: none;
-    }
-
-    .logo {
-        display: block;
-    }
-}
 
 @media screen and (max-width: 380px) {
     .logo {

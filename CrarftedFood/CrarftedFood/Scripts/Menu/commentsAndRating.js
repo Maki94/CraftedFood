@@ -74,7 +74,7 @@ $('.comments_button :not(.disabled)').on('click', function (e) {
     this.parentElement.parentElement.parentElement.getElementsByClassName('card__article')[0].classList.toggle('hide');
 
     //toggle icon
-    $(this).children('i').toggleClass('fa-reply fa-comments');
+    $(this).toggleClass('fa-reply fa-comments');
 });
 
 //add comment

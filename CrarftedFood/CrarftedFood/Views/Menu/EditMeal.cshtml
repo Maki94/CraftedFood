@@ -90,7 +90,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-2" for="file">Image</label>
                 <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3">
                     <label class="btn btn-default btn-file">
-                        Choose a picture <input type="file" id="file" style="display: none;">
+                        Choose a picture <input type="file" id="file" name="file" style="display: none;">
                     </label>
                 </div>
             </div>
@@ -100,7 +100,9 @@
             <div class="form-group">
                 <span class="control-label col-md-2 col-sm-2 col-xs-2"></span>
                 <div class="col-lg-10 col-md-6 col-sm-9 col-xs-3">
-                    <input type="submit" value="update" class="btn btn-primary" />
+                    <input type="submit" value="update" class="btn btn-primary"/>
+                    <a href="@Url.Action("Index", "Menu")" class="btn btn-default right">Cancel</a>
+
                 </div>
             </div>
         </div>
