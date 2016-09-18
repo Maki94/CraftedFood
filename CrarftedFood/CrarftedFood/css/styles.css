@@ -328,6 +328,20 @@ _:-ms-input-placeholder, :root .demo-graph {
     width: 150px;
     }
 
+    .logo {
+        position: relative;
+        background-color: #263238;
+        background-image: url('../RESOURCES/logo2.png');
+        width: 90%;
+        height: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .logo-container {
+        margin: 0px !important;
+    }
+
 @media screen and (min-width: 1025px) {
    .mdl-layout__header {
     display: none;

@@ -35,15 +35,18 @@
                         <label>
                             <input type="checkbox" name="RememberMe" value="remember-me"> Remember me
                         </label>
-                        @if (ViewBag.IncorrectPassword != null)
-                        {
-                            <p class="text-danger text-center" id="inccorect-password-notification">Incorrect passowrd!</p>
-                        }
                         <a id="forgot-account" class="text-center text-info">Forgot password</a>
                     </div>
                     <button id="submit" class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</button>
                 </form>
+                @if (ViewBag.IncorrectPassword != null)
+                {
+                    <div class="wrong">
+                        <span id="inccorect-password-notification">Wrong username and/or password!</span>
+                    </div>
+                }
             </div>
+           
             <div class="background"></div>
         </div>
     }
@@ -58,7 +61,7 @@
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script>
         $(document).ready(function ($) {
-
+            $('.wrong').addClass('move');
             var forgot = true;
 
             document.getElementById('forgot-account').onclick = function () {
