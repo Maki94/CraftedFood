@@ -136,7 +136,10 @@ namespace Data.Entities
                         Quantity = a.Quantity,
                         Price = a.Meal.Price * a.Quantity,
                         MealTitle = a.Meal.Title,
-                        Note = a.Note
+                        Note = a.Note,
+                        Date = a.DateToDeliver,
+                        Comment = a.Comment,
+                        Delivered = a.DateDelivered != null
                     }).ToList();
             }
         }

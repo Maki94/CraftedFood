@@ -42,6 +42,13 @@
                     </a>
                 </th>
                 <th>
+                    <a id="mealDate" href=#>
+                        Date
+                        <span id="mealTitleUp">▲</span>
+                        <span id="mealTitleDown">▼</span>
+                    </a>
+                </th>
+                <th>
                     <a id="quantity" href=#>
                         Quantity
                         <span id="quantityUp">▲</span>
@@ -78,6 +85,9 @@
                         @Html.DisplayFor(modelItem => item.MealTitle)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
                     <td>
@@ -86,6 +96,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Note)
                     </td>
+                   
                     <td>
                         <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
                             <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>

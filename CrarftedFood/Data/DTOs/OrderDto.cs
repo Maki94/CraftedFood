@@ -11,11 +11,15 @@ namespace Data.DTOs
         public int EmployeeId { get; set; }
         public int OrderId { get; set; }
         public string EmployeeName { get; set; }
-        
+
         public string MealTitle { get; set; }
         public double Quantity { get; set; }
         public string Note { get; set; }
         public double Price { get; set; }
+
+        public DateTime Date { get; set; }
+        public bool Delivered { get; set; }
+        public string Comment { get; set; }
 
         public double TotalPrice { get; set; }
     }
