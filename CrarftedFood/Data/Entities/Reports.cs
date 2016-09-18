@@ -137,7 +137,7 @@ namespace Data.Entities
                         Price = a.Meal.Price * a.Quantity,
                         MealTitle = a.Meal.Title,
                         Note = a.Note,
-                        Date = a.DateToDeliver,
+                        Date = $"{a.DateToDeliver:MM-dd-yy}",
                         Comment = a.Comment,
                         Delivered = a.DateDelivered != null
                     }).ToList();

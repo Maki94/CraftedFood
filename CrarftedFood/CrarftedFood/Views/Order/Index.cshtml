@@ -33,56 +33,6 @@
         <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
 
-<<<<<<< HEAD
-=======
-            <tr>
-                <th class="mdl-data-table__cell--non-numeric">
-                    <a id="mealTitle" href=#>
-                        Meal Title
-                        <span id="mealTitleUp">▲</span>
-                        <span id="mealTitleDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="mealDate" href=#>
-                        Date
-                        <span id="mealDateUp">▲</span>
-                        <span id="mealDateDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="quantity" href=#>
-                        Quantity
-                        <span id="quantityUp">▲</span>
-                        <span id="quantityDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="price" href=#>
-                        Price
-
-                        <span id="priceUp">▲</span>
-                        <span id="priceDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="note" href=#>
-                        Note
-
-                        <span id="noteUp">▲</span>
-                        <span id="noteDown">▼</span>
-                    </a>
-                </th>
-                <th>
-
-                </th>
-            </tr>
-            </thead>
-            <tbody id="order-tbody">
-
-            @foreach (var item in Model.Orders)
-            {
->>>>>>> e1f6f760b9abc1092e8d49e17b172998cf569e26
                 <tr>
                     <th class="mdl-data-table__cell--non-numeric">
                         <a id="mealTitle" href=#>
@@ -94,8 +44,8 @@
                     <th>
                         <a id="mealDate" href=#>
                             Date
-                            <span id="mealTitleUp">▲</span>
-                            <span id="mealTitleDown">▼</span>
+                            <span id="mealDateUp">▲</span>
+                            <span id="mealDateDown">▼</span>
                         </a>
                     </th>
                     <th>
@@ -124,9 +74,10 @@
                     <th>
 
                     </th>
-                    <th></th>
                 </tr>
             </thead>
+
+
             <tbody id="order-tbody">
 
                 @foreach (var item in Model.Orders)
@@ -136,7 +87,11 @@
                             @Html.DisplayFor(modelItem => item.MealTitle)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Date)
+                        @{
+                            var a = item.Date.Split('-');
+                            var str = a[1] + "." + a[0] + ".20" + a[2];
+                        }
+                            @Html.DisplayFor(modelItem =>str)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Quantity)
@@ -196,10 +151,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="add-note">Add note</label> 
+                            <label class="control-label col-md-3" for="add-note">Add note</label>
                             <div class="col-md-9">
-                                <textarea type="text" id="add-note"></textarea> 
-                            </div> 
+                                <textarea type="text" id="add-note"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -217,7 +172,7 @@
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
     @if (Model.Orders.Count == 0)
-    {
+                {
         <div class="mdl-data-table__cell--non-numeric">   <h1>Trenutno ne postoji ni jedna  narudzbina</h1></div>
     }
 </div>
@@ -226,26 +181,26 @@
 <script>
     var mealTitleSortUp = false;
     var mealDateSortUp = false;
-    var quantitySortUp = false;
-    var priceSortUp = false;
-    var noteSortUp = false;
+                var quantitySortUp = false;
+                var priceSortUp = false;
+                var noteSortUp = false;
 
-    var mealTitleSortUpElem = document.getElementById("mealTitleUp");
-    var mealDateSortUpElem = document.getElementById("mealDateUp");
-    var quantitySortUpElem = document.getElementById("quantityUp");
-    var priceSortUpElem = document.getElementById("priceUp");
-    var noteSortUpElem = document.getElementById("noteUp");
+                var mealTitleSortUpElem = document.getElementById("mealTitleUp");
+                var mealDateSortUpElem = document.getElementById("mealDateUp");
+                var quantitySortUpElem = document.getElementById("quantityUp");
+                var priceSortUpElem = document.getElementById("priceUp");
+                var noteSortUpElem = document.getElementById("noteUp");
 
-    var mealTitleSortDownElem = document.getElementById("mealTitleDown");
-    var mealDateSortDownElem = document.getElementById("mealDateDown");
-    var quantitySortDownElem = document.getElementById("quantityDown");
-    var priceSortDownElem = document.getElementById("priceDown");
-    var noteSortDownElem = document.getElementById("noteDown");
+                var mealTitleSortDownElem = document.getElementById("mealTitleDown");
+                var mealDateSortDownElem = document.getElementById("mealDateDown");
+                var quantitySortDownElem = document.getElementById("quantityDown");
+                var priceSortDownElem = document.getElementById("priceDown");
+                var noteSortDownElem = document.getElementById("noteDown");
 
-    var deleteId = -1;
-    var commentId = -1;
+                var deleteId = -1;
+                var commentId = -1;
 
-    var checkMealTitleDirection = function () {
+                var checkMealTitleDirection = function () {
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
         mealTitleSortDownElem.className = !mealTitleSortUp ? "hide" : "";
         mealTitleSortUp = !mealTitleSortUp;
@@ -280,26 +235,30 @@
 
     checkDirections();
 
-    var fillTable = function (data, sortUp) {
+                function formatDate(date) {
+                    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+                }
+                var fillTable = function (data, sortUp) {
         var tbody = document.createElement("tbody");
         $.each(data, function (key, value) {
-            var tr = document.createElement("tr");
-            var str = "<td class='mdl-data-table__cell--non-numeric'>" + value.MealTitle + "</td>";
-            str += "<td>" + value.Date + "</td>";
-            str += "<td>" + value.Quantity + "</td>";
-            str += "<td>" + value.Price + "</td>";
-            str += "<td>" + value.Note + "</td>";
-            str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "' onclick='setDeleteId(" + value.OrderId + ")' data-toggle=\"modal\" data-target=\"#delete-dialog\"><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
-            tr.innerHTML = str;
+                    var tr = document.createElement("tr");
+                    var str = "<td class='mdl-data-table__cell--non-numeric'>" + value.MealTitle + "</td>";
+                    debugger;
+                    str += "<td>" + formatDate(new Date("" + value.Date)) + "</td>";
+                    str += "<td>" + value.Quantity + "</td>";
+                    str += "<td>" + value.Price + "</td>";
+                    str += "<td>" + value.Note + "</td>";
+                    str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "' onclick='setDeleteId(" + value.OrderId + ")' data-toggle=\"modal\" data-target=\"#delete-dialog\"><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
+                    tr.innerHTML = str;
 
-            if (tbody.childElementCount === 0) {
-                tbody.appendChild(tr);
-            } else if (sortUp) {
-                tbody.insertBefore(tr, tbody.firstChild);
-            } else {
-                tbody.appendChild(tr);
-            }
-        });
+                    if (tbody.childElementCount === 0) {
+                        tbody.appendChild(tr);
+                    } else if (sortUp) {
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
         document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
     }
 
@@ -327,8 +286,8 @@
     var setCommentId = function (id) {
         commentId = id;
     };
-  
-    $('#add-comment').click(function() {
+
+    $('#add-comment').click(function () {
         if (commentId !== -1) {
             $.ajax({
                 url: "@Url.Action("CommentDelivery","Order")" + "?requestId=" + commentId + "&comment=" + $('#add-note').val(),
@@ -369,6 +328,9 @@
             }
         });
     });
+
+  
+  
     $("#mealDate").click(function () {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealDate" })";
         $.post(url, function (data) {
