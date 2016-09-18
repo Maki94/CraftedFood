@@ -101,7 +101,7 @@ $('.add-comment-wrapper button').on('click', function (e) {
             success: function (result) {
                 var now = new Date();
                 document.querySelector('*[data-id="' + sendData.mealId + '"]').parentElement.querySelector('.comments :first-child').innerHTML +=
-                    '<div><h6>@UserSession.GetUser().Name</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
+                    '<div><h6>'+userName+'</h6><span class="date">' + formatDate(now) + '</span><p>' + sendData.comment + '</p></div>';
             }
         });
         //obrisi text polje
