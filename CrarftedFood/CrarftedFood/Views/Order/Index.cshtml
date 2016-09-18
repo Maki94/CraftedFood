@@ -87,11 +87,11 @@
                             @Html.DisplayFor(modelItem => item.MealTitle)
                         </td>
                         <td>
-                        @{
-                            var a = item.Date.Split('-');
-                            var str = a[1] + "." + a[0] + ".20" + a[2];
-                        }
-                            @Html.DisplayFor(modelItem =>str)
+                            @{
+                                var a = item.Date.Split('-');
+                                var str = a[1] + "." + a[0] + ".20" + a[2];
+                            }
+                            @Html.DisplayFor(modelItem => str)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Quantity)
@@ -118,7 +118,7 @@
                             </td>
                         }
                     </tr>
-                }
+                                }
             </tbody>
         </table>
         <div id="delete-dialog" class="modal fade" role="dialog">
@@ -166,14 +166,14 @@
 
             </div>
         </div>
-    }
+                                }
     <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
     @if (Model.Orders.Count == 0)
-                {
-        <div class="mdl-data-table__cell--non-numeric">   <h1>There is not any order at the moment</h1></div>
+    {
+        <div class="mdl-data-table__cell--non-numeric">   <h1>Trenutno ne postoji ni jedna  narudzbina</h1></div>
     }
 </div>
 
@@ -181,26 +181,26 @@
 <script>
     var mealTitleSortUp = false;
     var mealDateSortUp = false;
-                var quantitySortUp = false;
-                var priceSortUp = false;
-                var noteSortUp = false;
+    var quantitySortUp = false;
+    var priceSortUp = false;
+    var noteSortUp = false;
 
-                var mealTitleSortUpElem = document.getElementById("mealTitleUp");
-                var mealDateSortUpElem = document.getElementById("mealDateUp");
-                var quantitySortUpElem = document.getElementById("quantityUp");
-                var priceSortUpElem = document.getElementById("priceUp");
-                var noteSortUpElem = document.getElementById("noteUp");
+    var mealTitleSortUpElem = document.getElementById("mealTitleUp");
+    var mealDateSortUpElem = document.getElementById("mealDateUp");
+    var quantitySortUpElem = document.getElementById("quantityUp");
+    var priceSortUpElem = document.getElementById("priceUp");
+    var noteSortUpElem = document.getElementById("noteUp");
 
-                var mealTitleSortDownElem = document.getElementById("mealTitleDown");
-                var mealDateSortDownElem = document.getElementById("mealDateDown");
-                var quantitySortDownElem = document.getElementById("quantityDown");
-                var priceSortDownElem = document.getElementById("priceDown");
-                var noteSortDownElem = document.getElementById("noteDown");
+    var mealTitleSortDownElem = document.getElementById("mealTitleDown");
+    var mealDateSortDownElem = document.getElementById("mealDateDown");
+    var quantitySortDownElem = document.getElementById("quantityDown");
+    var priceSortDownElem = document.getElementById("priceDown");
+    var noteSortDownElem = document.getElementById("noteDown");
 
-                var deleteId = -1;
-                var commentId = -1;
+    var deleteId = -1;
+    var commentId = -1;
 
-                var checkMealTitleDirection = function () {
+    var checkMealTitleDirection = function () {
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
         mealTitleSortDownElem.className = !mealTitleSortUp ? "hide" : "";
         mealTitleSortUp = !mealTitleSortUp;
@@ -234,53 +234,41 @@
     }
 
     checkDirections();
-                function addZero(date) {
-                    return ('0' + date).slice(-2)
-                }            
+    function addZero(date) {
+        return ('0' + date).slice(-2);
+    }
 
-                function formatDate(date) {
-                    return addZero(date.getDate()) + "." + addZero((date.getMonth() + 1)) + "." + date.getFullYear();
-                }
-                var fillTable = function (data, sortUp) {
+    function formatDate(date) {
+        return addZero(date.getDate()) + "." + addZero((date.getMonth() + 1)) + "." + date.getFullYear();
+    }
+    var fillTable = function (data, sortUp) {
         var tbody = document.createElement("tbody");
         $.each(data, function (key, value) {
-                    var tr = document.createElement("tr");
-                    var str = "<td class='mdl-data-table__cell--non-numeric'>" + value.MealTitle + "</td>";
-                    debugger;
-                    str += "<td>" + formatDate(new Date("" + value.Date)) + "</td>";
-                    str += "<td>" + value.Quantity + "</td>";
-                    str += "<td>" + value.Price + "</td>";
-                    str += "<td>" + value.Note + "</td>";
-                    str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "' onclick='setDeleteId(" + value.OrderId + ")' data-toggle=\"modal\" data-target=\"#delete-dialog\"><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
-                    tr.innerHTML = str;
+            var tr = document.createElement("tr");
+            var str = "<td class='mdl-data-table__cell--non-numeric'>" + value.MealTitle + "</td>";
+            debugger;
+            str += "<td>" + formatDate(new Date("" + value.Date)) + "</td>";
+            str += "<td>" + value.Quantity + "</td>";
+            str += "<td>" + value.Price + "</td>";
+            str += "<td>" + value.Note + "</td>";
+            str += "<td><a class='mdl-navigation__link delete-event' data-id='" + value.OrderId + "' onclick='setDeleteId(" + value.OrderId + ")' data-toggle=\"modal\" data-target=\"#delete-dialog\"><i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i></a></td>";
+            var date = '@DateTime.Now';
+            if (value.DateToDeliver < date) {
+                str += "<td><a class='mdl-navigation__link delete-event' onclick=\"setCommentId(" + value.OrderId + ")\" data-id="+value.OrderId+" data-toggle='modal' data-target='#comment-dialog'> <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>comment</i></a></td>";
+            }
+            tr.innerHTML = str;
 
-                    if (tbody.childElementCount === 0) {
-                        tbody.appendChild(tr);
-                    } else if (sortUp) {
-                        tbody.insertBefore(tr, tbody.firstChild);
-                    } else {
-                        tbody.appendChild(tr);
-                    }
-                });
+            if (tbody.childElementCount === 0) {
+                tbody.appendChild(tr);
+            } else if (sortUp) {
+                tbody.insertBefore(tr, tbody.firstChild);
+            } else {
+                tbody.appendChild(tr);
+            }
+        });
         document.getElementById('order-tbody').innerHTML = tbody.innerHTML;
     }
 
-    @*$(".delete-event").click(function () {
-        //if (confirm('Da li sigurno zelite da zelite da otkazete narudzbinu?')) {
-        deleteId = this.dataset.id;
-            //var id = this.dataset.id;
-            //var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + id;
-
-            //$('#delete-dialog .modal-footer .delete-confirm').attr("href", url);
-
-            //$.post(url, function (data) {
-            //    if (data.success === true) {
-            //        fillTable(data.message.Data, mealTitleSortUp, 'order-tbody');
-            //        checkMealTitleDirection();
-            //    }
-            //});
-        //}
-    });*@
     var setDeleteId = function (id) {
         deleteId = id;
     };
@@ -332,8 +320,8 @@
         });
     });
 
-  
-  
+
+
     $("#mealDate").click(function () {
         var url = "@Url.Action("GetOrders","Order", new { orderType = "mealDate" })";
         $.post(url, function (data) {
