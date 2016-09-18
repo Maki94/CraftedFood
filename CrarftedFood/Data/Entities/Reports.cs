@@ -23,7 +23,8 @@ namespace Data.Entities
                             EmployeeName = a.Employee.Name,
                             MealTitle = a.Meal.Title,
                             Quantity = a.Quantity,
-                            Note = a.Note
+                            Note = a.Note,
+                            Comment = a.Comment
                         }).ToList().OrderBy(a => a.EmployeeName).ToList();
 
                 string previous = "";
@@ -65,7 +66,7 @@ namespace Data.Entities
                         order.Add(new OrderDto()
                         {
                             MealTitle = meal.Title,
-                            Quantity = totalQuantity,
+                            Quantity = totalQuantity
                         });
                     }
                 }

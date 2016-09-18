@@ -342,6 +342,10 @@ _:-ms-input-placeholder, :root .demo-graph {
         margin: 0px !important;
     }
 
+    #searchMealsText {
+    min-width: 200px !important;
+}
+
 @media screen and (min-width: 1025px) {
    .mdl-layout__header {
     display: none;

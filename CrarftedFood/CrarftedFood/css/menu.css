@@ -583,6 +583,10 @@ td.description {
     max-width: 800px;
 }
 
+main {
+    overflow-x: scroll;
+}
+
 @media screen and (max-width: 1700px) {
    td.description {
     max-width: 700px;
@@ -601,3 +605,12 @@ td.description {
 }
 }
 
+@media screen and (max-width: 475px) {
+   #menu-options {
+       flex-wrap: wrap;
+}
+}
+
+@media screen and (max-width: 810px) {
+   
+}
