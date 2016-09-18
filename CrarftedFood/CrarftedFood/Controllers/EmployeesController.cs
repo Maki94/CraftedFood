@@ -78,7 +78,7 @@ namespace CrarftedFood.Controllers
         {
             try
             {
-                string pass = Membership.GeneratePassword(7, 0);
+                string pass = Data.Entities.Employees.RandomString(7);
                 string hashedPass = Data.Entities.HashPassword.SaltedHashPassword(pass, model.Email);
                 Data.Entities.Employees.AddEmployee(model.Name, model.Email, hashedPass, model.Role);
 

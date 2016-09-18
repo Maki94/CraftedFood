@@ -186,6 +186,14 @@ namespace Data.Entities
             }
         }
 
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "qwertyuipopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         public static List<object> PasswordRecovery(string email)
         {
             using (var dc = new DataClassesDataContext())
@@ -196,7 +204,7 @@ namespace Data.Entities
                     var emp = dc.Employees.First(x => x.Email == email && x.IsActive);
                     if (emp.IsActive)
                     {
-                        var pass = Membership.GeneratePassword(7, 0);
+                        var pass = RandomString(7);
                         var hashedPass = HashPassword.SaltedHashPassword(pass, emp.Email);
                         emp.Password = hashedPass;
                         dc.SubmitChanges();
