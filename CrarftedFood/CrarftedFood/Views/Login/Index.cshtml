@@ -35,12 +35,11 @@
                         <label>
                             <input type="checkbox" name="RememberMe" value="remember-me"> Remember me
                         </label>
-
+                        @if (ViewBag.IncorrectPassword != null)
+                        {
+                            <p class="text-danger text-center">Incorrect passowrd!</p>
+                        }
                         <a id="forgot-account" class="text-center text-info">Forgot password</a>
-
-
-
-
                     </div>
                     <button id="submit" class="btn btn-lg btn-primary btn-block form-control" type="submit">Sign in</button>
                 </form>
