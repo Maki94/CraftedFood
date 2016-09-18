@@ -41,15 +41,22 @@
             else
             {
                 <input type="radio" id="delivery" name="report" value="true" checked hidden>
-                <div class="mdl-cell mdl-cell--6-col"></div>
+                @*<div class="mdl-cell mdl-cell--6-col"></div>*@
             }
 
             <div class="mdl-cell mdl-cell--2-col">
                 <input id="report-date-from" class="datepicker date form-control" placeholder="Pick a date" required>
             </div>
-            <div class="mdl-cell mdl-cell--2-col">
-                <input id="report-date-end" class="datepicker date form-control" placeholder="Pick a date" required="" aria-required="true">
-            </div>
+            @if (UserSession.IfAdmin())
+            {
+                <div class="mdl-cell mdl-cell--2-col">
+                    <input id="report-date-end" class="datepicker date form-control" placeholder="Pick a date" required="" aria-required="true">
+                </div>
+            }
+            else
+            {
+                <input id="report-date-end" class="datepicker date form-control" placeholder="Pick a date" required="" aria-required="true" hidden>
+            }
             <div class="mdl-cell mdl-cell--1-col">
                 <button id="find-pdf" class="btn btn-success" type="button" name="action">
                     Submit&nbsp;
@@ -76,12 +83,12 @@
     });
 </script>
 <script>
-    var setRules = function() {
-        if ($('#delivery').is(':checked') || $('#order').is(':checked')) {
-            $("#report-date-end").fadeOut();
-        }
-    };
-    setRules();
+    //var setRules = function() {
+    //    if ($('#delivery').is(':checked') || $('#order').is(':checked')) {
+    //        $("#report-date-end").fadeOut();
+    //    }
+    //};
+    //setRules();
     var datePickerFrom = document.getElementById("report-date-end");
     $('#delivery').click(function () {
         $("#report-date-end").fadeOut();
