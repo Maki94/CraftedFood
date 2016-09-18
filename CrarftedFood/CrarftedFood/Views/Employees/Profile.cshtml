@@ -74,7 +74,16 @@
                     }    
                     </div>
                     <span class="col-lg-4 col-md-3 col-sm-5 col-xs-1"></span>
-                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-1"><a href="@Url.Action("Index", "Employees")" class="btn btn-default right">Cancel</a></div>
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-1">
+                        @if (UserSession.IfAdmin())
+                        {
+                            <a href="@Url.Action("Index", "Employees")" class="btn btn-default right">Cancel</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Menu")" class="btn btn-default right">Cancel</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
