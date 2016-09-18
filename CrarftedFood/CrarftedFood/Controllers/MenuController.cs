@@ -82,11 +82,6 @@ namespace CrarftedFood.Controllers
         {
             try
             {
-                if (mealId == null || rating == null)
-                {
-                    return Json(new { success = false, message = "incorrect parameters" });
-                }
-
                 Data.DTOs.LoginDto emp = UserSession.GetUser();
                 Data.Entities.Meals.RateMeal(emp.EmployeeId, mealId, rating);
                 float newrate = Data.Entities.Meals.GetAverageRate(mealId);
