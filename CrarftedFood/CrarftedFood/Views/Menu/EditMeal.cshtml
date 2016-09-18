@@ -9,27 +9,12 @@
     List<SelectListItem> units = Data.Enums.Units.grams.CreateSelectListItem();
     List<SelectListItem> categories = Data.Enums.Categories.bakery.CreateSelectListItem();
 }
-<style>
-    .form-horizontal {
-        min-width: 700px;
-        margin: auto;
-        padding-top: 5%;
-    }
-
-    #form-wrapper-meal {
-        margin: auto;
-        width: 700px;
-    }
-
-    #edit-meal-form {
-        margin-top: 5%;
-    }
-</style>
-@using (Html.BeginForm("EditMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data", id = "edit-meal-form" }))
+<link rel="stylesheet" type="text/css" href="~/css/forms.css"/>
+@using (Html.BeginForm("EditMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-beginHtml" }))
 {
     @Html.AntiForgeryToken()
 
-    <div id="form-wrapper-meal" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <div id="form-wrapper-div" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })

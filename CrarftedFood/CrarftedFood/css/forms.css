@@ -1,0 +1,14 @@
+﻿.form-horizontal {
+    min-width: 700px;
+    margin: auto;
+    padding-top: 5%;
+}
+
+#form-wrapper-div {
+    margin: auto;
+    width: 700px;
+}
+
+#form-beginHtml {
+    margin-top: 5%;
+}

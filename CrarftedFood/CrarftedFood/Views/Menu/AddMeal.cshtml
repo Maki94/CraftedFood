@@ -4,34 +4,18 @@
 @{
     ViewBag.Title = "Add Meal";
 }
-<style>
-    .form-horizontal {
-        min-width: 700px;
-        margin: auto;
-        padding-top: 5%;
-    }
-
-    #form-wrapper-meal {
-        margin: auto;
-        width: 700px;
-    }
-
-    #add-meal-form {
-        margin-top: 5%;
-    }
-</style>
-
+<link rel="stylesheet" type="text/css" href="~/css/forms.css" />
 
 @{
     List<SelectListItem> units = Data.Enums.Units.grams.CreateSelectListItem();
     List<SelectListItem> categories = Data.Enums.Categories.bakery.CreateSelectListItem();
 }
 
-@using (Html.BeginForm("AddMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data", id= "add-meal-form" }))
+@using (Html.BeginForm("AddMeal", "Menu", FormMethod.Post, new { enctype = "multipart/form-data", id= "form-beginHtml" }))
 {
     @Html.AntiForgeryToken()
 
-    <div id="form-wrapper-meal" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <div id="form-wrapper-div" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
        
         <div class="form-horizontal">
