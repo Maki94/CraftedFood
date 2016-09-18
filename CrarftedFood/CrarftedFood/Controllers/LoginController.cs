@@ -24,6 +24,7 @@ namespace CrarftedFood.Controllers
             Data.DTOs.LoginDto emp = Data.Entities.Login.CheckUsernameAndPassword(model.Email, model.Password);
             if (emp == null)
             {
+                ViewBag.recoveredEmail = model.Email;
                 ViewBag.IncorrectPassword = true;
                 return View();
                 //return Json(new {success = false, message = "incorrect credientals"}, JsonRequestBehavior.AllowGet);

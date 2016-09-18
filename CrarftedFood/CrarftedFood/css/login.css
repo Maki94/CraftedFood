@@ -1,105 +1,117 @@
-﻿ .expand-input {
-            /*min-width: 200px;*/
-        }
-        body {
-            background-color: #37474F;
-            width: 100%;
-            height: 100%;
-        }
+﻿.expand-input {
+    /*min-width: 200px;*/
+}
 
-       #wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            width: 100%;
-            background-size: contain;
-            margin-right: 10%;
-           padding: 0 15px;
-        }
-        
-        #form-wrapper {
-            display: flex;
-            flex-direction: column;
-            max-width: 500px;
-            box-sizing: border-box;
-            padding: 30px 20px;
+body {
+    background-color: #37474F;
+    width: 100%;
+    height: 100%;
+}
 
-            min-width: 235px;
-            max-height: 400px;
-            margin-top: 15%;
-            width: 100%;
-            height: 100%;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-        
-        .background {
-          content: "";
-          position: relative;
-          z-index: -1;
+#wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    background-size: contain;
+    margin-right: 10%;
+    padding: 0 15px;
+}
 
-          display: block;
-        
-          background-image: url('../RESOURCES/logo.png');
-          width: 600px;
-          height:  600px;
-          background-size: cover;
+#form-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 30px 20px;
+    min-width: 235px;
+    max-height: 400px;
+    margin-top: 15%;
+    width: 100%;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
 
-          margin-top: 3%;
-          filter: blur(1px);
-        }
+.background {
+    content: "";
+    position: relative;
+    z-index: -1;
+    display: block;
+    background-image: url('../RESOURCES/logo.png');
+    width: 600px;
+    height: 600px;
+    background-size: cover;
+    margin-top: 3%;
+    filter: blur(1px);
+}
 
-        .logo {
-          position: relative;
-          display: none;
-          background-image: url('../RESOURCES/logo23.png');
-          width: 80%;
-          margin: 0 auto;
-          height: 120px;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-	
-        h2 {
-            margin-top: 2px;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-        
-        .form-signin {
-            min-width: 100%;
-            padding: 0px;
-        }
-         .form-control {
-            min-width: 100%;
-        }
+.logo {
+    position: relative;
+    display: none;
+    background-image: url('../RESOURCES/logo23.png');
+    width: 80%;
+    margin: 0 auto;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
-         #forgot-account {
-             text-decoration: none;
-             float: right;
-         }
+h2 {
+    margin-top: 2px;
+    margin-bottom: 10px;
+    text-align: left;
+}
 
-          #forgot-account:hover {
-              cursor: pointer;
-         }
+.form-signin {
+    min-width: 100%;
+    padding: 0px;
+}
 
-        @media screen and (max-width: 1300px) {
-                .background, .form-signin-heading {
-                    display: none;
-                }
+.form-control {
+    min-width: 100%;
+}
 
-                .logo {
-                    display: block;
-                }
+#forgot-account {
+    text-decoration: none;
+    float: right;
+}
 
-               
-        }
+    #forgot-account:hover {
+        cursor: pointer;
+    }
+
+.wrong {
+    position: relative;
+    top: 30px;
+    text-align: center;
+    transition: all .5s ease;
+}
+
+.move {
+        transform: translate(0, 50px) scale(1);
+
+}
+
+    .wrong span {
+        color: rgba(255, 255, 255, 0.86);
+        font-weight: bold;
+        font-size: 1.2em;
+       
+      }
+
+@media screen and (max-width: 1300px) {
+    .background, .form-signin-heading {
+        display: none;
+    }
+
+    .logo {
+        display: block;
+    }
+}
 
 @media screen and (max-width: 380px) {
     .logo {
         height: 100px;
     }
 }
-     
-       
-        

@@ -29,6 +29,9 @@
         .expand-input {
             min-width: 95%;
         }
+
+        
+
     </style>
 
 </head>
@@ -50,7 +53,10 @@
 
         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
             <header class="demo-drawer-header">
-                <a href=#>Crafted food</a>
+                <a href="@Url.Action("Index", "Menu")" class="logo-container">
+                    <div class="logo">
+                    </div>
+                </a>
                 <div class="demo-avatar-dropdown">
                     <span>@user.Name</span>
                     <div class="mdl-layout-spacer"></div>
