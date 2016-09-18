@@ -3,6 +3,8 @@
 }
 
 body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+
     background-color: #37474F;
     width: 100%;
     height: 100%;
