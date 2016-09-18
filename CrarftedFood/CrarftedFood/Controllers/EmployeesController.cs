@@ -45,10 +45,6 @@ namespace CrarftedFood.Controllers
                 if (UserSession.CheckUserID(id) || UserSession.IfAdmin())
                 {
                     Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
-                    if (UserSession.IfClient())
-                    {
-                        return RedirectToAction("Index", "Menu");
-                    }
                     return View(model);
                 }
                 return RedirectToAction("Unauthorized", "Login");
@@ -206,6 +202,10 @@ namespace CrarftedFood.Controllers
                 if (UserSession.CheckUserID(empId) || UserSession.IfAdmin())
                 {
                     Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(empId);
+                    if (!UserSession.IfAdmin())
+                    {
+                        return RedirectToAction("Index", "Menu");
+                    }
                     return View(model);
                 }
                 return RedirectToAction("Unauthorized", "Login");
