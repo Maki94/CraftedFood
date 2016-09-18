@@ -33,77 +33,87 @@
         <table id="table-orders" class="table text-center mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
 
-            <tr>
-                <th class="mdl-data-table__cell--non-numeric">
-                    <a id="mealTitle" href=#>
-                        Meal Title
-                        <span id="mealTitleUp">▲</span>
-                        <span id="mealTitleDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="mealDate" href=#>
-                        Date
-                        <span id="mealTitleUp">▲</span>
-                        <span id="mealTitleDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="quantity" href=#>
-                        Quantity
-                        <span id="quantityUp">▲</span>
-                        <span id="quantityDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="price" href=#>
-                        Price
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        <a id="mealTitle" href=#>
+                            Meal Title
+                            <span id="mealTitleUp">▲</span>
+                            <span id="mealTitleDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="mealDate" href=#>
+                            Date
+                            <span id="mealTitleUp">▲</span>
+                            <span id="mealTitleDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="quantity" href=#>
+                            Quantity
+                            <span id="quantityUp">▲</span>
+                            <span id="quantityDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="price" href=#>
+                            Price
 
-                        <span id="priceUp">▲</span>
-                        <span id="priceDown">▼</span>
-                    </a>
-                </th>
-                <th>
-                    <a id="note" href=#>
-                        Note
+                            <span id="priceUp">▲</span>
+                            <span id="priceDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a id="note" href=#>
+                            Note
 
-                        <span id="noteUp">▲</span>
-                        <span id="noteDown">▼</span>
-                    </a>
-                </th>
-                <th>
+                            <span id="noteUp">▲</span>
+                            <span id="noteDown">▼</span>
+                        </a>
+                    </th>
+                    <th>
 
-                </th>
-            </tr>
+                    </th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody id="order-tbody">
 
-            @foreach (var item in Model.Orders)
-            {
-                <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                        @Html.DisplayFor(modelItem => item.MealTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                   
-                    <td>
-                        <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
-                            <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
-                        </a>
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            @Html.DisplayFor(modelItem => item.MealTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+
+                        <td>
+                            <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
+                                <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
+                            </a>
+                        </td>
+
+                        @if (!item.Delivered)
+                        {
+                            <td>
+                                <a class='mdl-navigation__link delete-event' onclick="setCommentId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#comment-dialog">
+                                    <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>comment</i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
             </tbody>
         </table>
         <div id="delete-dialog" class="modal fade" role="dialog">
@@ -124,8 +134,38 @@
 
             </div>
         </div>
-    }
 
+        <div id="comment-dialog" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Comment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="add-note">Add note</label> 
+                            <div class="col-md-9">
+                                <textarea type="text" id="add-note"></textarea> 
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#" class="delete-confirm btn btn-success" id="add-comment" data-dismiss="modal">Add</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="delete-no">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
     @if (Model.Orders.Count == 0)
     {
         <div class="mdl-data-table__cell--non-numeric">   <h1>Trenutno ne postoji ni jedna  narudzbina</h1></div>
@@ -150,6 +190,7 @@
     var noteSortDownElem = document.getElementById("noteDown");
 
     var deleteId = -1;
+    var commentId = -1;
 
     var checkMealTitleDirection = function () {
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
@@ -218,11 +259,33 @@
             //});
         //}
     });*@
-    var setDeleteId = function(id) {
+    var setDeleteId = function (id) {
         deleteId = id;
     };
-    
-    $("#delete-yes").click(function() {
+
+    var setCommentId = function (id) {
+        commentId = id;
+    };
+  
+    $('#add-comment').click(function() {
+        if (commentId !== -1) {
+            $.ajax({
+                url: "@Url.Action("CommentDelivery","Order")" + "?requestId=" + commentId + "&comment=" + $('#add-note').val(),
+                method: "POST",
+                success: function (result) {
+                    var snackbarContainer = document.querySelector('#demo-toast-example');
+                    if (result.success === true) {
+                        snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Comment sent' });
+                    } else {
+                        snackbarContainer.MaterialSnackbar.showSnackbar({ message: 'Error' });
+                    }
+                }
+            });
+            $('#add-note').val("");
+        }
+    });
+
+    $("#delete-yes").click(function () {
         if (deleteId !== -1) {
             var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + deleteId;
             $.post(url, function (data) {
