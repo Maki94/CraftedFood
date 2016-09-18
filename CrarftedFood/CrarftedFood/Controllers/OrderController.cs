@@ -139,6 +139,21 @@ namespace CrarftedFood.Controllers
                 return RedirectToAction("Error", "Login");
             }
         }
+        [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
+        [HttpPost]
+        public ActionResult GetCommentDelivery(int requestId)
+        {
+            try
+            {
+                var msg = Data.Entities.Meals.GetLastCommentRequest(requestId);
+                
+                return Json(new {success = true, message = msg});
+            }
+            catch (Exception)
+            {
+                return Json(new {success = false, message = ""});
+            }
+        }
 
         #endregion
     }

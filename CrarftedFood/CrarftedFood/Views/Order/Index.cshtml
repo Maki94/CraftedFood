@@ -276,6 +276,10 @@
 
     var setCommentId = function (id) {
         commentId = id;
+        var url = "@Url.Action("GetCommentDelivery", "Order")" + "?requestId=" + id;
+        $.post(url, function (data) {
+            document.getElementById("add-note").value = data.message;
+        });
     };
 
     $('#add-comment').click(function () {

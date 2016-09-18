@@ -283,5 +283,22 @@ namespace Data.Entities
                 dc.SubmitChanges();
             }
         }
+
+        public static string GetLastCommentRequest(int reqId)
+        {
+            try
+            {
+                using (DataClassesDataContext dc = new DataClassesDataContext())
+                {
+                    Request request = dc.Requests.First(x => x.RequestId == reqId);
+                    return request.Comment;
+                }
+            }
+            catch (Exception)
+            {
+                return "";
+                throw;
+            }
+        }
     }
 }
