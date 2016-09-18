@@ -165,7 +165,7 @@ namespace Data.Entities
         {
             using (var dc = new DataClassesDataContext())
             {
-                return dc.Ratings.Where(a=> a.MealId == mealId).Select(r => new MealCommentDTO
+                return dc.Ratings.Where(a=> a.MealId == mealId && a.Comment!=null).Select(r => new MealCommentDTO
                 {
                     Date = $"{r.Date:MM-dd-yy}",
                     Comment = r.Comment,
