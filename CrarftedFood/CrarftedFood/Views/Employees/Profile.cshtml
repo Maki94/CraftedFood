@@ -4,78 +4,81 @@
 @{
     ViewBag.Title = "Employee Profile";
 }
+<link rel="stylesheet" type="text/css" href="~/css/forms.css" />
 
 @{
     List<SelectListItem> roles = Data.Enums.Roles.Admin.CreateSelectListItem();
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Profile", "Employees", FormMethod.Post, new { id = "form-beginHtml" }))
 {
     @Html.AntiForgeryToken()
-        <div id="form-wrapper" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <div id="form-wrapper-div" class="table text-center mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.EmployeeId)
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EmployeeId)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control expand-input" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-4">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control " } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control expand-input" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-4">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control " } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control expand-input" } })
-                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-4">
+                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control " } })
+                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                @if (UserSession.IfAdmin() && !UserSession.CheckUserID(Model.EmployeeId))
+            @if (UserSession.IfAdmin() && !UserSession.CheckUserID(Model.EmployeeId))
                 {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Role, htmlAttributes: new {@class = "control-label col-md-2"})
-                        <div class="col-md-6">
-                            <select id="role" name="Role" class="tooltippable form-control expand-input" data-tooltip-text="Promeni kategoriju" data-tooltip-direction="bottom">
-                                @foreach (var role in roles)
-                                {
-                                    <option value="@role.Value"
-                                            @((int) Model.Role == Int32.Parse(role.Value) ? "selected" : "")>
-                                        @role.Text
-                                    </option>
-                                }
-                            </select>
-                        </div>
-
-                    </div>
-                }
-
-
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-6">
-                        <input type="submit" value="Save" class="btn btn-success btn-save"/>
-                        @if (UserSession.IfAdmin() && !UserSession.CheckUserID(Model.EmployeeId))
-                        {
-                            <a href="@Url.Action("DeleteEmployee", "Employees", new {id=@Model.EmployeeId})" class="delete-confirm btn btn-danger" style="float: left">Delete</a>
-
-                        }
-                        <a  href="@Url.Action("Index", "Employees")" class="btn btn-default" style="float: right">Cancel</a>
-
+                    @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2 col-sm-2 col-xs-2" })
+                    <div class="col-lg-10 col-md-6 col-sm-9 col-xs-4">
+                        <select id="role" name="Role" class="tooltippable form-control " data-tooltip-text="Promeni kategoriju" data-tooltip-direction="bottom">
+                            @foreach (var role in roles)
+                            {
+                                <option value="@role.Value"
+                                        @((int)Model.Role == Int32.Parse(role.Value) ? "selected" : "")>
+                                    @role.Text
+                                </option>
+                            }
+                        </select>
                     </div>
+
+                </div>
+            }
+
+
+            <div class="form-group">
+                <span class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></span>
+                <div class="col-lg-10 col-md-6 col-sm-9 col-xs-12">
+                    <div class="col-lg-2 col-md-3"><input type="submit" value="Save" class="btn btn-success btn-save left" /></div>
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-1">
+                    @if (UserSession.IfAdmin() && !UserSession.CheckUserID(Model.EmployeeId))
+                    {
+                        <a href="@Url.Action("DeleteEmployee", "Employees", new {id = @Model.EmployeeId})" class="delete-confirm btn btn-danger">Delete</a>
+                    }    
+                    </div>
+                    <span class="col-lg-4 col-md-3 col-sm-5 col-xs-1"></span>
+                    <div class="col-lg-2 col-md-3 col-sm-2 col-xs-1"><a href="@Url.Action("Index", "Employees")" class="btn btn-default right">Cancel</a></div>
                 </div>
             </div>
         </div>
+    </div>
 }
 
 
