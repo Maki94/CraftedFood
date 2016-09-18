@@ -83,12 +83,12 @@
     });
 </script>
 <script>
-    //var setRules = function() {
-    //    if ($('#delivery').is(':checked') || $('#order').is(':checked')) {
-    //        $("#report-date-end").fadeOut();
-    //    }
-    //};
-    //setRules();
+    var setRules = function() {
+        if ($('#delivery').is(':checked') || $('#order').is(':checked')) {
+            $("#report-date-end").fadeOut();
+        }
+    };
+    setRules();
     var datePickerFrom = document.getElementById("report-date-end");
     $('#delivery').click(function () {
         $("#report-date-end").fadeOut();
