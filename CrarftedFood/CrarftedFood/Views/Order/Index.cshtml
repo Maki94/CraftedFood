@@ -103,17 +103,21 @@
                             @Html.DisplayFor(modelItem => item.Note)
                         </td>
 
-                        <td>
-                            <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
-                                <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
-                            </a>
-                        </td>
+                       
 
                         @if (item.DateToDeliver < DateTime.Now)
                         {
                             <td>
                                 <a class='mdl-navigation__link delete-event' onclick="setCommentId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#comment-dialog">
                                     <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>comment</i>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class='mdl-navigation__link delete-event' onclick="setDeleteId(@Html.DisplayFor(m => item.OrderId))" data-id='@Html.DisplayFor(m => item.OrderId)' data-toggle="modal" data-target="#delete-dialog">
+                                    <i class='mdl-color-text--blue-grey-400 material-icons' role='presentation'>delete</i>
                                 </a>
                             </td>
                         }
