@@ -45,6 +45,10 @@ namespace CrarftedFood.Controllers
                 if (UserSession.CheckUserID(id) || UserSession.IfAdmin())
                 {
                     Data.DTOs.EmployeeDto model = Data.DTOs.EmployeeDto.Load(id);
+                    if (UserSession.IfClient())
+                    {
+                        return RedirectToAction("Index", "Menu");
+                    }
                     return View(model);
                 }
                 return RedirectToAction("Unauthorized", "Login");
