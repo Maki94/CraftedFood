@@ -83,7 +83,7 @@ namespace CrarftedFood.Controllers
 
         [AuthorizeUser(Permission = new int[] { ((int)Data.Enums.Permissions.SeePersonalOrders) })]
         [HttpPost]
-        public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || "quantity" || "price" || "note"
+        public ActionResult GetOrders(string orderType) // order type moze da bude "mealTitle" || mealDate || "quantity" || "price" || "note"
         {
             try
             {
@@ -96,6 +96,8 @@ namespace CrarftedFood.Controllers
                 {
                     case "mealTitle":
                         return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.MealTitle)) });
+                    case "mealDate":
+                        return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Date)) });
                     case "quantity":
                         return Json(new { success = true, message = Json(order.Orders.OrderBy(x => x.Quantity)) });
                     case "price":

@@ -37,7 +37,7 @@
                         </label>
                         @if (ViewBag.IncorrectPassword != null)
                         {
-                            <p class="text-danger text-center">Incorrect passowrd!</p>
+                            <p class="text-danger text-center" id="inccorect-password-notification">Incorrect passowrd!</p>
                         }
                         <a id="forgot-account" class="text-center text-info">Forgot password</a>
                     </div>
@@ -59,10 +59,13 @@
     <script>
         $(document).ready(function ($) {
 
-            forgot = true;
+            var forgot = true;
 
             document.getElementById('forgot-account').onclick = function () {
-
+                var incorrectPassword = document.getElementById("inccorect-password-notification");
+                if (incorrectPassword) {
+                    incorrectPassword.style.display = "none";
+                }
                 if (!forgot) {
                     var email = document.getElementById("inputEmail").value;
                     var uri = '@Url.Action("Index","Login")';

@@ -44,8 +44,8 @@
                 <th>
                     <a id="mealDate" href=#>
                         Date
-                        <span id="mealTitleUp">▲</span>
-                        <span id="mealTitleDown">▼</span>
+                        <span id="mealDateUp">▲</span>
+                        <span id="mealDateDown">▼</span>
                     </a>
                 </th>
                 <th>
@@ -135,16 +135,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
     var mealTitleSortUp = false;
+    var mealDateSortUp = false;
     var quantitySortUp = false;
     var priceSortUp = false;
     var noteSortUp = false;
 
     var mealTitleSortUpElem = document.getElementById("mealTitleUp");
+    var mealDateSortUpElem = document.getElementById("mealDateUp");
     var quantitySortUpElem = document.getElementById("quantityUp");
     var priceSortUpElem = document.getElementById("priceUp");
     var noteSortUpElem = document.getElementById("noteUp");
 
     var mealTitleSortDownElem = document.getElementById("mealTitleDown");
+    var mealDateSortDownElem = document.getElementById("mealDateDown");
     var quantitySortDownElem = document.getElementById("quantityDown");
     var priceSortDownElem = document.getElementById("priceDown");
     var noteSortDownElem = document.getElementById("noteDown");
@@ -155,6 +158,11 @@
         mealTitleSortUpElem.className = mealTitleSortUp ? "hide" : "";
         mealTitleSortDownElem.className = !mealTitleSortUp ? "hide" : "";
         mealTitleSortUp = !mealTitleSortUp;
+    }
+    var checkMealDateDirection = function () {
+        mealDateSortUpElem.className = mealDateSortUp ? "hide" : "";
+        mealDateSortDownElem.className = !mealDateSortUp ? "hide" : "";
+        mealDateSortUp = !mealDateSortUp;
     }
     var checkQuantityDirection = function () {
         quantitySortUpElem.className = quantitySortUp ? "hide" : "";
@@ -173,6 +181,7 @@
     }
     var checkDirections = function () {
         checkMealTitleDirection();
+        checkMealDateDirection();
         checkQuantityDirection();
         checkPriceDirection();
         checkNoteDirection();
@@ -185,6 +194,7 @@
         $.each(data, function (key, value) {
             var tr = document.createElement("tr");
             var str = "<td class='mdl-data-table__cell--non-numeric'>" + value.MealTitle + "</td>";
+            str += "<td>" + value.Date + "</td>";
             str += "<td>" + value.Quantity + "</td>";
             str += "<td>" + value.Price + "</td>";
             str += "<td>" + value.Note + "</td>";
@@ -221,7 +231,7 @@
     var setDeleteId = function(id) {
         deleteId = id;
     };
-    
+
     $("#delete-yes").click(function() {
         if (deleteId !== -1) {
             var url = "@Url.Action("CancelOrder","Order")" + "?orderId=" + deleteId;
@@ -242,6 +252,15 @@
             if (data.success === true) {
                 fillTable(data.message.Data, mealTitleSortUp);
                 checkMealTitleDirection();
+            }
+        });
+    });
+    $("#mealDate").click(function () {
+        var url = "@Url.Action("GetOrders","Order", new { orderType = "mealDate" })";
+        $.post(url, function (data) {
+            if (data.success === true) {
+                fillTable(data.message.Data, mealDateSortUp);
+                checkMealDateDirection();
             }
         });
     });
