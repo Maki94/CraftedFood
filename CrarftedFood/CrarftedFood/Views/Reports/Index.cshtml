@@ -20,7 +20,7 @@
             {
                 <div class="mdl-cell mdl-cell--2-col">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="delivery">
-                        <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true">
+                        <input type="radio" id="delivery" class="mdl-radio__button" name="report" value="true" checked>
                         <span class="mdl-radio__label">Delivery</span>
                     </label>
                 </div>
@@ -33,11 +33,15 @@
                 </div>
                 <div class="mdl-cell mdl-cell--2-col">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invoice">
-                        <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true" checked>
+                        <input type="radio" id="invoice" class="mdl-radio__button" name="report" value="true">
                         <span class="mdl-radio__label">Invoice</span>
                     </label>
-
                 </div>
+            }
+            else
+            {
+                <input type="radio" id="delivery" name="report" value="true" checked hidden>
+                <div class="mdl-cell mdl-cell--6-col"></div>
             }
 
             <div class="mdl-cell mdl-cell--2-col">
@@ -72,6 +76,12 @@
     });
 </script>
 <script>
+    var setRules = function() {
+        if ($('#delivery').is(':checked') || $('#order').is(':checked')) {
+            $("#report-date-end").fadeOut();
+        }
+    };
+    setRules();
     var datePickerFrom = document.getElementById("report-date-end");
     $('#delivery').click(function () {
         $("#report-date-end").fadeOut();
@@ -139,13 +149,13 @@
                     fileName = 'invoice';
 
                     url = '@Url.Action("Invoice", "Reports")' +
-                    '?fileName=' + fileName +
-                    '&startDay=' + startDay +
-                    '&startMonth=' + startMonth +
-                    '&startYear=' + startYear +
-                    '&endDay=' + endDay +
-                    '&endMonth=' + endMonth +
-                    '&endYear=' + endYear;
+                        '?fileName=' + fileName +
+                        '&startDay=' + startDay +
+                        '&startMonth=' + startMonth +
+                        '&startYear=' + startYear +
+                        '&endDay=' + endDay +
+                        '&endMonth=' + endMonth +
+                        '&endYear=' + endYear;
                 }
             }
             if (reportFrom.value !== "") {
