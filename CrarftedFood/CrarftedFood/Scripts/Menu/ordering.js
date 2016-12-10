@@ -5,7 +5,7 @@
     var today = new Date().getDay() - 1;
     if (today < 0)
         today += 6;
-    for (var i = 0; today + i < 5 || i < 2; i++) {
+    for (var i = 0; today + i < 4 || i < 2; i++) {
         $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" ' + 'attr-startDay="' + ((today + i) % 5) + '">' + days[(today + i) % 5] + '</span></a>');
     }
     $('.card__social').append('<a class="share-icon order-btn" href="#" data-toggle="modal" data-target="#order-dialog" >' + '<i class="fa fa-calendar" aria-hidden="true"></i>' + '</span></a>');
